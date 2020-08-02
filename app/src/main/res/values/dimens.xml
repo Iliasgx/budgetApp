@@ -1,0 +1,20 @@
+<resources>
+    <!-- Default margins of the application -->
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Custom component margins -->
+    <dimen name="dotsHeight">30dp</dimen>
+    <dimen name="sliderRadius">10dp</dimen>
+
+    <!-- Custom colors spinner dimensions -->
+    <dimen name="spinner_colors_width_large">200dp</dimen>
+    <dimen name="spinner_colors_width_small">100dp</dimen>
+    <dimen name="spinners_colors_height">25dp</dimen>
+    <dimen name="spinners_colors_margins">5dp</dimen>
+
+    <!-- XX -->
+    <dimen name="firstKeyline">16dp</dimen>
+    <dimen name="secondKeyline">72dp</dimen>
+
+</resources>
+

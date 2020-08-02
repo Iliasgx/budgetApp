@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_Account"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Account_Name"
+                android:text="@string/data_Account_Name" />
+
+            <EditText
+                android:id="@+id/data_Card_Account_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_Account_Name"
+                android:ems="10"
+                android:inputType="textNoSuggestions" />
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Account_Type"
+                android:text="@string/data_Account_Type" />
+
+            <Spinner
+                android:id="@+id/data_Card_Account_Type"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/custom_spinner_items"
+                android:entries="@array/accountType"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Account_CurrValue"
+                android:text="@string/data_Account_Value" />
+
+            <TextView
+                android:id="@+id/data_Card_Account_CurrValue"
+                android:layout_width="match_parent"
+                android:text="0"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined"
+                tools:ignore="hardCodedText"/>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Account_Currency"
+                android:text="@string/data_Account_Currency" />
+
+            <Spinner
+                android:id="@+id/data_Card_Account_Currency"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Account_Color"
+                android:text="@string/data_Account_Color" />
+
+            <Spinner
+                android:id="@+id/data_Card_Account_Color"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_height="15dp" android:layout_width="match_parent"/>
+
+            <Switch
+                android:id="@+id/data_Card_Account_ExcludeStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Account_Exclude" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

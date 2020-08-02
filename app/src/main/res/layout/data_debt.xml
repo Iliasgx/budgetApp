@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/data_debt_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_Debt"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Debt_Name"/>
+
+            <EditText
+                android:id="@+id/data_Card_Debt_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_Debt_Name"
+                android:ems="10"
+                android:hint="@string/data_Debt_Name"
+                android:inputType="textPersonName" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Debt_Description"/>
+
+            <EditText
+                android:id="@+id/data_Card_Debt_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_Debt_Description"
+                android:ems="10"
+                android:hint="@string/data_Debt_HintDescription"
+                android:inputType="textNoSuggestions" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Debt_Category"
+                android:labelFor="@id/data_Card_Debt_Category"/>
+
+            <TextView
+                android:id="@+id/data_Card_Debt_Category"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Debt_Account"
+                android:text="@string/data_Debt_Account" />
+
+            <Spinner
+                android:id="@+id/data_Card_Debt_Account"
+                android:layout_width="match_parent"
+                android:autofillHints="@string/data_Debt_Account"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:labelFor="@id/data_Card_Debt_Amount"
+                    android:text="@string/data_Debt_Amount" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:labelFor="@id/data_Card_Debt_Currency"
+                    android:text="@string/data_Debt_Currency" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/data_Card_Debt_Amount"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    style="@style/Spinner.Underlined" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"/>
+
+                <Spinner
+                    android:id="@+id/data_Card_Debt_Currency"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    tools:listitem="@layout/custom_spinner_items"
+                    style="@style/Spinner.Underlined" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Debt_Date"
+                android:labelFor="@id/data_Card_Debt_Date"/>
+
+            <TextView
+                android:id="@+id/data_Card_Debt_Date"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

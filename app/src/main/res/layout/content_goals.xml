@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.umbrella.budgetapp.Layouts.ContentHolders.Goals">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/goals_TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:tabTextColor="@android:color/white">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/goals_Tab1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_Tab1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/goals_Tab2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_Tab2"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/goals_Tab3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_Tab3"/>
+        </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/goals_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/goalsFAB"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/defaultFAB"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

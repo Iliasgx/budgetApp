@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/spinner_color"
+        android:layout_width="@dimen/spinner_colors_width_large"
+        android:layout_height="@dimen/spinners_colors_height"
+        android:background="@drawable/_round_button" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="5dp" />
+</LinearLayout>

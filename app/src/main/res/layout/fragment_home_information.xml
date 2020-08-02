@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:layout_marginStart="0dp"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/home_MenuScroll_Item1"
+                android:drawableStart="@drawable/records"
+                android:text="@string/menu_Records"
+                style="@style/Button_Menu"/>
+
+            <Button android:id="@+id/home_MenuScroll_Item2"
+                android:drawableStart="@drawable/shopping_list"
+                android:text="@string/menu_ShoppingLists"
+                style="@style/Button_Menu"/>
+
+            <Button android:id="@+id/home_MenuScroll_Item3"
+                android:drawableStart="@drawable/planned_payments"
+                android:text="@string/menu_PlannedPayments"
+                style="@style/Button_Menu"/>
+
+            <Button android:id="@+id/home_MenuScroll_Item4"
+                android:drawableStart="@drawable/debt"
+                android:text="@string/menu_Debts"
+                style="@style/Button_Menu"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_orange_dark" />
+
+    <TextView
+        android:id="@+id/home_Card_PlannedPayments_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/home_Information_Header1"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/home_Card_PlannedPayments"
+        style="@style/CardView_Default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_Card_PlannedPayments_upcoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                tools:listitem="@layout/list_planned_payments"
+                tools:itemCount="1"/>
+
+            <include layout="@layout/custom_divider"/>
+
+            <TextView
+                android:id="@+id/home_Card_PlannedPayments_More"
+                android:text="@string/cardviewButtonText_showMore"
+                style="@style/Text_Button_More"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_light" />
+
+    <TextView
+        android:id="@+id/home_Card_Debts_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/home_Information_Header2"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/home_Card_Debts"
+        style="@style/CardView_Default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <com.umbrella.budgetapp.Customs.DetailedProgressbar
+                android:id="@+id/home_Card_Debts_Progressbar_Lent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/lent"
+                app:value="@string/defaultNumber"
+                app:progress="20"
+                app:progress_color="@color/positiveColor"/>
+
+            <com.umbrella.budgetapp.Customs.DetailedProgressbar
+                android:id="@+id/home_Card_Debts_Progressbar_Borrowed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/borrowed"
+                app:value="@string/defaultNumber"
+                app:progress="20"
+                app:progress_color="@color/negativeColor"/>
+
+            <include layout="@layout/custom_divider"/>
+
+            <TextView
+                android:id="@+id/home_Card_Debts_More"
+                android:text="@string/cardViewButtonText_Debts"
+                style="@style/Text_Button_More"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="4dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_blue_dark" />
+
+    <TextView
+        android:id="@+id/home_Card_ShoppingLists_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/home_Information_Header3"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/home_Card_ShoppingLists_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/home_Card_ShoppingLists_List"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scrollbars="none"
+            tools:listitem="@layout/list_shopping_lists"/>
+    </androidx.viewpager.widget.ViewPager>
+</LinearLayout>

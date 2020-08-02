@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:paddingHorizontal="5dp"
+    android:background="@color/cardBackgroundColor">
+
+    <RadioButton
+        android:id="@+id/slider_Period_Type1_Item1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/_slider_left"
+        android:button="@android:color/transparent"
+        android:text="@string/slider_Period_Type1_Item1"
+        android:textColor="@drawable/_slider_text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/slider_Period_Type1_Item2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/_slider_middle"
+        android:button="@android:color/transparent"
+        android:text="@string/slider_Period_Type1_Item2"
+        android:textColor="@drawable/_slider_text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginStart="-2dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/slider_Period_Type1_Item3"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/_slider_middle"
+        android:button="@android:color/transparent"
+        android:text="@string/slider_Period_Type1_Item3"
+        android:textColor="@drawable/_slider_text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginStart="-2dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/slider_Period_Type1_Item4"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/_slider_right"
+        android:button="@android:color/transparent"
+        android:text="@string/slider_Period_Type1_Item4"
+        android:textColor="@drawable/_slider_text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginStart="-2dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="18sp" />
+</RadioGroup>

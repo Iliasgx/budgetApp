@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_Filter_Card"
+    style="@style/CardView_Default">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_Filter_Title"
+            android:text="@string/dialog_Filter_Title"
+            style="@style/Text_Title"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Filter_SelectPeriod"
+            android:labelFor="@id/dialog_Filter_SelectPeriod"/>
+
+        <Spinner
+            android:id="@+id/dialog_Filter_SelectPeriod"
+            android:layout_width="match_parent"
+            android:autofillHints="@string/dialog_Filter_SelectPeriod"
+            android:entries="@array/filterPeriods"
+            style="@style/Spinner.Underlined" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/dialog_Filter_Ok"
+                style="@style/Text_Button_More"
+                android:layout_width="wrap_content"
+                android:text="@android:string/ok"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/dialog_Filter_Cancel"
+                style="@style/Text_Button_More"
+                android:layout_width="wrap_content"
+                android:text="@android:string/cancel"
+                android:layout_toStartOf="@id/dialog_Filter_Ok"
+                android:layout_marginEnd="40dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

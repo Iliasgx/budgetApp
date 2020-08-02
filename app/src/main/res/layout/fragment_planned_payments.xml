@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/planned_payments_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        tools:listitem="@layout/list_planned_payments"/>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/plannedPaymentsFAB"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/defaultFAB">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/plannedPaymentsFAB_expenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="@string/lent"
+            android:src="@drawable/lent"
+            android:tag="0"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/plannedPaymentsFAB_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="@string/borrowed"
+            android:src="@drawable/borrowed"
+            android:tag="1"/>
+    </com.github.clans.fab.FloatingActionMenu>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

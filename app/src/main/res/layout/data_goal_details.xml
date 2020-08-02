@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_GoalDetails"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Goal_Name"
+                android:labelFor="@id/data_Card_GoalDetails_Name"/>
+
+            <EditText
+                android:id="@+id/data_Card_GoalDetails_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textNoSuggestions"
+                android:autofillHints="@string/data_Goal_Name"/>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Goal_Details_Amount"
+                android:labelFor="@id/data_Card_GoalDetails_Amount"/>
+
+            <TextView
+                android:id="@+id/data_Card_GoalDetails_Amount"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined"/>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Goal_Details_Saved"
+                android:labelFor="@id/data_Card_GoalDetails_Saved"/>
+
+            <TextView
+                android:id="@+id/data_Card_GoalDetails_Saved"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined"/>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Goal_Details_Date"
+                android:labelFor="@id/data_Card_GoalDetails_Date"/>
+
+            <TextView
+                android:id="@+id/data_Card_GoalDetails_Date"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined"/>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/data_Goal_Details_Color"
+                    android:labelFor="@id/data_Card_GoalDetails_Color"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/data_Goal_Details_Icon"
+                    android:labelFor="@id/data_Card_GoalDetails_Icon"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/data_Card_GoalDetails_Color"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/custom_spinner_colors"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    style="@style/Spinner.Underlined" />
+
+                <Spinner
+                    android:id="@+id/data_Card_GoalDetails_Icon"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/custom_spinner_icons"
+                    android:layout_weight="1"
+                    style="@style/Spinner.Underlined" />
+            </LinearLayout>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_Goal_Details_Note"
+                android:labelFor="@id/data_Card_GoalDetails_Note"/>
+
+            <EditText
+                android:id="@+id/data_Card_GoalDetails_Note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:autofillHints="@string/data_Goal_Details_Note"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

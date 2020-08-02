@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item android:id="@+id/menuLayout_ReminderOptions_Reminder"
+    android:title="@string/menuResources_Title_Reminder"
+    android:titleCondensed="@string/menuResources_Title_Reminder"
+    android:icon="@drawable/reminder"
+    app:showAsAction="ifRoom"/>
+
+    <!-- In options menu -->
+    <item android:id="@+id/menuLayout_ReminderOptions_MoreOptions"
+        android:title="@string/menuResources_Title_Options"
+        android:titleCondensed="@string/menuResources_Title_Options"
+        android:icon="@drawable/filter_button"
+        app:showAsAction="ifRoom">
+
+    <menu>
+        <item android:id="@+id/menuLayout_ReminderOptions_Rename"
+            android:title="@string/menuResources_Title_Rename"
+            android:titleCondensed="@string/menuResources_Title_Rename"
+            android:icon="@drawable/edit_dark"
+            app:showAsAction="never|withText" />
+
+        <item android:id="@+id/menuLayout_ReminderOptions_CreateRecord"
+            android:title="@string/menuResources_Title_CreateRecord"
+            android:titleCondensed="@string/menuResources_Title_CreateRecord"
+            android:icon="@drawable/records"
+            app:showAsAction="never|withText"/>
+
+        <item android:id="@+id/menuLayout_ReminderOptions_DeleteList"
+            android:title="@string/menuResources_Title_DeleteList"
+            android:titleCondensed="@string/menuResources_Title_DeleteList"
+            android:icon="@drawable/delete_dark"
+            app:showAsAction="never|withText"/>
+        </menu>
+    </item>
+</menu>

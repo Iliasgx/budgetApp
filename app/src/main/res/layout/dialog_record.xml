@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_Record_Card"
+    style="@style/CardView_Default">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_Record_Title"
+            android:text="@string/dialog_Record_Title"
+            style="@style/Text_Title"/>
+
+        <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Record_Account"
+            android:labelFor="@id/dialog_Record_Account"/>
+
+        <Spinner
+            android:id="@+id/dialog_Record_Account"
+            android:layout_width="match_parent"
+            android:autofillHints="@string/dialog_Record_Account"
+            tools:listitem="@layout/custom_spinner_items"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Record_Category"
+            android:labelFor="@id/dialog_Record_Category"/>
+
+        <TextView
+            android:id="@+id/dialog_Record_Category"
+            android:layout_width="match_parent"
+            android:autofillHints="@string/dialog_Record_Category"
+            tools:listitem="@layout/custom_spinner_items"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dialog_Record_Amount"
+                android:labelFor="@id/dialog_Record_Amount"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.4"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dialog_Record_Currency"
+                android:labelFor="@id/dialog_Record_Currency"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dialog_Record_Amount"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                style="@style/Spinner.Underlined" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.4"/>
+
+            <Spinner
+                android:id="@+id/dialog_Record_Currency"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:autofillHints="@string/dialog_Record_Currency"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+        </LinearLayout>
+
+        <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Record_Note"
+            android:labelFor="@id/dialog_Record_Note"/>
+
+        <EditText
+            android:id="@+id/dialog_Record_Note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/dialog_Record_Note"
+            android:ems="10"
+            android:inputType="textNoSuggestions"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/dialog_Record_Create"
+                style="@style/Text_Button_More"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_Record_Positive"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/dialog_Record_Cancel"
+                style="@style/Text_Button_More"
+                android:layout_width="wrap_content"
+                android:text="@string/dialog_Record_Negative"
+                android:layout_toStartOf="@id/dialog_Record_Create"
+                android:layout_marginEnd="40dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

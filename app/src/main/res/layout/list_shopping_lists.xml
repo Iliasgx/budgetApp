@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardView_Default">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/list_ShoppingList_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_weight=".7"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="@string/defaultText" />
+
+            <TextView
+                android:id="@+id/list_ShoppingList_Amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
+                android:layout_weight="1.3"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="@string/defaultNumber" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/list_ShoppingList_NbItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_weight="1"
+                android:text="@string/defaultNumber" />
+
+            <TextView
+                android:id="@+id/list_ShoppingList_Estimate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
+                android:layout_weight="1"
+                android:text="@string/shoppingLists_Estimate" />
+        </LinearLayout>
+
+        <include layout="@layout/custom_divider"/>
+
+        <TextView
+            android:id="@+id/list_ShoppingList_Add"
+            android:text="@string/cardviewButtonText_ShoppingLists"
+             style="@style/Text_Button_More"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

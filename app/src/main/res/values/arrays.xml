@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- |||||||||||||||| About names |||||||||||||||| -->
+    <string-array name="developersNames">
+        <item>Ilias Goormans</item>
+    </string-array>
+
+    <string-array name="basedOnNames">
+        <item>Jan Müller</item>
+        <item>Matêy Trakal</item>
+        <item>Michal Kratochvíl</item>
+        <item>Martin Jiřička</item>
+        <item>Linda Šejdová</item>
+        <item>Maxim Yanbekov</item>
+        <item>Alžběta Milerská</item>
+        <item>Vojta Soban</item>
+        <item>Martin Čada</item>
+        <item>Erik Botta</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Filter periods |||||||||||||||| -->
+    <string-array name="filterPeriods">
+        <item>Today</item>
+        <item>This week</item>
+        <item>This month</item>
+        <item>This year</item>
+        <item>7 days</item>
+        <item>30 days</item>
+        <item>6 months</item>
+        <item>1 year</item>
+        <item>Anytime</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Reminder options |||||||||||||||| -->
+    <string-array name="reminderOptions">
+        <item>Never</item>
+        <item>When added</item>
+        <item>One day before</item>
+        <item>Three days before</item>
+        <item>One week before</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Frequency |||||||||||||||| -->
+    <string-array name="frequencyRepeat">
+        <item>Repeat Daily</item>
+        <item>Repeat Weekly</item>
+        <item>Repeat Monthly</item>
+        <item>Repeat Yearly</item>
+    </string-array>
+
+    <string-array name="frequencyEnd">
+        <item>Forever</item>
+        <item>Until a date</item>
+        <item>Fora number of events</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Type |||||||||||||||| -->
+    <string-array name="type">
+        <item>@string/income</item>
+        <item>@string/expense</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Payment Type |||||||||||||||| -->
+    <string-array name="paymentType">
+        <item>Cash</item>
+        <item>Credit card</item>
+        <item>Bank transfer</item>
+        <item>Visa</item>
+        <item>Voucher</item>
+        <item>Mobile payment</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Account Type |||||||||||||||| -->
+    <string-array name="accountType">
+        <item>Cash</item>
+        <item>Credit card</item>
+        <item>Saving account</item>
+        <item>Investment</item>
+        <item>Loan</item>
+        <item>Insurance</item>
+    </string-array>
+
+    <integer-array name="accountIcon">
+        <item>@drawable/cash</item>
+        <item>@drawable/credit_card</item>
+        <item>@drawable/saving_account</item>
+        <item>@drawable/investment</item>
+        <item>@drawable/loan</item>
+        <item>@drawable/insurance</item>
+    </integer-array>
+
+    <!-- |||||||||||||||| Record Type |||||||||||||||| -->
+    <string-array name="recordType">
+        <item>@string/income</item>
+        <item>@string/expense</item>
+        <item>@string/transfer</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Gender |||||||||||||||| -->
+    <string-array name="gender">
+        <item>M</item>
+        <item>F</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Category Type |||||||||||||||| -->
+    <string-array name="categoryType">
+        <item>@string/income</item>
+        <item>@string/expense</item>
+        <item>@string/both</item>
+    </string-array>
+
+    <!-- |||||||||||||||| Colors (20) |||||||||||||||| -->
+    <integer-array name="colors">
+        <item>@color/AA</item>
+        <item>@color/BB</item>
+        <item>@color/CC</item>
+        <item>@color/DD</item>
+        <item>@color/EE</item>
+        <item>@color/FF</item>
+        <item>@color/GG</item>
+        <item>@color/HH</item>
+        <item>@color/II</item>
+        <item>@color/JJ</item>
+        <item>@color/KK</item>
+        <item>@color/LL</item>
+        <item>@color/MM</item>
+        <item>@color/NN</item>
+        <item>@color/OO</item>
+        <item>@color/PP</item>
+        <item>@color/QQ</item>
+        <item>@color/RR</item>
+        <item>@color/SS</item>
+        <item>@color/TT</item>
+    </integer-array>
+
+    <!-- |||||||||||||||| Icons (28) |||||||||||||||| -->
+    <integer-array name="icons">
+        <item>@drawable/groceries</item>
+        <item>@drawable/restaurant</item>
+        <item>@drawable/bar</item>
+        <item>@drawable/campus_card</item>
+        <item>@drawable/health</item>
+        <item>@drawable/hospital</item>
+        <item>@drawable/mortgage</item>
+        <item>@drawable/insurance</item>
+        <item>@drawable/house_repairs</item>
+        <item>@drawable/transportation</item>
+        <item>@drawable/fuel</item>
+        <item>@drawable/vehicle_maintenance</item>
+        <item>@drawable/sports</item>
+        <item>@drawable/school</item>
+        <item>@drawable/hobby</item>
+        <item>@drawable/tv</item>
+        <item>@drawable/culture</item>
+        <item>@drawable/holiday</item>
+        <item>@drawable/games</item>
+        <item>@drawable/pet</item>
+        <item>@drawable/cash</item>
+        <item>@drawable/savings</item>
+        <item>@drawable/pocket_money</item>
+        <item>@drawable/interest</item>
+        <item>@drawable/lending</item>
+        <item>@drawable/clothes</item>
+        <item>@drawable/life_events</item>
+        <item>@drawable/gift</item>
+        <item>@drawable/investment</item>
+        <item>@drawable/gambling</item>
+        <item>@drawable/taxes</item>
+        <item>@drawable/goal_item1</item>
+        <item>@drawable/goal_item2</item>
+        <item>@drawable/goal_item3</item>
+        <item>@drawable/goal_item4</item>
+        <item>@drawable/goal_item5</item>
+        <item>@drawable/goal_item6</item>
+        <item>@drawable/goal_item7</item>
+        <item>@drawable/goal_item8</item>
+    </integer-array>
+
+    <!-- |||||||||||||||| Countries |||||||||||||||| -->
+    <string-array name="countries">
+        <item>United States Dollar</item>
+        <item>Japanese Yen</item>
+        <item>European Euro</item>
+        <item>Bulgarian lev</item>
+        <item>Czech koruna</item>
+        <item>Danish krone</item>
+        <item>Pound sterling</item>
+        <item>Hungarian forint</item>
+        <item>Polish zloty</item>
+        <item>Romanian leu</item>
+        <item>Swedish krona</item>
+        <item>Swiss franc</item>
+        <item>Icelandic krona</item>
+        <item>Norwegian krone</item>
+        <item>Croatian kuna</item>
+        <item>Russian rouble</item>
+        <item>Turkish lira</item>
+        <item>Australian dollar</item>
+        <item>Brazilian real</item>
+        <item>Canadian dollar</item>
+        <item>Chinese yuan renminbi</item>
+        <item>Hong Kong dollar</item>
+        <item>Indonesian rupiah</item>
+        <item>Israeli shekel</item>
+        <item>Indian rupee</item>
+        <item>South Korean won</item>
+        <item>Mexican peso</item>
+        <item>Malaysian ringgit</item>
+        <item>New Zealand dollar</item>
+        <item>Philippine peso</item>
+        <item>Singapore dollar</item>
+        <item>Thai baht</item>
+        <item>South African rand</item>
+    </string-array>
+</resources>

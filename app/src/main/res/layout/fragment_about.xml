@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/about_app_information_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/about_app_icon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
+            android:contentDescription="@string/defaultText"
+            android:background="@drawable/round_image"
+            android:src="@drawable/account"/>
+
+        <TextView
+            android:id="@+id/about_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="0dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/about_app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/defaultText" />
+
+        <TextView
+            android:id="@+id/about_app_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:text="@string/defaultText" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/about_developers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="start"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text="@string/developers"
+        android:layout_below="@id/about_app_information_layout"/>
+
+    <ListView
+        android:id="@+id/about_developers_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:layout_gravity="start"
+        android:dividerHeight="-25dp"
+        android:layout_below="@id/about_developers"/>
+
+    <TextView
+        android:id="@+id/about_authors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:gravity="start"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text="@string/authors"
+        android:layout_below="@id/about_developers_list"/>
+
+    <ListView
+        android:id="@+id/about_names_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:layout_gravity="start"
+        android:dividerHeight="-25dp"
+        android:layout_below="@id/about_authors"
+        android:layout_above="@id/about_copyright"/>
+
+    <TextView
+        android:id="@+id/about_copyright"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="start|center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:textSize="16sp"
+        android:text="@string/defaultText" />
+</RelativeLayout>

@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <RadioGroup
+        android:id="@+id/data_Card_RecordBasic_TitleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:checkedButton="@id/data_Card_RecordBasic_Title2"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/data_Card_RecordBasic_Title1"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="1dp"
+            android:background="@android:color/holo_red_light"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/income"
+            android:textColor="@android:color/white"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/data_Card_RecordBasic_Title2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_red_light"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/expense"
+            android:textColor="@android:color/white"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/data_Card_RecordBasic_Title3"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:layout_marginStart="1dp"
+            android:background="@android:color/holo_red_light"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/transfer"
+            android:textColor="@android:color/white"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_RecordBasic_Card"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/data_Card_RecordBasic_TitleGroup"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="@android:color/holo_red_dark">
+
+        <RelativeLayout
+            android:id="@+id/data_Card_RecordBasic_Relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/data_Card_RecordBasic_Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginTop="25dp"
+                android:layout_toStartOf="@id/data_Card_RecordBasic_Currency"
+                android:layout_toEndOf="@id/data_Card_RecordBasic_Mark"
+                android:gravity="end|center_vertical"
+                android:paddingHorizontal="10dp"
+                android:text="@string/data_Record_DefaultAmount"
+                android:textColor="@android:color/white"
+                android:textSize="110sp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="110sp"
+                android:autoSizeStepGranularity="2sp"/>
+
+            <TextView
+                android:id="@+id/data_Card_RecordBasic_Mark"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="57dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="+"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="50sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/data_Card_RecordBasic_Currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="40sp"
+                android:text="EUR"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:paddingEnd="10dp"
+                android:paddingStart="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_toStartOf="@id/data_Card_RecordBasic_Details"
+                android:layout_marginBottom="57dp"
+                android:gravity="center_vertical"
+                tools:ignore="HardCodedText"/>
+
+            <GridLayout
+                android:id="@+id/data_Card_RecordBasic_GridLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/data_Card_RecordBasic_AccountText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/data_Record_Account"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/data_Card_RecordBasic_CategoryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/data_Record_Category"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/data_Card_RecordBasic_Account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/defaultText"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/data_Card_RecordBasic_Category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/defaultText"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"/>
+            </GridLayout>
+
+            <ImageButton
+                android:id="@+id/data_Card_RecordBasic_Details"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/_records_detail_button"
+                android:src="@drawable/arrow_left"
+                android:contentDescription="@string/data_Record_Description"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="100dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/data_Card_RecordBasic_More"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:background="@android:color/holo_red_light"
+        android:layout_below="@id/data_Card_RecordBasic_Card"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="@string/data_Record_Template" />
+
+    <TableLayout
+        android:id="@+id/data_Card_RecordBasic_TableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/data_Card_RecordBasic_More"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/data_Card_RecordBasic_GridLayout"
+        android:stretchColumns="*">
+
+        <TableRow android:layout_weight="1" >
+            <Button
+                android:id="@+id/data_Card_RecordBasic_One"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="1"
+                android:tag="1"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Two"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="2"
+                android:tag="2"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Three"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="3"
+                android:tag="3"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+        </TableRow>
+        <TableRow android:layout_weight="1">
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Four"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="4"
+                android:tag="4"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Five"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="5"
+                android:tag="5"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Six"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="6"
+                android:tag="6"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+        </TableRow>
+        <TableRow android:layout_weight="1">
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Seven"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="7"
+                android:tag="7"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Eight"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="8"
+                android:tag="8"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Nine"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="9"
+                android:tag="9"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+        </TableRow>
+        <TableRow android:layout_weight="1">
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Dot"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="."
+                android:tag="10"
+                android:textSize="30sp"
+                tools:ignore="HardcodedText"/>
+
+            <Button
+                android:id="@+id/data_Card_RecordBasic_Zero"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:text="0"
+                android:tag="0"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText"/>
+
+            <ImageButton
+                android:id="@+id/data_Card_RecordBasic_Backspace"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="16"
+                android:background="@android:color/white"
+                android:src="@drawable/backspace"
+                tools:ignore="ContentDescription"/>
+        </TableRow>
+    </TableLayout>
+
+    <GridLayout
+        android:id="@+id/data_Card_RecordBasic_GridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:columnCount="1"
+        android:layout_below="@id/data_Card_RecordBasic_More"
+        android:layout_alignParentEnd="true">
+
+        <Button
+            android:id="@+id/data_Card_RecordBasic_Divide"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="÷"
+            android:tag="15"
+            android:layout_rowWeight="1"
+            android:background="@android:color/white"
+            android:textSize="26sp"
+            tools:ignore="HardcodedText"/>
+
+        <Button
+            android:id="@+id/data_Card_RecordBasic_Multiply"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="×"
+            android:tag="14"
+            android:layout_rowWeight="1"
+            android:background="@android:color/white"
+            android:textSize="26sp"
+            tools:ignore="HardcodedText"/>
+
+        <Button
+            android:id="@+id/data_Card_RecordBasic_Subtract"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:tag="13"
+            android:layout_rowWeight="1"
+            android:background="@android:color/white"
+            android:textSize="26sp"
+            tools:ignore="HardcodedText"/>
+
+        <Button
+            android:id="@+id/data_Card_RecordBasic_Add"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:tag="12"
+            android:layout_rowWeight="1"
+            android:background="@android:color/white"
+            android:textSize="26sp"
+            tools:ignore="HardcodedText"/>
+
+        <Button
+            android:id="@+id/data_Card_RecordBasic_Equals"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="="
+            android:tag="11"
+            android:layout_rowWeight="1"
+            android:background="@android:color/white"
+            android:textSize="26sp"
+            tools:ignore="HardcodedText"/>
+    </GridLayout>
+</RelativeLayout>

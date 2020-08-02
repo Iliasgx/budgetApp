@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_FilterStore_Card"
+    style="@style/CardView_Default">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/dialog_newItem_ItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="@string/dialog_NewItem_Name_Hint"
+            android:layout_toStartOf="@id/dialog_newItem_ItemPrice"
+            android:layout_alignParentStart="true"/>
+
+        <EditText
+            android:id="@+id/dialog_newItem_ItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxEms="30"
+            android:minEms="5"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no"
+            android:hint="@string/dialog_NewItem_Price_Hint"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/dialog_newItem_Ok"
+            style="@style/Text_Button_More"
+            android:layout_width="wrap_content"
+            android:text="@android:string/ok"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@id/dialog_newItem_ItemPrice"/>
+
+        <TextView
+            android:id="@+id/dialog_newItem_Cancel"
+            style="@style/Text_Button_More"
+            android:layout_width="wrap_content"
+            android:text="@android:string/cancel"
+            android:layout_toStartOf="@id/dialog_newItem_Ok"
+            android:layout_marginEnd="40dp"
+            android:layout_below="@id/dialog_newItem_ItemPrice"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

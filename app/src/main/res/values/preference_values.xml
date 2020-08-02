@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preferences_Key_Screen_Default">settingView</string>
+    <string name="preferences_Key_Screen_Lists">settingsLists</string>
+    <string name="preferences_Key_Screen_Notifications">settingsNotifications</string>
+    <string name="preferences_Key_Category_Security">categorySecurity</string>
+    <string name="preferences_Key_Category_NotifyMoreOptions">categoryNotifyMoreOptions</string>
+    <string name="preferences_Key_Group_userProfileSettings">userProfileSettings</string>
+    <string name="preferences_Key_Group_Notifications">notificationsSettings</string>
+    <string name="preferences_Key_Group_Lists">listsSettings</string>
+    <string name="preferences_Key_Group_Lists_Accounts">accountSettings</string>
+    <string name="preferences_Key_Group_Lists_Categories">categoriesSettings</string>
+    <string name="preferences_Key_Group_Lists_Currencies">currenciesSettings</string>
+    <string name="preferences_Key_Group_Lists_Templates">templatesSettings</string>
+    <string name="preferences_Key_Group_Lists_Stores">storesSettings</string>
+    <string name="preferences_Key_Group_Lists_ShoppingItems">shoppingItemsSettings</string>
+    <string name="preferences_Key_Group_About">aboutSettings</string>
+    <string name="preferences_Key_Language">language</string>
+    <string name="preferences_Key_GeneralNotifications">allowNotifications</string>
+    <string name="preferences_Key_Notifications_Statusbar">notificationsStatusbar</string>
+    <string name="preferences_Key_Notifications_Banner">notificationsBanner</string>
+    <string name="preferences_Key_Notifications_Vibrate">notificationsVibrate</string>
+    <string name="preferences_Key_Notifications_PlannedPayments">notifyPlannedPayments</string>
+    <string name="preferences_Key_Notifications_Debts">notifyDebts</string>
+    <string name="preferences_Key_Notifications_Goals">notifyGoals</string>
+    <string name="preferences_Key_Notifications_Budget">notifyBudget</string>
+    <string name="preferences_Key_Security_Pin">securityPin</string>
+    <string name="preferences_Key_Security_Fingerprint">securityFingerprint</string>
+    <string name="preferences_Key_DarkTheme">isDarkTheme</string>
+
+    <string name="preferences_Title_UpdateUserProfile">User profile settings</string>
+    <string name="preferences_Title_Language">Language</string>
+    <string name="preferences_Title_Notifications">Notifications</string>
+    <string name="preferences_Title_SetPin">Set PIN</string>
+    <string name="preferences_Title_SetFingerPrint">Enable Fingerprint</string>
+    <string name="preferences_Title_ManageLists">Manage lists</string>
+    <string name="preferences_Title_DarkTheme">Dark Theme</string>
+    <string name="preferences_Title_About">About</string>
+    <string name="preferences_Title_Notify_AllowNotifications">Allow notifications</string>
+    <string name="preferences_Title_Notify_StatusBar">Display in statusbar</string>
+    <string name="preferences_Title_Notify_Banner">Banners</string>
+    <string name="preferences_Title_Notify_Vibrate">Vibrate</string>
+    <string name="preferences_Title_Notify_PlannedPayments">Notify planned payments</string>
+    <string name="preferences_Title_Notify_Debts">Notify debts</string>
+    <string name="preferences_Title_Notify_Goals">Notify goals</string>
+    <string name="preferences_Title_Notify_Budget">Notify budget</string>
+    <string name="preferences_Title_ManageLists_Accounts">Accounts</string>
+    <string name="preferences_Title_ManageLists_Categories">Categories</string>
+    <string name="preferences_Title_ManageLists_Currencies">Currencies</string>
+    <string name="preferences_Title_ManageLists_Templates">Templates</string>
+    <string name="preferences_Title_ManageLists_Stores">Stores</string>
+    <string name="preferences_Title_ManageLists_ShoppingItems">Shopping items</string>
+
+    <string name="preferences_CategoryTitle_Default_Security">Security</string>
+    <string name="preferences_CategoryTitle_Default_Others">Other settings</string>
+    <string name="preferences_CategoryTitle_Notifications_MoreOptions">More options</string>
+
+    <string name="preferences_Summary_SetPin">Set a PIN to keep your records private.</string>
+    <string name="preferences_Summary_SetFingerPrint">Use fingerprint protection to keep your records private.</string>
+    <string name="preferences_Summary_ManageLists">Manage all important lists.</string>
+    <string name="preferences_Summary_Notify_Banner">Display on top of the status bar.</string>
+    <string name="preferences_Summary_Notify_PlannedPayments">Reminds about upcoming planned payments.</string>
+    <string name="preferences_Summary_Notify_Debts">Reminds about upcoming debts due dates.</string>
+    <string name="preferences_Summary_Notify_Goals">Reminds to save money and if it is almost reached.</string>
+    <string name="preferences_Summary_Notify_Budget">Reminder when you are running out of budget.</string>
+    <string name="preferences_Summary_ManageLists_Accounts">Tap to manage your accounts.</string>
+    <string name="preferences_Summary_ManageLists_Categories">Tap to manage your categories.</string>
+    <string name="preferences_Summary_ManageLists_Currencies">Tap to manage your currencies.</string>
+    <string name="preferences_Summary_ManageLists_Templates">Tap to manage your templates.</string>
+    <string name="preferences_Summary_ManageLists_Stores">Tap to manage your stores.</string>
+    <string name="preferences_Summary_ManageLists_ShoppingItems">Tap to manage your shopping items.</string>
+
+    <string name="preferences_Summary_DarkTheme_On">On</string>
+    <string name="preferences_Summary_DarkTheme_Off">Off</string>
+
+    <string-array name="preferences_Dialog_Language_Values">
+        <item>English</item>
+    </string-array>
+    <string-array name="preferences_Dialog_Language_ID">
+        <item>EN</item>
+    </string-array>
+</resources>

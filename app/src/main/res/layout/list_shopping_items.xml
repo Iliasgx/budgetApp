@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <CheckBox
+        android:id="@+id/list_Shopping_Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_weight=".8"
+        android:text="@string/defaultText"/>
+
+    <TextView
+        android:id="@+id/list_Shopping_Amount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|center_vertical"
+        android:layout_weight="1.4"
+        android:text="@string/defaultNumber" />
+
+    <ImageView
+        android:id="@+id/list_Shopping_Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="3dp"
+        android:contentDescription="@string/shoppingItems_Delete"
+        app:srcCompat="@drawable/delete_dark" />
+</LinearLayout>

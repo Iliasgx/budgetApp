@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View
+        android:id="@+id/custom_imageIcon_Background"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/round_image"
+        android:backgroundTint="@color/BB"/>
+
+    <ImageView
+        android:id="@+id/custom_imageIcon_Src"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/account"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@null"/>
+</merge>

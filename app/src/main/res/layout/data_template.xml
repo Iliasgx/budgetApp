@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="0dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Name"
+            android:labelFor="@id/data_Card_Template_Name"/>
+
+        <EditText
+            android:id="@+id/data_Card_Template_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/data_Template_Name"
+            android:ems="10"
+            android:inputType="textNoSuggestions" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
+                android:text="@string/data_Template_Amount"
+                android:labelFor="@id/data_Card_Template_Amount"/>
+
+            <Space
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1.2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".9"
+                android:text="@string/data_Template_Currency"
+                android:labelFor="@id/data_Card_Template_Currency"/>
+
+            <Space
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1.2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/data_Card_Template_Amount"
+                android:layout_width="match_parent"
+                android:layout_weight=".8"
+                android:text="0"
+                style="@style/Spinner.Underlined"
+                tools:ignore="hardCodedText"/>
+
+            <Space
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1.2"/>
+
+            <Spinner
+                android:id="@+id/data_Card_Template_Currency"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/custom_spinner_items"
+                android:layout_weight=".9"
+                style="@style/Spinner.Underlined" />
+
+            <Space
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1.2"/>
+        </LinearLayout>
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Account"
+            android:labelFor="@id/data_Card_Template_Account"/>
+
+        <Spinner
+            android:id="@+id/data_Card_Template_Account"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/custom_spinner_items"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Category"
+            android:labelFor="@id/data_Card_Template_Category"/>
+
+        <TextView
+            android:id="@+id/data_Card_Template_Category"
+            android:layout_width="match_parent"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Type"
+            android:labelFor="@id/data_Card_Template_Type"/>
+
+        <Spinner
+            android:id="@+id/data_Card_Template_Type"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/custom_spinner_items"
+            android:entries="@array/type"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Paytype"
+            android:labelFor="@id/data_Card_Template_PayType"/>
+
+        <Spinner
+            android:id="@+id/data_Card_Template_PayType"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/custom_spinner_items"
+            android:entries="@array/paymentType"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Store"
+            android:labelFor="@id/data_Card_Template_Store"/>
+
+        <TextView
+            android:id="@+id/data_Card_Template_Store"
+            android:layout_width="match_parent"
+            style="@style/Spinner.Underlined" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Payee"
+            android:labelFor="@id/data_Card_Template_Payee"/>
+
+        <EditText
+            android:id="@+id/data_Card_Template_Payee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/data_Template_Payee"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_Template_Note"
+            android:labelFor="@id/data_Card_Template_Note"/>
+
+        <EditText
+            android:id="@+id/data_Card_Template_Note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/data_Template_Note"
+            android:ems="10"
+            android:inputType="text" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/data_Card_PlannedPayment_BasisCard"
+            style="@style/CardView_FullScreen">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Name"
+                    android:text="@string/data_PlannedPayment_Name" />
+
+                <EditText
+                    android:id="@+id/data_Card_PlannedPayment_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/data_PlannedPayment_Name"
+                    android:ems="10"
+                    android:inputType="textNoSuggestions" />
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/data_PlannedPayment_From"
+                        android:labelFor="@id/data_Card_PlannedPayment_From"/>
+
+                    <Space
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.3"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/data_PlannedPayment_Reminder"
+                        android:labelFor="@id/data_Card_PlannedPayment_Reminder"/>
+
+                    <Space
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.2"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/data_Card_PlannedPayment_From"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="20dp"
+                        style="@style/Spinner.Underlined" />
+
+                    <Spinner
+                        android:id="@+id/data_Card_PlannedPayment_Reminder"
+                        android:layout_width="match_parent"
+                        tools:listitem="@layout/custom_spinner_items"
+                        android:entries="@array/reminderOptions"
+                        android:layout_weight="1"
+                        android:layout_marginStart="-15dp"
+                        android:layout_marginEnd="10dp"
+                        style="@style/Spinner.Underlined" />
+                </LinearLayout>
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Frequency"
+                    android:text="@string/data_PlannedPayment_Frequency" />
+
+                <TextView
+                    android:id="@+id/data_Card_PlannedPayment_Frequency"
+                    android:layout_width="match_parent"
+                    android:autofillHints="@string/data_PlannedPayment_Frequency"
+                    style="@style/Spinner.Underlined" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/data_Card_PlannedPayment_ExtraCard"
+            style="@style/CardView_FullScreen" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".8"
+                        android:text="@string/data_PlannedPayment_Amount"
+                        android:labelFor="@id/data_Card_PlannedPayment_Amount"/>
+
+                    <Space
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.2"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".9"
+                        android:text="@string/data_PlannedPayment_Currency"
+                        android:labelFor="@id/data_Card_PlannedPayment_Currency"/>
+
+                    <Space
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/data_Card_PlannedPayment_Amount"
+                        android:layout_width="match_parent"
+                        android:layout_weight=".8"
+                        android:text="0"
+                        style="@style/Spinner.Underlined"
+                        tools:ignore="hardCodedText"/>
+
+                    <Space
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.2"/>
+
+                    <Spinner
+                        android:id="@+id/data_Card_PlannedPayment_Currency"
+                        android:layout_width="match_parent"
+                        tools:listitem="@layout/custom_spinner_items"
+                        android:layout_weight=".9"
+                        style="@style/Spinner.Underlined" />
+
+                    <Space
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.1"/>
+                </LinearLayout>
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Account"
+                    android:text="@string/data_PlannedPayment_Account" />
+
+                <Spinner
+                    android:id="@+id/data_Card_PlannedPayment_Account"
+                    android:layout_width="match_parent"
+                    android:autofillHints="@string/data_PlannedPayment_Account"
+                    tools:listitem="@layout/custom_spinner_items"
+                    style="@style/Spinner.Underlined" />
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Type"
+                    android:text="@string/data_PlannedPayment_Type" />
+
+                <Spinner
+                    android:id="@+id/data_Card_PlannedPayment_Type"
+                    android:layout_width="match_parent"
+                    android:autofillHints="@string/data_PlannedPayment_Type"
+                    tools:listitem="@layout/custom_spinner_items"
+                    android:entries="@array/type"
+                    style="@style/Spinner.Underlined" />
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Category"
+                    android:text="@string/data_PlannedPayment_Category" />
+
+                <TextView
+                    android:id="@+id/data_Card_PlannedPayment_Category"
+                    android:layout_width="match_parent"
+                    style="@style/Spinner.Underlined" />
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_PayType"
+                    android:text="@string/data_PlannedPayment_Paytype" />
+
+                <Spinner
+                    android:id="@+id/data_Card_PlannedPayment_PayType"
+                    android:layout_width="match_parent"
+                    android:autofillHints="@string/data_PlannedPayment_Paytype"
+                    tools:listitem="@layout/custom_spinner_items"
+                    android:entries="@array/paymentType"
+                    style="@style/Spinner.Underlined" />
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Payee"
+                    android:text="@string/data_PlannedPayment_Payee" />
+
+                <EditText
+                    android:id="@+id/data_Card_PlannedPayment_Payee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/data_PlannedPayment_Payee"
+                    android:inputType="textNoSuggestions" />
+
+                <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_PlannedPayment_Note"
+                    android:text="@string/data_PlannedPayment_Note" />
+
+                <EditText
+                    android:id="@+id/data_Card_PlannedPayment_Note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/data_PlannedPayment_Note"
+                    android:ems="10"
+                    android:inputType="textNoSuggestions" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>
+

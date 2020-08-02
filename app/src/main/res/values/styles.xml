@@ -1,0 +1,154 @@
+<resources>
+
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:background">@color/colorBackground</item> <!-- For designer -->
+        <item name="android:windowBackground">@drawable/launcher_screen</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Cardview theme -->
+    <style name="CardView_Default" parent="CardView">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="contentPadding">15dp</item>
+        <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="CardView_FullScreen" parent="CardView_Default">
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+    <style name="CardView_First" parent="CardView_Default">
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <!-- Text Style theme -->
+    <style name="Text_Period" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="Text_Amount" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text_Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Text_Subtitle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/defaultTextColor</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Text_Button_More" parent="TextAppearance.AppCompat.Small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <!-- Custom Button theme -->
+    <style name="Button_Add" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/_button_corners</item>
+        <item name="android:backgroundTint">@color/addButtonColor</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
+
+    <style name="Button_Menu" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/_button_corners</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">15dp</item>
+    </style>
+
+    <style name="Button_Filter" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/cardBackgroundColor</item>
+        <item name="android:contentDescription">@string/filter</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:src">@drawable/filter_button_dark</item>
+    </style>
+
+    <style name="Button_Action" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/add</item>
+        <item name="rippleColor">@color/colorAccent</item>
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="fabSize">normal</item>
+        <item name="maxImageSize">28dp</item>
+    </style>
+
+    <style name="Button_Day" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/_day_round</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textColor">@color/defaultTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="Spinner.Underlined" parent="Base.Widget.AppCompat.Spinner.Underlined">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="defaultFAB">
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="menu_openDirection">up</item>
+        <item name="menu_labels_ellipsize">end</item>
+        <item name="menu_labels_singleLine">true</item>
+        <item name="menu_labels_position">left</item>
+    </style>
+
+</resources>
+
+

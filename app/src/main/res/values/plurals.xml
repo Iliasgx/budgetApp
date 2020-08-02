@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="dialog_Frequency_PeriodDay_Repeating">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+
+    <plurals name="dialog_Frequency_PeriodWeek_Repeating">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+
+    <plurals name="dialog_Frequency_PeriodMonth_Repeating">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+
+    <plurals name="dialog_Frequency_PeriodYear_Repeating">
+        <item quantity="one">year</item>
+        <item quantity="other">years</item>
+    </plurals>
+
+    <plurals name="dialog_Frequency_Events">
+        <item quantity="one">event</item>
+        <item quantity="other">events</item>
+    </plurals>
+</resources>

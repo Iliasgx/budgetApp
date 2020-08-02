@@ -1,0 +1,407 @@
+<resources>
+    <string name="defaultText" translatable="false">IsText</string>
+    <string name="defaultNumber" translatable="false">16</string>
+
+    <!-- |||||||||||||||| Default app strings|||||||||||||||| -->
+    <string name="app_name" translatable="false">Wallet</string>
+    <string name="app_info" translatable="false">Expenses tracker</string>
+    <string name="copyright" translatable="false">Copyright © %1$d.</string>
+    <string name="navigation_Drawer_Open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_Drawer_Close" translatable="false">Close navigation drawer</string>
+    <string name="nav_Header_Description" translatable="false">Navigation header</string>
+
+    <string name="percentage">%1$s%%</string>
+    <string name="bar">/ %1$s</string>
+    <string name="number_days">%1$d days</string>
+
+    <!-- |||||||||||||||| Drawer menu strings |||||||||||||||| -->
+    <string name="menu_Home">Home</string>
+    <string name="menu_Records">Records</string>
+    <string name="menu_Statistics">Statistics</string>
+    <string name="menu_PlannedPayments">Planned Payments</string>
+    <string name="menu_Debts">Debts</string>
+    <string name="menu_Goals">Goals</string>
+    <string name="menu_ShoppingLists">Shopping Lists</string>
+    <string name="menu_Stores">Stores</string>
+    <string name="menu_Settings">Settings</string>
+    <string name="menu_Imports">Imports</string>
+
+    <!-- |||||||||||||||| Screen titles |||||||||||||||| -->
+    <string name="title_Home">Home</string>
+    <string name="title_Records">Records</string>
+    <string name="title_Statistics">Statistics</string>
+    <string name="title_PlannedPayments">Planned payments</string>
+    <string name="title_Debts">Debts</string>
+    <string name="title_Goals">Goals</string>
+    <string name="title_GoalsDetails">Goal details</string>
+    <string name="title_ShoppingLists">Shopping lists</string>
+    <string name="title_ShoppingItems">Shopping items</string>
+    <string name="title_ShoppingList_Items">Shopping list items</string>
+    <string name="title_Stores">Stores</string>
+    <string name="title_Accounts">Accounts</string>
+    <string name="title_Imports">Imports</string>
+    <string name="title_About">About</string>
+    <string name="title_Icons">Icons</string>
+    <string name="title_Categories">Categories</string>
+    <string name="title_Currencies">Currencies</string>
+    <string name="title_Templates">Templates</string>
+
+    <string name="title_addChange_record">€ 0.00</string>
+
+    <string name="title_add_account">New account</string>
+    <string name="title_add_category">New category</string>
+    <string name="title_add_currency">New currency</string>
+    <string name="title_add_debt_lent">I lent</string>
+    <string name="title_add_debt_borrowed">I borrowed</string>
+    <string name="title_add_goal_select">Choose goal</string>
+    <string name="title_add_goal">New goal</string>
+    <string name="title_add_planned_payment">New planned payment</string>
+    <string name="title_add_record_details">Set record details</string>
+    <string name="title_add_shopping_list">New shopping list</string>
+    <string name="title_add_store">New store</string>
+    <string name="title_add_template">New template</string>
+
+    <string name="title_edit_account">Edit account</string>
+    <string name="title_edit_category">Edit category</string>
+    <string name="title_edit_currency">Edit currency</string>
+    <string name="title_edit_debt">Edit debt</string>
+    <string name="title_edit_goal">Edit goal</string>
+    <string name="title_edit_planned_payment">Edit planned payment</string>
+    <string name="title_edit_shopping_list">Edit shopping list</string>
+    <string name="title_edit_store">Edit store</string>
+    <string name="title_edit_template">Edit template</string>
+    <string name="title_edit_user_profile">Update user profile</string>
+
+    <!-- |||||||||||||||| Cardview Button Strings |||||||||||||||| -->
+    <string name="cardviewButtonText_showMore">Show more</string>
+    <string name="cardviewButtonText_PlannedPayments">Add planned payment</string>
+    <string name="cardviewButtonText_ShoppingLists">Add item</string>
+    <string name="cardViewButtonText_Debts">Add debt</string>
+
+    <!-- |||||||||||||||| General strings |||||||||||||||| -->
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="transfer">Transfer</string>
+    <string name="both">Both</string>
+    <string name="lent">I lent</string>
+    <string name="borrowed">I borrowed</string>
+    <string name="pastPeriod">vs past period</string>
+    <string name="filter">Filter</string>
+    <string name="reorderableMenu">Move item</string>
+
+    <!-- |||||||||||||||| Menu Resources strings |||||||||||||||| -->
+    <string name="menuResources_Title_Edit">Edit</string>
+    <string name="menuResources_Title_Save">Save</string>
+    <string name="menuResources_Title_Delete">Delete</string>
+    <string name="menuResources_Title_Filter">Filter</string>
+    <string name="menuResources_Title_Sort">Sort</string>
+    <string name="menuResources_Title_Search">Search</string>
+    <string name="menuResources_Title_Options">Other options</string>
+    <string name="menuResources_Title_Reminder">Reminder</string>
+    <string name="menuResources_Title_CreateRecord">Create record</string>
+    <string name="menuResources_Title_Rename">Rename</string>
+    <string name="menuResources_Title_DeleteList">Delete list</string>
+    <string name="menuResources_Title_Pause">Pause</string>
+    <string name="menuResources_Title_Activate">Activate</string>
+
+    <!-- |||||||||||||||| Home |||||||||||||||| -->
+    <string name="home_Tab1">Home</string>
+    <string name="home_Tab2">Information</string>
+
+    <string name="home_cardTitle_Accounts">Current accounts</string>
+    <string name="home_cardTitle_Balance">Balance</string>
+    <string name="home_cardTitle_Cashflow">Cash flow</string>
+    <string name="home_cardTitle_Records">Last records</string>
+    <string name="home_cardAccounts_Today">Today</string>
+    <string name="home_RecordsButton">Records</string>
+
+    <string name="home_Information_Header1">Upcoming</string>
+    <string name="home_Information_Header2">Debts</string>
+    <string name="home_Information_Header3">Shopping lists</string>
+
+    <string name="home_showAllAccounts">All accounts</string>
+    <string name="home_newRecordFAB">New record</string>
+
+    <!-- |||||||||||||||| Debts |||||||||||||||| -->
+    <string name="debts_Tab1">@string/lent</string>
+    <string name="debts_Tab2">@string/borrowed</string>
+
+    <!-- |||||||||||||||| Imports |||||||||||||||| -->
+    <string name="imports_Entire" >Entire app</string>
+    <string name="imports_NewAccount" >Create new account</string>
+    <string name="imports_Import" >Import</string>
+
+    <!-- |||||||||||||||| About |||||||||||||||| -->
+    <string name="developers" >Developers</string>
+    <string name="authors" >Authors</string>
+
+    <!-- |||||||||||||||| Shopping lists | Shopping items |||||||||||||||| -->
+    <string name="shoppingLists_Estimate">Estimate</string>
+    <string name="shoppingItems_Delete">Delete item</string>
+
+    <!-- |||||||||||||||| Goals |||||||||||||||| -->
+    <string name="goals_Saved" >Saved: %1$d</string>
+    <string name="goals_Goal" >Goal: %1$d</string>
+    <string name="goals_Tab1" >Active</string>
+    <string name="goals_Tab2" >Paused</string>
+    <string name="goals_Tab3" >Reached</string>
+
+    <string name="goals_Details_Description">Goal details</string>
+    <string name="goals_Details_LastAdded">Last added week amount</string>
+    <string name="goals_Details_Estimated">Estimated time to reach goal</string>
+    <string name="goals_Details_AddAmount">Add saved amount</string>
+    <string name="goals_Details_SetReached">Set goal as reached</string>
+
+    <!-- |||||||||||||||| Slider period strings |||||||||||||||| -->
+    <string name="slider_Period_Type1_Item1" >7 days</string>
+    <string name="slider_Period_Type1_Item2" >30 days</string>
+    <string name="slider_Period_Type1_Item3" >6 months</string>
+    <string name="slider_Period_Type1_Item4" >1 year</string>
+    <string name="slider_Period_Type2" >%1$s - Today</string>
+    <string name="slider_Period_Type3_DateStart" >%1$s</string>
+    <string name="slider_Period_Type3_Mark" >&#8211;</string>
+    <string name="slider_Period_Type3_DateEnd" >%1$s</string>
+
+    <!-- |||||||||||||||| Debts list strings |||||||||||||||| -->
+    <string name="debts_list_Name_Lent">%1$s owes me</string>
+    <string name="debts_list_Name_Borrowed">I owe %1$s</string>
+    <string name="debts_list_Description">Debt</string>
+    <string name="debts_list_createRecord">Create record</string>
+
+    <!-- |||||||||||||||| Statistics |||||||||||||||| -->
+    <string name="statistics_Tab1">Balance</string>
+    <string name="statistics_Tab2">Cash-flow</string>
+    <string name="statistics_Tab3">Spending</string>
+    <string name="statistics_Tab4">Reports</string>
+
+    <string name="statistics_cardTitle_Balance">Balance by accounts</string>
+    <string name="statistics_cardTitle_Currencies">Balance by currencies</string>
+    <string name="statistics_cardTitle_Cashflow">Cash flow</string>
+    <string name="statistics_cardTitle_TableCashflow">Cash-flow table</string>
+    <string name="statistics_cardTitle_SpendingExpenses">Top 5 expenses</string>
+    <string name="statistics_cardTitle_SpendingCategories">Top categories</string>
+    <string name="statistics_cardTitle_Saldi">Income &amp; expenses book in EUR</string>
+
+    <string name="statistics_cardSubtitle_Balance">In which accounts do I have most of my money?</string>
+    <string name="statistics_cardSubtitle_Currencies">How much do I have spend in foreign currencies?</string>
+    <string name="statistics_cardSubtitle_Cashflow">Am I spending less than I make?</string>
+    <string name="statistics_cardSubtitle_TableCashflow">What are the numbers of my wallet?</string>
+    <string name="statistics_cardSubtitle_SpendingExpenses">What were my biggest expenses?</string>
+    <string name="statistics_cardSubtitle_SpendingCategories">In which categories have I spend most of my money?</string>
+    <string name="statistics_cardSubtitle_Saldi">In which categories have I created records?</string>
+
+    <string name="statistics_Cashflow_TableHead">Quick overview</string>
+    <string name="statistics_Cashflow_TableCount">Count</string>
+    <string name="statistics_Cashflow_TableAvgDay">Average (day)</string>
+    <string name="statistics_Cashflow_TableAvgRecord">Average (record)</string>
+    <string name="statistics_Cashflow_TableTotal">Total</string>
+
+    <!-- |||||||||||||||| New template |||||||||||||||| -->
+    <string name="data_Template_Name" >Name</string>
+    <string name="data_Template_Amount" >Amount</string>
+    <string name="data_Template_Currency" >Currency</string>
+    <string name="data_Template_Account" >Account</string>
+    <string name="data_Template_Category" >Category</string>
+    <string name="data_Template_Type" >Type</string>
+    <string name="data_Template_Paytype" >Payment type</string>
+    <string name="data_Template_Store" >Store</string>
+    <string name="data_Template_Payee" >Payee</string>
+    <string name="data_Template_Note" >Note</string>
+
+    <!-- |||||||||||||||| New category |||||||||||||||| -->
+    <string name="data_Category_Name">Name</string>
+    <string name="data_Category_Color">Select color</string>
+    <string name="data_Category_Icon">Select icon</string>
+    <string name="data_Category_Type">Category type</string>
+
+    <!-- |||||||||||||||| New store |||||||||||||||| -->
+    <string name="data_Store_Name" >Name</string>
+    <string name="data_Store_Country" >Country</string>
+    <string name="data_Store_City" >City</string>
+    <string name="data_Store_Currency" >Currency</string>
+    <string name="data_Store_Category" >Category</string>
+    <string name="data_Store_Note" >Note</string>
+
+    <!-- |||||||||||||||| New goal |||||||||||||||| -->
+    <string name="data_Goal_Select_HintName" >Your goal"'"s name</string>
+    <string name="data_Goal_Select_Title" >What are you saving for?</string>
+    <string name="data_Goal_Select_Create" >Create goal</string>
+    <string name="data_Goal_Select_Header" >Some things people save for:</string>
+    <string name="data_Goal_Select_Item1" >New vehicle</string>
+    <string name="data_Goal_Select_Item2" >New home</string>
+    <string name="data_Goal_Select_Item3" >Holiday trip</string>
+    <string name="data_Goal_Select_Item4" >Education</string>
+    <string name="data_Goal_Select_Item5" >Emergency fund</string>
+    <string name="data_Goal_Select_Item6" >Health care</string>
+    <string name="data_Goal_Select_Item7" >Party</string>
+    <string name="data_Goal_Select_Item8" >Charity</string>
+
+    <string name="data_Goal_Name">Name</string>
+
+    <string name="data_Goal_Details_Amount" >Target amount</string>
+    <string name="data_Goal_Details_Saved" >Saved already</string>
+    <string name="data_Goal_Details_Date" >Desired date</string>
+    <string name="data_Goal_Details_Color" >Select color</string>
+    <string name="data_Goal_Details_Icon" >Select icon</string>
+    <string name="data_Goal_Details_Note" >Note</string>
+
+    <!-- |||||||||||||||| New shopping list |||||||||||||||| -->
+    <string name="data_ShoppingList_Title" >Name your list</string>
+    <string name="data_ShoppingList_Name" >Name</string>
+    <string name="data_ShoppingList_Category" >Category</string>
+    <string name="data_ShoppingList_Store" >Store</string>
+    <string name="data_ShoppingList_Create" >Create list</string>
+
+    <!-- |||||||||||||||| New account |||||||||||||||| -->
+    <string name="data_Account_Name" >Account name</string>
+    <string name="data_Account_Type" >Type</string>
+    <string name="data_Account_Value" >Current value</string>
+    <string name="data_Account_Currency" >Currency</string>
+    <string name="data_Account_Color" >Select color</string>
+    <string name="data_Account_Exclude" >Exclude from stats</string>
+
+    <!-- |||||||||||||||| New debt |||||||||||||||| -->
+    <string name="data_Debt_Name" >Name</string>
+    <string name="data_Debt_HintName_Lent" >To whom have you lent?</string>
+    <string name="data_Debt_HintName_Borrowed" >From whom have you borrowed?</string>
+    <string name="data_Debt_Description" >Description</string>
+    <string name="data_Debt_HintDescription" >What was it for?</string>
+    <string name="data_Debt_Category" >Category</string>
+    <string name="data_Debt_Account" >Account</string>
+    <string name="data_Debt_Amount" >Amount</string>
+    <string name="data_Debt_Currency" >Currency</string>
+    <string name="data_Debt_Date" >Date</string>
+
+    <!-- |||||||||||||||| New planned payment |||||||||||||||| -->
+    <string name="data_PlannedPayment_Name" >Name</string>
+    <string name="data_PlannedPayment_From" >From date</string>
+    <string name="data_PlannedPayment_Reminder" >Reminder</string>
+    <string name="data_PlannedPayment_Frequency" >Frequency</string>
+    <string name="data_PlannedPayment_Amount" >Amount</string>
+    <string name="data_PlannedPayment_Currency" >Currency</string>
+    <string name="data_PlannedPayment_Account" >Account</string>
+    <string name="data_PlannedPayment_Type" >Type</string>
+    <string name="data_PlannedPayment_Category" >Category</string>
+    <string name="data_PlannedPayment_Paytype" >Payment type</string>
+    <string name="data_PlannedPayment_Payee" >Payee</string>
+    <string name="data_PlannedPayment_Note" >Note</string>
+
+    <!-- |||||||||||||||| New user |||||||||||||||| -->
+    <string name="data_User_Description" >User settings</string>
+    <string name="data_User_FirstName" >First name</string>
+    <string name="data_User_LastName" >Last name</string>
+    <string name="data_User_Email" >Email</string>
+    <string name="data_User_Birthday" >Date of birth</string>
+    <string name="data_User_Gender" >Select gender</string>
+    <string name="data_User_Logout" >Logout</string>
+
+    <!-- |||||||||||||||| New record |||||||||||||||| -->
+    <string name="data_Record_DefaultAmount" >0</string>
+    <string name="data_Record_Account" >Account</string>
+    <string name="data_Record_Category" >Category</string>
+    <string name="data_Record_Description" >More details</string>
+    <string name="data_Record_Template">Choose a template</string>
+
+    <string name="data_Record_Details_Description" >Description</string>
+    <string name="data_Record_Details_Paytype" >Payment type</string>
+    <string name="data_Record_Details_Date" >Date</string>
+    <string name="data_Record_Details_Time" >Time</string>
+    <string name="data_Record_Details_Payee" >Payee</string>
+    <string name="data_Record_Details_Type" >Type</string>
+    <string name="data_Record_Details_Store" >Store</string>
+    <string name="data_Record_Details_Category" >Category</string>
+    <string name="data_Record_Details_Account" >Account</string>
+    <string name="data_Record_Details_Amount" >Amount</string>
+    <string name="data_Record_Details_Currency" >Currency</string>
+
+    <!-- |||||||||||||||| New currency |||||||||||||||| -->
+    <string name="data_Currency_Name">Select currency</string>
+    <string name="data_Currency_Rate">Rate</string>
+    <string name="data_Currency_InverseRate">Inverse Rate</string>
+    <string name="data_Currency_Code">Code</string>
+    <string name="data_Currency_Symbol">Symbol</string>
+
+    <!-- |||||||||||||||| Dialog Filter strings |||||||||||||||| -->
+    <string name="dialog_Filter_Title">Card configuration</string>
+    <string name="dialog_Filter_SelectPeriod">Select period</string>
+    <string name="dialog_Filter_Positive">Apply</string>
+    <string name="dialog_Filter_Negative">Cancel</string>
+
+    <!-- |||||||||||||||| Dialog Sort strings |||||||||||||||| -->
+    <string name="dialog_Sort_Title">Sorting</string>
+    <string name="dialog_Sort_Positive">Default</string>
+    <string name="dialog_Sort_Negative">Cancel</string>
+    <string name="dialog_Sort_Item1">By name: A to Z</string>
+    <string name="dialog_Sort_Item2">By name: Z to A</string>
+    <string name="dialog_Sort_Item3">By date: newest</string>
+    <string name="dialog_Sort_Item4">By date: oldest</string>
+
+    <!-- |||||||||||||||| Dialog Reminder strings |||||||||||||||| -->
+    <string name="dialog_Reminder_Title">Reminder for shopping</string>
+    <string name="dialog_Reminder_Date">Select date</string>
+    <string name="dialog_Reminder_Positive">Set reminder</string>
+    <string name="dialog_Reminder_Negative">Delete reminder</string>
+
+    <!-- |||||||||||||||| Dialog Record strings |||||||||||||||| -->
+    <string name="dialog_Record_Title">Create record</string>
+    <string name="dialog_Record_Account">Account</string>
+    <string name="dialog_Record_Category">Category</string>
+    <string name="dialog_Record_Amount">Amount</string>
+    <string name="dialog_Record_Currency">Currency</string>
+    <string name="dialog_Record_Note">Note</string>
+    <string name="dialog_Record_Positive">Create record</string>
+    <string name="dialog_Record_Negative">Cancel</string>
+
+    <!-- |||||||||||||||| Dialog New Item strings |||||||||||||||| -->
+    <string name="dialog_NewItem_Title">New item</string>
+    <string name="dialog_NewItem_Name_Hint">Item name</string>
+    <string name="dialog_NewItem_Price_Hint">Price</string>
+
+    <!-- |||||||||||||||| Dialog Frequency strings |||||||||||||||| -->
+    <string name="dialog_Frequency_RepeatingString">Every</string>
+    <string name="dialog_Frequency_PeriodMonth_Option1">on the same day each month</string>
+    <string name="dialog_Frequency_PeriodMonth_Option2">on every second Monday</string>
+    <string name="dialog_Frequency_Positive">OK</string>
+    <string name="dialog_Frequency_Negative">Cancel</string>
+
+    <string name="day_ShortCut1">Mon</string>
+    <string name="day_ShortCut2">Tue</string>
+    <string name="day_ShortCut3">Wed</string>
+    <string name="day_ShortCut4">Thu</string>
+    <string name="day_ShortCut5">Fri</string>
+    <string name="day_ShortCut6">Sat</string>
+    <string name="day_ShortCut7">Sun</string>
+
+    <!-- |||||||||||||||| Dialog strings |||||||||||||||| -->
+    <string name="dialog_Amount_DefValue">0</string>
+    <string name="dialog_Amount_Other">Clear</string>
+    <string name="dialog_Amount_Positive">Insert</string>
+    <string name="dialog_Amount_Negative">Cancel</string>
+    <string name="dialog_default">Default</string>
+
+    <!-- |||||||||||||||| Snackbar information |||||||||||||||| -->
+    <string name="snackbar_success">%1$s has been successfully %2$s.</string>
+    <string name="snackbar_failed">%1$s could not be %2$s.</string>
+    <string name="snackbar_notLoad">Data could not be loaded. Try again later with an internet connection.</string>
+
+    <!-- |||||||||||||||| Toast information |||||||||||||||| -->
+    <string name="goal_requiredFields">Name, target amount and date are required.</string>
+    <string name="user_profile_firstName_error">First name can\'t be empty or contain spaces.</string>
+    <string name="user_profile_lastName_error">Last name can\' contain spaces</string>
+    <string name="user_profile_email_error">Email can\'t be empty.</string>
+    <string name="record_value_error">Value can\'t be 0.</string>
+    <string name="dialog_frequency_noDays_error">Select at least 1 day.</string>
+    <string name="dialog_frequency_noMonth_error">Select a monthly option.</string>
+
+    <!-- |||||||||||||||| Displayed errors and warnings |||||||||||||||| -->
+    <string name="toast_error_empty">Make sure no field is empty.</string>
+    <string name="delete_confirmation">Are you sure you want to delete this %1$s?</string>
+    <string name="goal_reached_warning_title">Goal reached</string>
+    <string name="goal_reached_warning">Once set as reached the item can\'t be activated again.</string>
+    <string name="shoppingListItems_shortInput">Make sure the name is longer than %1$d characters.</string>
+
+    <!-- |||||||||||||||| Programmatically objects |||||||||||||||| -->
+    <string name="customObject_shoppingListItems">Programmatically</string>
+    <string name="customObject_renameBoxTitle">Rename list</string>
+    <string name="customObject_renameBoxMessage">Rename the current list.</string>
+</resources>

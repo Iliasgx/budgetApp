@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_User"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/data_Card_User_Img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/round_image"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/data_User_Description"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:src="@drawable/account" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/data_Card_User_NameFirst"
+                        android:text="@string/data_User_FirstName" />
+
+                    <EditText
+                        android:id="@+id/data_Card_User_NameFirst"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/data_User_FirstName"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+
+                    <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/data_Card_User_NameLast"
+                        android:text="@string/data_User_LastName" />
+
+                    <EditText
+                        android:id="@+id/data_Card_User_NameLast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@string/data_User_LastName"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_User_Email"
+                android:text="@string/data_User_Email" />
+
+            <EditText
+                android:id="@+id/data_Card_User_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_User_Email"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:labelFor="@id/data_Card_User_BirthDay"
+                    android:text="@string/data_User_Birthday" />
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:labelFor="@id/data_Card_User_Gender"
+                    android:text="@string/data_User_Gender" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/data_Card_User_BirthDay"
+                    android:layout_width="140dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="3dp"
+                    android:textSize="16sp"
+                    style="@style/Spinner.Underlined" />
+
+                <Spinner
+                    android:id="@+id/data_Card_User_Gender"
+                    android:layout_width="110dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="60dp"
+                    android:autofillHints="@string/data_User_Gender"
+                    tools:listitem="@layout/custom_spinner_items"
+                    android:entries="@array/gender"
+                    style="@style/Spinner.Underlined" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/data_Card_User_Logout"
+                android:text="@string/data_User_Logout"
+                android:backgroundTint="@color/negativeButtonColor"
+                android:layout_marginBottom="5dp"
+                style="@style/Button_Add" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

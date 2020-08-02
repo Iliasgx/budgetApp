@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_ShoppingList"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/data_Card_ShoppingList_Title"
+                android:text="@string/data_ShoppingList_Title"
+                android:layout_marginBottom="10dp"
+                style="@style/Text_Title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_ShoppingList_Name"
+                android:text="@string/data_ShoppingList_Name" />
+
+            <EditText
+                android:id="@+id/data_Card_ShoppingList_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_ShoppingList_Name"
+                android:ems="10"
+                android:inputType="textNoSuggestions|textPersonName" />
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_ShoppingList_Category"
+                android:text="@string/data_ShoppingList_Category" />
+
+            <TextView
+                android:id="@+id/data_Card_ShoppingList_Category"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_ShoppingList_Store"
+                android:text="@string/data_ShoppingList_Store" />
+
+            <TextView
+                android:id="@+id/data_Card_ShoppingList_Store"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Button
+                android:id="@+id/data_Card_ShoppingList_Create"
+                android:text="@string/data_ShoppingList_Create"
+                android:layout_marginBottom="5dp"
+                style="@style/Button_Add" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

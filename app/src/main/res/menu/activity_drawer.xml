@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group  android:id="@+id/menu_basics" android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_group1_item1"
+            android:icon="@drawable/home"
+            android:contentDescription="@string/menu_Home"
+            android:title="@string/menu_Home"/>
+
+        <item
+            android:id="@+id/menu_group1_item2"
+            android:icon="@drawable/records"
+            android:contentDescription="@string/menu_Records"
+            android:title="@string/menu_Records"/>
+        <item
+            android:id="@+id/menu_group1_item3"
+            android:icon="@drawable/statistics"
+            android:contentDescription="@string/menu_Statistics"
+            android:title="@string/menu_Statistics"/>
+    </group>
+
+    <group  android:id="@+id/menu_money" android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_group2_item1"
+            android:icon="@drawable/planned_payments"
+            android:contentDescription="@string/menu_PlannedPayments"
+            android:title="@string/menu_PlannedPayments"/>
+
+        <item
+            android:id="@+id/menu_group2_item2"
+            android:icon="@drawable/debt"
+            android:contentDescription="@string/menu_Debts"
+            android:title="@string/menu_Debts"/>
+        <item
+            android:id="@+id/menu_group2_item3"
+            android:icon="@drawable/goals"
+            android:contentDescription="@string/menu_Goals"
+            android:title="@string/menu_Goals"/>
+    </group>
+
+    <group android:id="@+id/menu_shopping" android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_group3_item1"
+            android:icon="@drawable/shopping_list"
+            android:contentDescription="@string/menu_ShoppingLists"
+            android:title="@string/menu_ShoppingLists"/>
+
+        <item
+            android:id="@+id/menu_group3_item2"
+            android:icon="@drawable/stores"
+            android:contentDescription="@string/menu_Stores"
+            android:title="@string/menu_Stores"/>
+    </group>
+
+    <group android:id="@+id/menu_others" android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_group4_item1"
+            android:icon="@drawable/settings"
+            android:contentDescription="@string/menu_Settings"
+            android:title="@string/menu_Settings"/>
+
+        <item
+            android:id="@+id/menu_group4_item2"
+            android:icon="@drawable/imports"
+            android:contentDescription="@string/menu_Imports"
+            android:title="@string/menu_Imports"/>
+    </group>
+</menu>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "693313040772",
+    "firebase_url": "https://budgetapp-7c235.firebaseio.com",
+    "project_id": "budgetapp-7c235",
+    "storage_bucket": "budgetapp-7c235.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693313040772:android:b7327e848708b9ef",
+        "android_client_info": {
+          "package_name": "com.umbrella.budgetapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693313040772-2ooape2r92tmlcaudmphmef5rj57v5nb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umbrella.budgetapp",
+            "certificate_hash": "16a8d4d6e93b7f8b5aa8dcd3c34172acac74d18b"
+          }
+        },
+        {
+          "client_id": "693313040772-ki0hrguggl5jbanq0l84algism2ppnad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYCz4Wq7NDhE5ZJBxvgX_nDQspciMM2eI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693313040772-ki0hrguggl5jbanq0l84algism2ppnad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

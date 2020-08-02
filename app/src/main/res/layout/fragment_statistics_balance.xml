@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statistics_Card_Balance"
+            style="@style/CardView_First">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/statistics_Card_Balance_Title"
+                    android:text="@string/home_cardTitle_Balance"
+                    style="@style/Text_Title"/>
+
+                <TextView
+                    android:id="@+id/statistics_Card_Balance_Subtitle"
+                    android:text="@string/statistics_cardSubtitle_Balance"
+                    style="@style/Text_Subtitle"/>
+
+                <include layout="@layout/custom_divider"/>
+
+                <TextView
+                    android:id="@+id/statistics_Card_Balance_Amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/defaultNumber"
+                    style="@style/Text_Amount"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/statistics_Card_Balance_RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="0dp"
+                    android:scrollbars="none"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statistics_Card_BalanceCurrencies"
+            style="@style/CardView_Default">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/statistics_Card_BalanceCurrencies_Title"
+                    android:text="@string/statistics_cardTitle_Currencies"
+                    style="@style/Text_Title"/>
+
+                <TextView
+                    android:id="@+id/statistics_Card_BalanceCurrencies_Subtitle"
+                    android:text="@string/statistics_cardSubtitle_Currencies"
+                    style="@style/Text_Subtitle"/>
+
+                <include
+                    layout="@layout/custom_divider"/>
+
+                <ProgressBar
+                    android:id="@+id/statistics_Card_BalanceCurrencies_Progressbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginVertical="10dp"
+                    android:max="100"
+                    android:maxHeight="10dip"
+                    android:minHeight="10dip"
+                    android:progress="77"
+                    android:progressDrawable="@drawable/_progressbar"
+                    android:progressTint="@color/positiveColor"
+                    style="@android:style/Widget.ProgressBar.Horizontal" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/statistics_Card_BalanceCurrencies_RecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/list_balance_currencies"
+                    android:scrollbars="none"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

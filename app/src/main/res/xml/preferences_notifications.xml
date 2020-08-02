@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="@string/preferences_Key_Screen_Notifications">
+
+    <SwitchPreference
+        android:key="@string/preferences_Key_GeneralNotifications"
+        android:title="@string/preferences_Title_Notify_AllowNotifications"
+        android:defaultValue="true"/>
+
+    <PreferenceCategory android:dependency="@string/preferences_Key_GeneralNotifications">
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_Statusbar"
+            android:title="@string/preferences_Title_Notify_StatusBar"
+            android:defaultValue="true"
+            app:allowDividerAbove="true"/>
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_Banner"
+            android:title="@string/preferences_Title_Notify_Banner"
+            android:summary="@string/preferences_Summary_Notify_Banner"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_Vibrate"
+            android:title="@string/preferences_Title_Notify_Vibrate"
+            android:defaultValue="true"
+            app:allowDividerBelow="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preferences_CategoryTitle_Notifications_MoreOptions"
+        android:dependency="@string/preferences_Key_GeneralNotifications">
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_PlannedPayments"
+            android:title="@string/preferences_Title_Notify_PlannedPayments"
+            android:summary="@string/preferences_Summary_Notify_PlannedPayments"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_Debts"
+            android:title="@string/preferences_Title_Notify_Debts"
+            android:summary="@string/preferences_Summary_Notify_Debts"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_Goals"
+            android:title="@string/preferences_Title_Notify_Goals"
+            android:summary="@string/preferences_Summary_Notify_Goals"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Notifications_Budget"
+            android:title="@string/preferences_Title_Notify_Budget"
+            android:summary="@string/preferences_Summary_Notify_Budget"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

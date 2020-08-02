@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="10dp">
+
+    <View
+        android:id="@+id/list_BalanceCurrencies_Color"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/holo_orange_dark" />
+
+    <TextView
+        android:id="@+id/list_BalanceCurrencies_Currency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/list_BalanceCurrencies_Color"
+        android:layout_toStartOf="@id/list_BalanceCurrencies_Amount"
+        tools:text="@string/defaultText"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/list_BalanceCurrencies_Amount"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:gravity="end"
+        tools:text="@string/defaultNumber" />
+</RelativeLayout>

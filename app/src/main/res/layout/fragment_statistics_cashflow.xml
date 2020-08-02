@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/statistics_Card_Cashflow"
+        style="@style/CardView_First">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statistics_Card_Cashflow_Title"
+                android:text="@string/statistics_cardTitle_Cashflow"
+                style="@style/Text_Title"/>
+
+            <TextView
+                android:id="@+id/statistics_Card_Cashflow_Subtitle"
+                android:text="@string/statistics_cardSubtitle_Cashflow"
+                style="@style/Text_Subtitle"/>
+
+            <include layout="@layout/custom_divider"/>
+
+            <TextView
+                android:id="@+id/statistics_Card_Cashflow_Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/defaultNumber"
+                android:layout_marginTop="10dp"
+                style="@style/Text_Amount"/>
+
+            <com.umbrella.budgetapp.Customs.DetailedProgressbar
+                android:id="@+id/statistics_Card_Cashflow_Progressbar_Income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/income"
+                app:value="@string/defaultNumber"
+                app:progress="20"
+                app:progress_color="@color/positiveColor"/>
+
+            <com.umbrella.budgetapp.Customs.DetailedProgressbar
+                android:id="@+id/statistics_Card_Cashflow_Progressbar_Expenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/expense"
+                app:value="@string/defaultNumber"
+                app:progress="20"
+                app:progress_color="@color/negativeColor"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/statistics_Card_CashflowTable"
+        style="@style/CardView_Default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statistics_Card_CashflowTable_Title"
+                android:text="@string/statistics_cardTitle_TableCashflow"
+                style="@style/Text_Title"/>
+
+            <TextView
+                android:id="@+id/statistics_card_cashflow_table_Subtitle"
+                android:text="@string/statistics_cardSubtitle_TableCashflow"
+                style="@style/Text_Subtitle"/>
+
+            <include layout="@layout/custom_divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="15dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="end"
+                        android:text="@string/statistics_Cashflow_TableHead"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/statistics_Cashflow_TableCount"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:background="@color/tableRowColor"
+                        android:text="@string/statistics_Cashflow_TableAvgDay"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/statistics_Cashflow_TableAvgRecord"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:background="@color/tableRowColor"
+                        android:text="@string/statistics_Cashflow_TableTotal"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/income"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_I1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/defaultText"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_I2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:background="@color/tableRowColor"
+                        android:text="@string/defaultText"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_I3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/defaultText"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_I4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:background="@color/tableRowColor"
+                        android:text="@string/defaultText"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/expense"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_E1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/defaultText"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_E2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:background="@color/tableRowColor"
+                        android:text="@string/defaultText"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_E3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/defaultText"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_CashflowTable_E4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:background="@color/tableRowColor"
+                        android:text="@string/defaultText"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

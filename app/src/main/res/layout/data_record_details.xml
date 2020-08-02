@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_RecordDetails"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Description"
+                android:text="@string/data_Record_Details_Description" />
+
+            <EditText
+                android:id="@+id/data_Card_RecordDetails_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_Record_Details_Description"
+                android:ems="10"
+                android:inputType="textNoSuggestions" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Category"
+                android:text="@string/data_Record_Details_Category" />
+
+            <TextView
+                android:id="@+id/data_Card_RecordDetails_Category"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Category"
+                android:text="@string/data_Record_Details_Amount" />
+
+            <TextView
+                android:id="@+id/data_Card_RecordDetails_Amount"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Category"
+                android:text="@string/data_Record_Details_Currency" />
+
+            <Spinner
+                android:id="@+id/data_Card_RecordDetails_Currency"
+                android:layout_width="150dp"
+                android:autofillHints="@string/data_Record_Details_Currency"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_PayType"
+                android:text="@string/data_Record_Details_Paytype" />
+
+            <Spinner
+                android:id="@+id/data_Card_RecordDetails_PayType"
+                android:layout_width="match_parent"
+                android:autofillHints="@string/data_Record_Details_Paytype"
+                tools:listitem="@layout/custom_spinner_items"
+                android:entries="@array/paymentType"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".9"
+                    android:labelFor="@id/data_Card_RecordDetails_Date"
+                    android:text="@string/data_Record_Details_Date" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".9"
+                    android:labelFor="@id/data_Card_RecordDetails_Time"
+                    android:text="@string/data_Record_Details_Time" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/data_Card_RecordDetails_Date"
+                    android:layout_width="match_parent"
+                    android:layout_weight=".9"
+                    style="@style/Spinner.Underlined" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"/>
+
+                <TextView
+                    android:id="@+id/data_Card_RecordDetails_Time"
+                    android:layout_width="match_parent"
+                    android:layout_weight=".9"
+                    style="@style/Spinner.Underlined" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"/>
+            </LinearLayout>
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Payee"
+                android:text="@string/data_Record_Details_Payee" />
+
+            <EditText
+                android:id="@+id/data_Card_RecordDetails_Payee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/data_Record_Details_Payee"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Payee"
+                android:text="@string/data_Record_Details_Type" />
+
+            <Spinner
+                android:id="@+id/data_Card_RecordDetails_Type"
+                android:layout_width="match_parent"
+                android:autofillHints="@string/data_Record_Details_Type"
+                tools:listitem="@layout/custom_spinner_items"
+                android:entries="@array/recordType"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Account"
+                android:text="@string/data_Record_Details_Account" />
+
+            <Spinner
+                android:id="@+id/data_Card_RecordDetails_Account"
+                android:layout_width="match_parent"
+                android:autofillHints="@string/data_Record_Details_Account"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_width="match_parent" android:layout_height="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_RecordDetails_Store"
+                android:text="@string/data_Record_Details_Store" />
+
+            <TextView
+                android:id="@+id/data_Card_RecordDetails_Store"
+                android:layout_width="match_parent"
+                style="@style/Spinner.Underlined" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

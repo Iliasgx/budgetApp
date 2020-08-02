@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_Currency"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Currency_Name"
+                android:text="@string/data_Currency_Name" />
+
+            <Spinner
+                android:id="@+id/data_Card_Currency_Name"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                tools:listitem="@layout/custom_spinner_items"
+                style="@style/Spinner.Underlined" />
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_Currency_Rate"
+                    android:text="@string/data_Currency_Rate"
+                    android:layout_weight="1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.3"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/data_Card_Currency_InverseRate"
+                    android:text="@string/data_Currency_InverseRate"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/data_Card_Currency_Rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/data_Currency_Rate"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.3"/>
+
+                <EditText
+                    android:id="@+id/data_Card_Currency_InverseRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/data_Currency_InverseRate"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Currency_Code"
+                android:text="@string/data_Currency_Code" />
+
+            <EditText
+                android:id="@+id/data_Card_Currency_Code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:importantForAutofill="no"/>
+
+            <Space android:layout_height="10dp" android:layout_width="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/data_Card_Currency_Symbol"
+                android:text="@string/data_Currency_Symbol" />
+
+            <EditText
+                android:id="@+id/data_Card_Currency_Symbol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

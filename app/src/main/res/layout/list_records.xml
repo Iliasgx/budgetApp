@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/list_Records_Img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_image"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:padding="10dp"
+        android:contentDescription="@string/defaultText"
+        android:src="@drawable/account" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/list_Records_Category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:text="@string/defaultText" />
+
+        <TextView
+            android:id="@+id/list_Records_Account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="@string/defaultText" />
+
+        <TextView
+            android:id="@+id/list_Records_Information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:text="@string/defaultText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/list_Records_Amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            android:text="@string/defaultNumber" />
+
+        <TextView
+            android:id="@+id/list_Records_Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:text="@string/defaultText" />
+    </LinearLayout>
+</LinearLayout>

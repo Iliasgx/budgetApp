@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:paddingHorizontal="5dp"
+    android:background="@color/cardBackgroundColor">
+
+    <RadioButton
+        android:id="@+id/slider_Period_ArrowLeft"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/_slider_left"
+        android:button="@android:color/transparent"
+        android:drawableStart="@drawable/arrow_left"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/slider_Period_Type2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight=".5"
+        android:background="@drawable/_slider_middle"
+        android:button="@android:color/transparent"
+        android:text="@string/slider_Period_Type2"
+        android:textColor="@drawable/_slider_text"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:checked="true"
+        android:layout_marginStart="-2dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="18sp" />
+
+    <RadioButton
+        android:id="@+id/slider_Period_ArrowRight"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="1"
+        android:background="@drawable/_slider_right"
+        android:button="@android:color/transparent"
+        android:drawableStart="@drawable/arrow_right"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:layout_marginStart="-2dp"
+        android:textSize="18sp" />
+</LinearLayout>

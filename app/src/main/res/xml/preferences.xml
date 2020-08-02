@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/preferences_Key_Screen_Default">
+
+    <Preference
+        android:key="@string/preferences_Key_Group_userProfileSettings"
+        android:title="@string/preferences_Title_UpdateUserProfile"
+        android:fragment="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateUserProfile" />
+
+    <ListPreference
+        android:key="@string/preferences_Key_Language"
+        android:title="@string/preferences_Title_Language"
+        android:entries="@array/preferences_Dialog_Language_Values"
+        android:entryValues="@array/preferences_Dialog_Language_ID"
+        android:defaultValue="0" />
+
+    <Preference
+        android:key="@string/preferences_Key_Group_Notifications"
+        android:title="@string/preferences_Title_Notifications"
+        android:fragment="com.umbrella.budgetapp.Settings.SettingsNotifications"
+        app:allowDividerBelow="true"/>
+
+    <PreferenceCategory android:title="@string/preferences_CategoryTitle_Default_Security">
+        <SwitchPreference
+            android:key="@string/preferences_Key_Security_Pin"
+            android:title="@string/preferences_Title_SetPin"
+            android:summary="@string/preferences_Summary_SetPin"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="@string/preferences_Key_Security_Fingerprint"
+            android:title="@string/preferences_Title_SetFingerPrint"
+            android:summary="@string/preferences_Summary_SetFingerPrint"
+            android:defaultValue="false"
+            android:dependency="@string/preferences_Key_Security_Pin"
+            app:allowDividerBelow="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preferences_CategoryTitle_Default_Others"/>
+    <Preference
+        android:key="@string/preferences_Key_Group_Lists"
+        android:title="@string/preferences_Title_ManageLists"
+        android:summary="@string/preferences_Summary_ManageLists"
+        android:fragment="com.umbrella.budgetapp.Settings.SettingsLists"
+        app:allowDividerBelow="true"/>
+
+    <SwitchPreference
+        android:key="@string/preferences_Key_DarkTheme"
+        android:title="@string/preferences_Title_DarkTheme"
+        android:defaultValue="false"
+        android:summaryOn="@string/preferences_Summary_DarkTheme_On"
+        android:summaryOff="@string/preferences_Summary_DarkTheme_Off" />
+
+    <Preference
+        android:key="@string/preferences_Key_Group_About"
+        android:title="@string/preferences_Title_About"
+        android:fragment="com.umbrella.budgetapp.Layouts.Fragments.About"/>
+
+</PreferenceScreen>

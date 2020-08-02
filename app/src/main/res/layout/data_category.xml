@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/data_Card_Category"
+        style="@style/CardView_FullScreen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/data_Card_Category_Image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/round_image"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:contentDescription="@string/defaultText"
+                    android:padding="10dp"
+                    android:src="@drawable/account" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_Category_Name"
+                        android:labelFor="@id/data_Card_Category_Name"/>
+
+                    <EditText
+                        android:id="@+id/data_Card_Category_Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textNoSuggestions"
+                        android:autofillHints="@string/data_Category_Name"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space android:layout_height="25dp" android:layout_width="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/data_Category_Color"
+                    android:labelFor="@id/data_Card_Category_Color"/>
+
+                <Space
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/data_Category_Icon"
+                    android:labelFor="@id/data_Card_Category_Icon"/>
+
+                <Space
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight=".9"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/data_Card_Category_Color"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/custom_spinner_colors"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="40dp"
+                    style="@style/Spinner.Underlined" />
+
+                <Spinner
+                    android:id="@+id/data_Card_Category_Icon"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/custom_spinner_icons"
+                    android:layout_weight="1"
+                    android:layout_marginStart="-15dp"
+                    android:layout_marginEnd="40dp"
+                    style="@style/Spinner.Underlined" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

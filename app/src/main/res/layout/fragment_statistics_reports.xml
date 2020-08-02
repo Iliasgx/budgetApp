@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/statistics_Card_Saldi"
+            style="@style/CardView_First">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/statistics_Card_Saldi_Title"
+                    android:text="@string/statistics_cardTitle_Saldi"
+                    style="@style/Text_Title"/>
+
+                <TextView
+                    android:id="@+id/statistics_Card_Saldi_Subtitle"
+                    android:text="@string/statistics_cardSubtitle_Saldi"
+                    style="@style/Text_Subtitle"/>
+
+                <include layout="@layout/custom_divider"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_Period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/defaultText"
+                        style="@style/Text_Period"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_PrevPeriod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/pastPeriod" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_Amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/defaultNumber"
+                        style="@style/Text_Amount"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_PrevAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/defaultNumber"
+                        style="@style/Text_Amount"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_Income"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".6"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="0dp"
+                        android:background="@drawable/_colorline_header_statistics"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:text="@string/income"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_IncomeAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/_colorline_header_statistics"
+                        android:textSize="18sp"
+                        android:gravity="end"
+                        android:textColor="@android:color/black"
+                        android:text="@string/defaultNumber"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_PrevIncomeAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="5dp"
+                        android:background="@drawable/_colorline_header_statistics"
+                        android:textSize="18sp"
+                        android:gravity="end"
+                        android:textColor="@android:color/black"
+                        android:text="@string/defaultNumber"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/statistics_Card_Saldi_RecyclerView_Income"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    tools:listitem="@layout/list_reports"
+                    tools:itemCount="3"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_Expenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".6"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="0dp"
+                        android:background="@drawable/_colorline_header_statistics"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:text="@string/expense"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_ExpensesAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/_colorline_header_statistics"
+                        android:textSize="18sp"
+                        android:gravity="end"
+                        android:textColor="@android:color/black"
+                        android:text="@string/defaultNumber"/>
+
+                    <TextView
+                        android:id="@+id/statistics_Card_Saldi_PrevExpensesAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="5dp"
+                        android:background="@drawable/_colorline_header_statistics"
+                        android:textSize="18sp"
+                        android:gravity="end"
+                        android:textColor="@android:color/black"
+                        android:text="@string/defaultNumber"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/statistics_Card_Saldi_ListView_Expenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    tools:listitem="@layout/list_reports"
+                    tools:itemCount="3"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

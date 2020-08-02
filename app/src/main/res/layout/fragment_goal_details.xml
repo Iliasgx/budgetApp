@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardBackgroundColor">
+
+    <ImageView
+        android:id="@+id/goal_Details_Img"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_image"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:contentDescription="@string/goals_Details_Description"
+        android:padding="10dp"
+        android:src="@drawable/account" />
+
+    <TextView
+        android:id="@+id/goal_Details_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/goal_Details_Img"
+        android:text="@string/defaultText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <TextView
+        android:id="@+id/goal_Details_TargetDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal_Details_Name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/goal_Details_Img"
+        android:text="@string/defaultText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <ProgressBar
+        android:id="@+id/goal_Details_Progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/goal_Details_TargetDate"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="75dp"
+        android:indeterminate="false"
+        android:max="100"
+        tools:progress="16"
+        android:progressDrawable="@drawable/_circular_progressbar"
+        android:rotation="-90"
+        android:secondaryProgress="100" />
+
+
+    <TextView
+        android:id="@+id/goal_Details_Saved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/goal_Details_Progress"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="@string/defaultNumber"
+        android:textColor="@color/positiveColor"
+        android:textSize="45sp" />
+
+    <TextView
+        android:id="@+id/goal_Details_SavedAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal_Details_Saved"
+        android:layout_alignEnd="@+id/divider_center"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="end"
+        android:text="@string/defaultNumber"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/divider_center"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="202dp" />
+
+    <TextView
+        android:id="@+id/goal_Details_Savable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal_Details_Saved"
+        android:layout_alignStart="@+id/divider_center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        tools:text="/ 16"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/goal_Details_Currency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal_Details_Savable"
+        android:gravity="center"
+        android:text="EUR"
+        android:textSize="15sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/goal_Details_LastAdded"
+        android:layout_below="@id/goal_Details_Progress"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="@string/goals_Details_LastAdded"
+        style="@style/Text_Subtitle"/>
+
+    <TextView
+        android:id="@+id/goal_Details_LastAdded_Amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal_Details_LastAdded"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/defaultNumber"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/goal_Details_Estimated"
+        android:layout_below="@id/goal_Details_LastAdded_Amount"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/goals_Details_Estimated"
+        style="@style/Text_Subtitle" />
+
+    <TextView
+        android:id="@+id/goal_Details_EstimatedPeriod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goal_Details_Estimated"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/defaultNumber"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <include
+        android:id="@+id/divider"
+        layout="@layout/custom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/goal_Details_AddAmount" />
+
+    <Button
+        android:id="@+id/goal_Details_AddAmount"
+        android:layout_above="@id/goal_Details_SetReached"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/goals_Details_AddAmount"
+        style="@style/Button_Add"/>
+
+    <TextView
+        android:id="@+id/goal_Details_SetReached"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="@string/goals_Details_SetReached"
+        style="@style/Text_Button_More"/>
+
+</RelativeLayout>
