@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/navigate" />
+            app:navGraph="@navigation/navigate"
+            tools:ignore="FragmentTagUsage" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -39,6 +40,5 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/_nav_header"
-        app:menu="@menu/activity_drawer"
-        tools:visibility="gone"/>
+        app:menu="@menu/activity_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

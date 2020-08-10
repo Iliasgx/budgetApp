@@ -6,7 +6,7 @@
     <Preference
         android:key="@string/preferences_Key_Group_userProfileSettings"
         android:title="@string/preferences_Title_UpdateUserProfile"
-        android:fragment="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateUserProfile" />
+        android:fragment="com.umbrella.budgetapp.ui.fragments.editors.UpdateUserProfileFragment" />
 
     <ListPreference
         android:key="@string/preferences_Key_Language"
@@ -18,7 +18,7 @@
     <Preference
         android:key="@string/preferences_Key_Group_Notifications"
         android:title="@string/preferences_Title_Notifications"
-        android:fragment="com.umbrella.budgetapp.Settings.SettingsNotifications"
+        android:fragment="com.umbrella.budgetapp.ui.settings.SettingsNotifications"
         app:allowDividerBelow="true"/>
 
     <PreferenceCategory android:title="@string/preferences_CategoryTitle_Default_Security">
@@ -42,7 +42,7 @@
         android:key="@string/preferences_Key_Group_Lists"
         android:title="@string/preferences_Title_ManageLists"
         android:summary="@string/preferences_Summary_ManageLists"
-        android:fragment="com.umbrella.budgetapp.Settings.SettingsLists"
+        android:fragment="com.umbrella.budgetapp.ui.settings.SettingsLists"
         app:allowDividerBelow="true"/>
 
     <SwitchPreference
@@ -55,6 +55,6 @@
     <Preference
         android:key="@string/preferences_Key_Group_About"
         android:title="@string/preferences_Title_About"
-        android:fragment="com.umbrella.budgetapp.Layouts.Fragments.About"/>
+        android:fragment="com.umbrella.budgetapp.ui.fragments.screens.AboutFragment"/>
 
 </PreferenceScreen>

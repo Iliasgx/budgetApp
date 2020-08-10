@@ -283,23 +283,23 @@
                             style="@style/Text_Amount"/>
                     </LinearLayout>
 
-                    <com.umbrella.budgetapp.Customs.DetailedProgressbar
+                    <com.umbrella.budgetapp.ui.components.DetailedProgressbar
                         android:id="@+id/home_Card_Cashflow_Progressbar_Income"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="@string/income"
                         tools:value="@string/defaultNumber"
-                        tools:progress="20"
+                        tools:progress_value="20"
                         app:progress_color="@color/positiveColor"
                         android:layout_marginTop="10dp"/>
 
-                    <com.umbrella.budgetapp.Customs.DetailedProgressbar
+                    <com.umbrella.budgetapp.ui.components.DetailedProgressbar
                         android:id="@+id/home_Card_Cashflow_Progressbar_Expenses"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:title="@string/expense"
                         tools:value="@string/defaultNumber"
-                        tools:progress="20"
+                        tools:progress_value="20"
                         app:progress_color="@color/negativeColor"/>
 
                     <include layout="@layout/custom_divider"/>

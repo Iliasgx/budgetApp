@@ -115,22 +115,22 @@
             android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
-            <com.umbrella.budgetapp.Customs.DetailedProgressbar
+            <com.umbrella.budgetapp.ui.components.DetailedProgressbar
                 android:id="@+id/home_Card_Debts_Progressbar_Lent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/lent"
                 app:value="@string/defaultNumber"
-                app:progress="20"
+                app:progress_value="20"
                 app:progress_color="@color/positiveColor"/>
 
-            <com.umbrella.budgetapp.Customs.DetailedProgressbar
+            <com.umbrella.budgetapp.ui.components.DetailedProgressbar
                 android:id="@+id/home_Card_Debts_Progressbar_Borrowed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/borrowed"
                 app:value="@string/defaultNumber"
-                app:progress="20"
+                app:progress_value="20"
                 app:progress_color="@color/negativeColor"/>
 
             <include layout="@layout/custom_divider"/>

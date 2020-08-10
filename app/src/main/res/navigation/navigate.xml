@@ -5,504 +5,493 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigate"
     app:startDestination="@+id/home">
+
     <fragment
         android:id="@+id/home"
-        android:name="com.umbrella.budgetapp.Layouts.ContentHolders.Home"
-        android:label="content_home"
+        android:name="com.umbrella.budgetapp.ui.fragments.contentholders.HomeFragment"
+        android:label="@string/title_Home"
         tools:layout="@layout/content_home">
+        <action
+            android:id="@+id/homeToFilter"
+            app:destination="@id/filterDialog" />
         <action
             android:id="@+id/homeToLogin"
             app:destination="@id/login" />
         <action
-            android:id="@+id/homeToRecords"
-            app:destination="@id/records" />
+            android:id="@+id/homeToNavGoals"
+            app:destination="@id/nav_goals" />
         <action
-            android:id="@+id/homeToNewRecord"
-            app:destination="@id/updateRecordBasic" />
+            android:id="@+id/homeToNavRecords"
+            app:destination="@id/nav_records" />
         <action
-            android:id="@+id/homeToUpdateRecordDetails"
-            app:destination="@id/updateRecordDetails" />
+            android:id="@+id/homeToNavDebts"
+            app:destination="@id/nav_debts" />
         <action
-            android:id="@+id/homeToPlannedPayment"
-            app:destination="@id/plannedPayments" />
+            android:id="@+id/homeToPlannedPayments"
+            app:destination="@id/nav_payments" />
         <action
-            android:id="@+id/homeToDebts"
-            app:destination="@id/debts" />
+            android:id="@+id/homeToNavShoppingLists"
+            app:destination="@id/nav_shopping" />
         <action
-            android:id="@+id/homeToShoppingLists"
-            app:destination="@id/shoppingLists" />
-        <action
-            android:id="@+id/homeToUpdatePlannedPayment"
-            app:destination="@id/updatePlannedPayment" />
-        <action
-            android:id="@+id/homeToUpdateDebt"
-            app:destination="@id/updateDebt" />
-        <action
-            android:id="@+id/homeToAccounts"
-            app:destination="@id/accounts" />
-        <action
-            android:id="@+id/homeToShoppingListItems"
-            app:destination="@id/shoppingListItems" />
-        <action
-            android:id="@+id/homeToStatistics"
-            app:destination="@id/statistics" />
+            android:id="@+id/homeToNavStatistics"
+            app:destination="@id/nav_statistics" />
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="https://www.umbrella.com/nav_records_/records/updateRecordBasic" />
     </fragment>
     <fragment
         android:id="@+id/homeAccounts"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.HomeAccounts"
-        android:label="fragment_home_accounts"
-        tools:layout="@layout/fragment_home_accounts"/>
+        android:name="com.umbrella.budgetapp.ui.fragments.screens.HomeAccountsFragment"
+        tools:layout="@layout/fragment_home_accounts" />
     <fragment
         android:id="@+id/homeInformation"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.HomeInformation"
-        android:label="fragment_home_information"
-        tools:layout="@layout/fragment_home_information"/>
+        android:name="com.umbrella.budgetapp.ui.fragments.screens.HomeInformationFragment"
+        tools:layout="@layout/fragment_home_information" />
     <fragment
-        android:id="@+id/records"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Records"
-        android:label="fragment_records"
-        tools:layout="@layout/fragment_recycler_view">
+        android:id="@+id/login"
+        android:name="com.umbrella.budgetapp.ui.fragments.screens.LoginFragment"
+        tools:layout="@layout/_login">
         <action
-            android:id="@+id/recordsToUpdateRecordBasic"
-            app:destination="@id/updateRecordBasic" />
+            android:id="@+id/loginToHome"
+            app:destination="@id/home" />
         <action
-            android:id="@+id/recordsToUpdateRecordDetails"
-            app:destination="@id/updateRecordDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateRecordBasic"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateRecordBasic"
-        android:label="data_record_basic"
-        tools:layout="@layout/data_record_basic">
-        <action
-            android:id="@+id/updateRecordBasicToDetails"
-            app:destination="@id/updateRecordDetails" />
-        <argument
-            android:name="record"
-            app:argType="com.umbrella.budgetapp.Database.Collections.Record"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateRecordDetails"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateRecordDetails"
-        android:label="data_record_details"
-        tools:layout="@layout/data_record_details">
-        <argument
-            android:name="recordID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="record"
-            app:argType="com.umbrella.budgetapp.Database.Collections.Record"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/updateRecordDetailsToBasic"
-            app:destination="@id/updateRecordBasic" />
-    </fragment>
-    <fragment
-        android:id="@+id/statisticsReports"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.StatisticsReports"
-        android:label="fragment_statistics_reports"
-        tools:layout="@layout/fragment_statistics_reports" />
-    <fragment
-        android:id="@+id/statistics"
-        android:name="com.umbrella.budgetapp.Layouts.ContentHolders.Statistics"
-        android:label="content_statistics"
-        tools:layout="@layout/content_statistics" >
-        <argument
-            android:name="page"
-            app:argType="integer"
-            android:defaultValue="0" />
-        <action
-            android:id="@+id/statisticsToUpdateRecordDetails"
-            app:destination="@id/updateRecordDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/statisticsSpending"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.StatisticsSpending"
-        android:label="fragment_statistics_spending"
-        tools:layout="@layout/fragment_statistics_spending" />
-    <fragment
-        android:id="@+id/statisticsCashflow"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.StatisticsCashflow"
-        android:label="fragment_statistics_cashflow"
-        tools:layout="@layout/fragment_statistics_cashflow" />
-    <fragment
-        android:id="@+id/statisticsBalance"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.StatisticsBalance"
-        android:label="fragment_statistics_balance"
-        tools:layout="@layout/fragment_statistics_balance" />
-    <fragment
-        android:id="@+id/goalsActive"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.GoalsActive"
-        android:label="fragment_goals_active"
-        tools:layout="@layout/fragment_recycler_view"/>
-    <fragment
-        android:id="@+id/updateGoalSelect"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateGoalSelect"
-        android:label="data_goal_select"
-        tools:layout="@layout/data_goal_select">
-        <action
-            android:id="@+id/updateGoalSelectToDetails"
-            app:destination="@id/updateGoalDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/goalsReached"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.GoalsReached"
-        android:label="fragment_goals_reached"
-        tools:layout="@layout/fragment_recycler_view"/>
-    <fragment
-        android:id="@+id/goalDetails"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.GoalDetails"
-        android:label="fragment_goal_details"
-        tools:layout="@layout/fragment_goal_details">
-        <argument
-            android:name="goalID"
-            app:argType="string" />
-        <action
-            android:id="@+id/goalDetailsToUpdateGoalDetails"
-            app:destination="@id/updateGoalDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateGoalDetails"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateGoalDetails"
-        android:label="toUpdateGoalDetails"
-        tools:layout="@layout/data_goal_details">
-        <argument
-            android:name="goalID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="selectName"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="goalTemplateID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/goals"
-        android:name="com.umbrella.budgetapp.Layouts.ContentHolders.Goals"
-        android:label="content_goals"
-        tools:layout="@layout/content_goals">
-        <action
-            android:id="@+id/goalsToUpdateGoalSelect"
-            app:destination="@id/updateGoalSelect" />
-        <action
-            android:id="@+id/goalsToGoalDetails"
-            app:destination="@id/goalDetails" />
-        <action
-            android:id="@+id/goalsToUpdateGoalDetails"
-            app:destination="@id/updateGoalDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/goalsPaused"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.GoalsPaused"
-        android:label="fragment_goals_paused"
-        tools:layout="@layout/fragment_recycler_view"/>
-    <fragment
-        android:id="@+id/debts"
-        android:name="com.umbrella.budgetapp.Layouts.ContentHolders.Debts"
-        android:label="content_debts"
-        tools:layout="@layout/content_debts">
-        <action
-            android:id="@+id/debtsToUpdateDebt"
-            app:destination="@id/updateDebt" />
-    </fragment>
-    <fragment
-        android:id="@+id/debtsBorrowed"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.DebtsBorrowed"
-        android:label="fragment_debts_borrowed"
-        tools:layout="@layout/fragment_recycler_view"/>
-    <fragment
-        android:id="@+id/updateDebt"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateDebt"
-        android:label="data_debt"
-        tools:layout="@layout/data_debt">
-        <argument
-            android:name="debtID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="debtType"
-            app:argType="integer"
-            android:defaultValue="0" />
-    </fragment>
-    <fragment
-        android:id="@+id/debtsLent"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.DebtsLent"
-        android:label="fragment_debts_lent"
-        tools:layout="@layout/fragment_recycler_view"/>
-    <fragment
-        android:id="@+id/shoppingLists"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.ShoppingLists"
-        android:label="fragment_shopping_lists"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/shoppingListsToUpdateShoppingList"
-            app:destination="@id/updateShoppingList" />
-        <action
-            android:id="@+id/shoppingListToShoppingListItems"
-            app:destination="@id/shoppingListItems" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateShoppingList"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateShoppingList"
-        android:label="data_shopping_list"
-        tools:layout="@layout/data_shopping_list" >
-        <argument
-            android:name="shoppingListID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/shoppingListItems"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.ShoppingListItems"
-        android:label="fragment_shoppinglist_items"
-        tools:layout="@layout/fragment_recycler_view">
-        <argument
-            android:name="shoppingListID"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/shoppingItems"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.ShoppingItems"
-        android:label="list_shopping_items"
-        tools:layout="@layout/list_shopping_items"/>
-    <fragment
-        android:id="@+id/plannedPayments"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.PlannedPayments"
-        android:label="fragment_planned_payments"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/plannedPaymentsToUpdatePlannedPayment"
-            app:destination="@id/updatePlannedPayment" />
-    </fragment>
-    <fragment
-        android:id="@+id/updatePlannedPayment"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdatePlannedPayment"
-        android:label="data_planned_payment"
-        tools:layout="@layout/data_planned_payment">
-        <argument
-            android:name="plannedPaymentID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="plannedPaymentType"
-            app:argType="integer"
-            android:defaultValue="0" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateStore"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateStore"
-        android:label="data_store"
-        tools:layout="@layout/data_store">
-        <argument
-            android:name="storeID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/stores"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Stores"
-        android:label="fragment_stores"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/storesToUpdateStore"
-            app:destination="@id/updateStore" />
+            android:id="@+id/loginToUpdateUserProfile"
+            app:destination="@id/updateUserProfile" >
+            <argument
+                android:name="newUser"
+                android:defaultValue="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/updateUserProfile"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateUserProfile"
-        android:label="data_user"
-        tools:layout="@layout/data_user"/>
-    <fragment
-        android:id="@+id/settingsDefault"
-        android:name="com.umbrella.budgetapp.Settings.SettingsDefault"
-        android:label="Settings">
-        <action
-            android:id="@+id/settingsDefaultToSettingsNotifications"
-            app:destination="@id/settingsNotifications" />
-        <action
-            android:id="@+id/settingsDefaultToSettingsLists"
-            app:destination="@id/settingsLists" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateCategory"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateCategory"
-        android:label="data_category"
-        tools:layout="@layout/data_category">
+        android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateUserProfileFragment"
+        android:label="@string/title_edit_user_profile"
+        tools:layout="@layout/data_user" >
         <argument
-            android:name="categoryID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="newUser"
+            app:argType="boolean" />
     </fragment>
-    <fragment
-        android:id="@+id/about"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.About"
-        android:label="fragment_about"
-        tools:layout="@layout/fragment_about"/>
-    <fragment
-        android:id="@+id/updateAccount"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateAccount"
-        android:label="data_account"
-        tools:layout="@layout/data_account">
-        <argument
-            android:name="accountID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateCurrency"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateCurrency"
-        android:label="data_currency"
-        tools:layout="@layout/data_currency">
-        <argument
-            android:name="currencyID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateTemplate"
-        android:name="com.umbrella.budgetapp.Layouts.UpdateFragments.UpdateTemplate"
-        android:label="data_template"
-        tools:layout="@layout/data_template">
-        <argument
-            android:name="templateID"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-    <fragment
-        android:id="@+id/currencies"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Currencies"
-        android:label="fragment_currencies"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/currenciesToUpdateCurrency"
-            app:destination="@id/updateCurrency" />
-    </fragment>
-    <fragment
-        android:id="@+id/accounts"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Accounts"
-        android:label="fragment_account_settings"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/accountsToUpdateAccount"
-            app:destination="@id/updateAccount" />
-    </fragment>
-    <fragment
-        android:id="@+id/categories"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Categories"
-        android:label="fragment_categories"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/categoriesToUpdateCategory"
-            app:destination="@id/updateCategory" />
-    </fragment>
+    <navigation android:id="@+id/nav_statistics"
+        app:startDestination="@id/statistics">
+        <fragment
+            android:id="@+id/statisticsSpending"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.StatisticsSpendingFragment"
+            tools:layout="@layout/fragment_statistics_spending" />
+        <fragment
+            android:id="@+id/statistics"
+            android:name="com.umbrella.budgetapp.ui.fragments.contentholders.StatisticsFragment"
+            android:label="@string/title_Statistics"
+            tools:layout="@layout/content_statistics" />
+        <fragment
+            android:id="@+id/statisticsBalance"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.StatisticsBalanceFragment"
+            tools:layout="@layout/fragment_statistics_balance" />
+        <fragment
+            android:id="@+id/statisticsReports"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.StatisticsReportsFragment"
+            tools:layout="@layout/fragment_statistics_reports" />
+        <fragment
+            android:id="@+id/statisticsCashflow"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.StatisticsCashflowFragment"
+            tools:layout="@layout/fragment_statistics_cashflow" />
+    </navigation>
+    <dialog
+        android:id="@+id/filterDialog"
+        android:name="com.umbrella.budgetapp.ui.dialogs.FilterDialog"
+        android:label="@string/dialog_Filter_Title"
+        tools:layout="@layout/dialog_filter" />
+    <navigation android:id="@+id/nav_settings"
+        app:startDestination="@id/templates">
+        <fragment
+            android:id="@+id/templates"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.TemplatesFragment"
+            android:label="@string/title_Templates"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/templatesToUpdateTemplate"
+                app:destination="@id/updateTemplate" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateUserProfile"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateUserProfileFragment"
+            android:label="@string/title_edit_user_profile"
+            tools:layout="@layout/data_user" >
+            <argument
+                android:name="newUser"
+                app:argType="boolean" />
+        </fragment>
+        <fragment
+            android:id="@+id/settingsLists"
+            android:name="com.umbrella.budgetapp.ui.settings.SettingsLists">
+            <action
+                android:id="@+id/settingsListsToAccounts"
+                app:destination="@id/accounts" />
+            <action
+                android:id="@+id/settingsListsToCategories"
+                app:destination="@id/categories" />
+            <action
+                android:id="@+id/settingsListsToCurrencies"
+                app:destination="@id/currencies" />
+            <action
+                android:id="@+id/settingsListsToTemplates"
+                app:destination="@id/templates" />
+            <action
+                android:id="@+id/settingsListsToStores"
+                app:destination="@id/stores" />
+        </fragment>
+        <fragment
+            android:id="@+id/currencies"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.CurrenciesFragment"
+            android:label="@string/title_Currencies"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/currenciesToUpdateCurrency"
+                app:destination="@id/updateCurrency" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateCategory"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateCategoryFragment"
+            tools:layout="@layout/data_category" >
+            <argument
+                android:name="category_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/settingsDefault"
+            android:name="com.umbrella.budgetapp.ui.settings.SettingsDefault">
+            <action
+                android:id="@+id/settingsDefaultToSettingsNotifications"
+                app:destination="@id/settingsNotifications" />
+            <action
+                android:id="@+id/settingsDefaultToSettingsLists"
+                app:destination="@id/settingsLists" />
+            <action
+                android:id="@+id/settingsDefaultToAbout"
+                app:destination="@id/about" />
+            <action
+                android:id="@+id/settingsDefaultToUpdateUserProfile"
+                app:destination="@id/updateUserProfile" >
+                <argument
+                    android:name="newUser"
+                    android:defaultValue="false" />
+            </action>
+        </fragment>
+        <fragment
+            android:id="@+id/categories"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.CategoriesFragment"
+            android:label="@string/title_Categories"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/categoriesToUpdateCategory"
+                app:destination="@id/updateCategory" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateStore"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateStoreFragment"
+            tools:layout="@layout/data_store" >
+            <argument
+                android:name="store_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/settingsNotifications"
+            android:name="com.umbrella.budgetapp.ui.settings.SettingsNotifications" />
+        <fragment
+            android:id="@+id/updateTemplate"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateTemplateFragment"
+            tools:layout="@layout/data_template" >
+            <argument
+                android:name="template_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateAccount"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateAccountFragment"
+            tools:layout="@layout/data_account" >
+            <argument
+                android:name="account_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/accounts"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.AccountsFragment"
+            android:label="@string/title_Accounts"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/accountsToUpdateAccount"
+                app:destination="@id/updateAccount" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateCurrency"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateCurrencyFragment"
+            tools:layout="@layout/data_currency" >
+            <argument
+                android:name="currency_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/stores"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.StoresFragment"
+            android:label="@string/title_Stores"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/storesToUpdateStore"
+                app:destination="@id/updateStore" />
+        </fragment>
+        <fragment
+            android:id="@+id/about"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.AboutFragment"
+            android:label="@string/title_About"
+            tools:layout="@layout/fragment_about" />
+    </navigation>
+    <navigation android:id="@+id/nav_goals"
+        app:startDestination="@id/goals">
+        <fragment
+            android:id="@+id/goals"
+            android:name="com.umbrella.budgetapp.ui.fragments.contentholders.GoalsFragment"
+            android:label="@string/title_Goals"
+            tools:layout="@layout/content_goals" >
+            <action
+                android:id="@+id/goalsToGoalSelect"
+                app:destination="@id/updateGoalSelect" />
+            <action
+                android:id="@+id/goalsToGoalDetails"
+                app:destination="@id/goalDetails" />
+            <action
+                android:id="@+id/goalsToUpdateGoalDetails"
+                app:destination="@id/updateGoalDetails" />
+        </fragment>
+        <fragment
+            android:id="@+id/goalsListFragment"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.GoalsListFragment"
+            tools:layout="@layout/fragment_recycler_view" />
+        <fragment
+            android:id="@+id/goalDetails"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.GoalDetailsFragment"
+            android:label="@string/title_GoalsDetails"
+            tools:layout="@layout/fragment_goal_details" >
+            <action
+                android:id="@+id/goalDetailsToUpdateGoalDetails"
+                app:destination="@id/updateGoalDetails" />
+            <argument
+                android:name="goal_id"
+                app:argType="long" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateGoalSelect"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateGoalSelectFragment"
+            android:label="@string/title_add_goal_select"
+            tools:layout="@layout/data_goal_select" >
+            <action
+                android:id="@+id/goalSelectToUpdateGoalDetails"
+                app:destination="@id/updateGoalDetails" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateGoalDetails"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateGoalDetailsFragment"
+            tools:layout="@layout/data_goal_details" >
+            <argument
+                android:name="goal_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+            <argument
+                android:name="goal_template"
+                app:argType="string[]"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </fragment>
+    </navigation>
+    <navigation android:id="@+id/nav_shopping"
+        app:startDestination="@id/shoppingLists">
+        <fragment
+            android:id="@+id/updateShoppingList"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateShoppingListFragment"
+            tools:layout="@layout/data_shopping_list" >
+            <argument
+                android:name="shopping_list_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <fragment
+            android:id="@+id/shoppingLists"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.ShoppingListsFragment"
+            android:label="@string/title_ShoppingLists"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/shoppingListsToUpdateShoppingList"
+                app:destination="@id/updateShoppingList" />
+            <action
+                android:id="@+id/shoppingListsToShoppingListItems"
+                app:destination="@id/shoppingListItems" />
+        </fragment>
+        <fragment
+            android:id="@+id/shoppingListItems"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.ShoppingListItemsFragment"
+            android:label="@string/title_ShoppingList_Items"
+            tools:layout="@layout/fragment_recycler_view" >
+            <action
+                android:id="@+id/shoppingListItemsToAddItemDialog"
+                app:destination="@id/addItemDialog" />
+            <action
+                android:id="@+id/shoppingListItemsToShoppingListItemsAddRecordDialog"
+                app:destination="@id/shoppingListItemsAddRecordDialog" />
+            <argument
+                android:name="shopping_list_id"
+                app:argType="long" />
+        </fragment>
+        <dialog
+            android:id="@+id/addItemDialog"
+            android:name="com.umbrella.budgetapp.ui.dialogs.AddItemDialog"
+            tools:layout="@layout/dialog_new_item" >
+            <argument
+                android:name="shopping_list_id"
+                app:argType="long" />
+        </dialog>
+        <dialog
+            android:id="@+id/shoppingListItemsAddRecordDialog"
+            android:name="com.umbrella.budgetapp.ui.dialogs.AddRecordDialog"
+            android:label="@string/dialog_Record_Title"
+            tools:layout="@layout/dialog_record" >
+            <argument
+                android:name="shopping_list_id"
+                app:argType="long" />
+        </dialog>
+    </navigation>
+    <navigation android:id="@+id/nav_records"
+        app:startDestination="@id/records">
+        <fragment
+            android:id="@+id/records"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.RecordsFragment"
+            android:label="@string/title_Records"
+            tools:layout="@layout/fragment_records" >
+            <action
+                android:id="@+id/recordsToUpdateRecordBasic"
+                app:destination="@id/updateRecordBasic" />
+            <action
+                android:id="@+id/recordsToUpdateRecordDetails"
+                app:destination="@id/updateRecordDetails" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateRecordDetails"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateRecordDetailsFragment"
+            tools:layout="@layout/data_record_details" >
+            <argument
+                android:name="record_id"
+                app:argType="long" />
+            <argument
+                android:name="data_basic_record"
+                app:argType="string[]"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateRecordBasic"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateRecordBasicFragment"
+            android:label="@string/title_addChange_record"
+            tools:layout="@layout/data_record_basic">
+            <action
+                android:id="@+id/updateRecordBasicToUpdateRecordDetails"
+                app:destination="@id/updateRecordDetails" >
+                <argument
+                    android:name="record_id"
+                    android:defaultValue="0L" />
+            </action>
+            <argument
+                android:name="template_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+    </navigation>
+    <navigation android:id="@+id/nav_debts"
+        app:startDestination="@id/debts">
+        <fragment
+            android:id="@+id/debtListFragment"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.DebtListFragment"
+            android:label="DebtListFragment"
+            tools:layout="@layout/fragment_recycler_view" />
+        <fragment
+            android:id="@+id/updateDebt"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateDebtFragment"
+            tools:layout="@layout/data_debt" >
+            <argument
+                android:name="debt_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+            <argument
+                android:name="debt_type"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </fragment>
+        <fragment
+            android:id="@+id/debts"
+            android:name="com.umbrella.budgetapp.ui.fragments.contentholders.DebtsFragment"
+            android:label="@string/title_Debts"
+            tools:layout="@layout/content_debts" >
+            <action
+                android:id="@+id/debtsToUpdateDebt"
+                app:destination="@id/updateDebt" />
+            <action
+                android:id="@+id/debtsToAddRecordDialog"
+                app:destination="@id/debtAddRecordDialog" />
+        </fragment>
+        <dialog
+            android:id="@+id/debtAddRecordDialog"
+            android:name="com.umbrella.budgetapp.ui.dialogs.AddRecordDialog"
+            android:label="@string/menuResources_Title_CreateRecord"
+            tools:layout="@layout/dialog_record" >
+            <action
+                android:id="@+id/debtAddRecordDialogToDebtAmountDialog"
+                app:destination="@id/debtAmountDialog" />
+            <argument
+                android:name="debt_id"
+                app:argType="long" />
+        </dialog>
+        <dialog
+            android:id="@+id/debtAmountDialog"
+            android:name="com.umbrella.budgetapp.ui.dialogs.AmountDialog"
+            tools:layout="@layout/dialog_amount" />
+    </navigation>
+    <navigation android:id="@+id/nav_payments"
+        app:startDestination="@id/plannedPayments">
+        <fragment
+            android:id="@+id/plannedPayments"
+            android:name="com.umbrella.budgetapp.ui.fragments.screens.PlannedPaymentsFragment"
+            android:label="@string/title_PlannedPayments"
+            tools:layout="@layout/fragment_planned_payments" >
+            <action
+                android:id="@+id/plannedPaymentsToUpdatePlannedPayments"
+                app:destination="@id/updatePlannedPayment" />
+        </fragment>
+        <fragment
+            android:id="@+id/updatePlannedPayment"
+            android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdatePlannedPaymentFragment"
+            tools:layout="@layout/data_planned_payment" >
+            <action
+                android:id="@+id/updatePlannedPaymentToFrequencyDialog"
+                app:destination="@id/frequencyDialog" />
+            <argument
+                android:name="planned_payment_id"
+                app:argType="long"
+                android:defaultValue="0L" />
+        </fragment>
+        <dialog
+            android:id="@+id/frequencyDialog"
+            android:name="com.umbrella.budgetapp.ui.dialogs.FrequencyDialog"
+            android:label="@string/dialog_Frequency_Title"
+            tools:layout="@layout/dialog_frequency" />
+    </navigation>
     <fragment
         android:id="@+id/imports"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Imports"
-        android:label="fragment_imports"
-        tools:layout="@layout/fragment_imports"/>
-    <fragment
-        android:id="@+id/templates"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.Templates"
-        android:label="fragment_templates"
-        tools:layout="@layout/fragment_recycler_view">
-        <action
-            android:id="@+id/templatesToUpdateTemplate"
-            app:destination="@id/updateTemplate" />
-    </fragment>
-    <fragment
-        android:id="@+id/openingHours"
-        android:name="com.umbrella.budgetapp.Layouts.Fragments.OpeningHours"
-        android:label="fragment_opening_hours"
-        tools:layout="@layout/fragment_recycler_view"/>
-    <fragment
-        android:id="@+id/login"
-        android:name="com.umbrella.budgetapp.Login"
-        android:label="_login"
-        tools:layout="@layout/_login"/>
-    <action
-        android:id="@+id/globalImports"
-        app:destination="@id/imports" />
-    <action
-        android:id="@+id/globalAbout"
-        app:destination="@id/about" />
-    <action
-        android:id="@+id/globalStatistics"
-        app:destination="@id/statistics" >
-        <argument android:defaultValue="0"
-            android:name="page" />
-    </action>
-    <action
-        android:id="@+id/globalGoals"
-        app:destination="@id/goals" />
-    <action
-        android:id="@+id/globalSettings"
-        app:destination="@id/settingsDefault" />
-    <action
-        android:id="@+id/globalHome"
-        app:destination="@id/home"
-        app:launchSingleTop="true" />
-    <action
-        android:id="@+id/globalShoppingLists"
-        app:destination="@id/shoppingLists" />
-    <action
-        android:id="@+id/globalDebts"
-        app:destination="@id/debts" />
-    <action
-        android:id="@+id/globalRecords"
-        app:destination="@id/records" />
-    <action
-        android:id="@+id/globalPlannedPayments"
-        app:destination="@id/plannedPayments" />
-    <action
-        android:id="@+id/globalStores"
-        app:destination="@id/stores" />
-    <fragment
-        android:id="@+id/settingsLists"
-        android:name="com.umbrella.budgetapp.Settings.SettingsLists"
-        android:label="SettingsLists" >
-        <action
-            android:id="@+id/settingsListsToCategories"
-            app:destination="@id/categories" />
-        <action
-            android:id="@+id/settingsListsToCurrencies"
-            app:destination="@id/currencies" />
-        <action
-            android:id="@+id/settingsListsToTemplates"
-            app:destination="@id/templates" />
-        <action
-            android:id="@+id/settingsListsToStores"
-            app:destination="@id/stores" />
-        <action
-            android:id="@+id/settingsListsToShoppingItems"
-            app:destination="@id/shoppingItems" />
-        <action
-            android:id="@+id/settingsListsToAccounts"
-            app:destination="@id/accounts" />
-    </fragment>
-    <fragment
-        android:id="@+id/settingsNotifications"
-        android:name="com.umbrella.budgetapp.Settings.SettingsNotifications"
-        android:label="SettingsNotifications" />
-    <action
-        android:id="@+id/globalUserProfile"
-        app:destination="@id/updateUserProfile" />
+        android:name="com.umbrella.budgetapp.ui.fragments.screens.ImportsFragment"
+        android:label="@string/title_Imports"
+        tools:layout="@layout/fragment_imports" />
+    <action android:id="@+id/globalSettings" app:destination="@id/nav_settings" />
+    <action android:id="@+id/globalImports" app:destination="@id/imports" />
+    <action android:id="@+id/globalLogin" app:destination="@id/login" />
 </navigation>

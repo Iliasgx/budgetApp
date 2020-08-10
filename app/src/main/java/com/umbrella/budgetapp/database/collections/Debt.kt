@@ -3,15 +3,17 @@ package com.umbrella.budgetapp.database.collections
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
+import androidx.room.TypeConverters
+import com.umbrella.budgetapp.database.typeconverters.DebtTypeTypeConverter
 import com.umbrella.budgetapp.enums.DebtType
 import java.math.BigDecimal
 
 @Entity(tableName = "debts")
+@TypeConverters(DebtTypeTypeConverter::class)
 data class Debt(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "debt_id")
-        val id: Long,
+        val id: Long?,
 
         @ColumnInfo(name = "name")
         var name: String? = "",
@@ -25,17 +27,14 @@ data class Debt(
         @ColumnInfo(name = "amount")
         var amount: BigDecimal? = BigDecimal.ZERO,
 
-        @Relation(parentColumn = "category_id", entityColumn = "category_ref")
         @ColumnInfo(name = "category_ref")
-        var category: Category? = null,
+        var categoryRef: Long? = 0,
 
-        @Relation(parentColumn = "account_id", entityColumn = "account_ref")
         @ColumnInfo(name = "account_ref")
-        var account: Account? = null,
+        var accountRef: Long? = 0,
 
-        @Relation(parentColumn = "currency_id", entityColumn = "currency_ref")
         @ColumnInfo(name = "currency_ref")
-        var currency: Currency? = null,
+        var currencyRef: Long? = 0,
 
         @ColumnInfo(name = "timestamp")
         var timestamp: Long? = 0

@@ -3,33 +3,28 @@ package com.umbrella.budgetapp.database.collections
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 import java.math.BigDecimal
 
 @Entity(tableName = "templates")
 data class Template(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "template_id")
-        val id: Long,
+        val id: Long?,
 
         @ColumnInfo(name = "name")
         var name: String? = "",
 
-        @Relation(parentColumn = "account_id", entityColumn = "account_ref")
         @ColumnInfo(name = "account_ref")
-        var account: Account? = null,
+        var accountRef: Long? = 0,
 
-        @Relation(parentColumn = "category_id", entityColumn = "category_ref")
         @ColumnInfo(name = "category_ref")
-        var category: Category? = null,
+        var categoryRef: Long? = 0,
 
-        @Relation(parentColumn = "currency_id", entityColumn = "currency_ref")
         @ColumnInfo(name = "currency_ref")
-        var currency: Currency? = null,
+        var currencyRef: Long? = 0,
 
-        @Relation(parentColumn = "store_id", entityColumn = "store_ref")
-        @ColumnInfo(name = "store")
-        var store: Store? = null,
+        @ColumnInfo(name = "store_ref")
+        var storeRef: Long? = 0,
 
         @ColumnInfo(name = "payee")
         var payee: String? = "",

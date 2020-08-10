@@ -134,7 +134,7 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/data_Card_User_Logout"
+                android:id="@+id/data_Card_User_Action"
                 android:text="@string/data_User_Logout"
                 android:backgroundTint="@color/negativeButtonColor"
                 android:layout_marginBottom="5dp"

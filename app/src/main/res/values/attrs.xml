@@ -7,8 +7,20 @@
         <attr name="progress_color" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="ImageIcon">
-        <attr name="img" format="reference"/>
-        <attr name="color" format="color"/>
+    <declare-styleable name="EmptyRecyclerView">
+        <attr name="customBackgroundColor" format="color|reference"/>
+        <attr name="customBackgroundDrawable" format="integer"/>
+
+        <attr name="customIcon" format="integer"/>
+        <attr name="customIconSize" format="dimension"/>
+
+        <attr name="customTitle" format="string"/>
+        <attr name="customTitleAllCaps" format="boolean"/>
+        <attr name="customTitleTextSize" format="dimension"/>
+        <attr name="customTitleTextColor" format="color|reference"/>
+
+        <attr name="customDescription" format="string"/>
+        <attr name="customDescriptionTextSize" format="dimension"/>
+        <attr name="customDescriptionTextColor" format="color|reference"/>
     </declare-styleable>
 </resources>

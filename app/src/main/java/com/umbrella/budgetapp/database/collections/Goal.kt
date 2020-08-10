@@ -3,14 +3,17 @@ package com.umbrella.budgetapp.database.collections
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.umbrella.budgetapp.database.typeconverters.GoalStatusTypeConverter
 import com.umbrella.budgetapp.enums.GoalStatus
 import java.math.BigDecimal
 
 @Entity(tableName = "goals")
+@TypeConverters(GoalStatusTypeConverter::class)
 data class Goal(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "goal_id")
-        val id: Long,
+        val id: Long?,
 
         @ColumnInfo(name = "name")
         var name: String? = "",

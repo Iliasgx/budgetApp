@@ -68,4 +68,7 @@
     <color name="SS">#FF5722</color>
     <color name="TT">#E64A19</color>
 
+    <color name="emptyRecyclerView_defaultBackgroundColor">#D88341</color>
+    <color name="emptyRecyclerView_defaultTitleTextColor">@android:color/white</color>
+    <color name="emptyRecyclerView_defaultDescriptionTextColor">@android:color/white</color>
 </resources>

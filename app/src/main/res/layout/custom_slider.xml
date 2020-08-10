@@ -12,7 +12,7 @@
         android:layout_gravity="bottom"
         app:contentPadding="0dp">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/custom_Slider_ViewPager"
             android:layout_width="match_parent"
             android:layout_height="55dp" />

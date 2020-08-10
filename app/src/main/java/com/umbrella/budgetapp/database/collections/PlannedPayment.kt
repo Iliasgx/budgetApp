@@ -3,14 +3,16 @@ package com.umbrella.budgetapp.database.collections
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
+import androidx.room.TypeConverters
+import com.umbrella.budgetapp.database.typeconverters.FrequencyTypeConverter
 import java.math.BigDecimal
 
 @Entity(tableName = "planned_payments")
+@TypeConverters(FrequencyTypeConverter::class)
 data class PlannedPayment(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "planned_payments_id")
-        val id: Long,
+        val id: Long?,
 
         @ColumnInfo(name = "name")
         var name: String? = "",
@@ -21,17 +23,14 @@ data class PlannedPayment(
         @ColumnInfo(name = "note")
         var note: String? = "",
 
-        @Relation(parentColumn = "account_id", entityColumn = "account_ref")
         @ColumnInfo(name = "account_ref")
-        var account: Account? = null,
+        var accountRef: Long? = 0,
 
-        @Relation(parentColumn = "category_id", entityColumn = "category_ref")
         @ColumnInfo(name = "category_ref")
-        var category: Category? = null,
+        var categoryRef: Long? = 0,
 
-        @Relation(parentColumn = "currency_id", entityColumn = "currency_ref")
         @ColumnInfo(name = "currency_ref")
-        var currency: Currency? = null,
+        var currencyRef: Long? = 0,
 
         @ColumnInfo(name = "start_date")
         var startDate: Long? = 0,
@@ -109,7 +108,7 @@ data class PlannedPayment(
             map["repeating"] = repeating.toString()
             map["period"] = period.toString()
             map["ending"] = ending.toString()
-            map["endingUntil"] = java.lang.String.valueOf(endingUntil)
+            map["endingUntil"] = endingUntil.toString()
             map["endingEvents"] = endingEvents.toString()
             map["days"] = days
             map["recurrentMonth"] = recurrentMonth.toString()

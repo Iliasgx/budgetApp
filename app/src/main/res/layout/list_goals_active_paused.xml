@@ -20,7 +20,7 @@
                 android:backgroundTint="@android:color/holo_red_dark"
                 android:contentDescription="@string/defaultText"
                 android:padding="7dp"
-                android:src="@drawable/account" />
+                android:src="@drawable/default_goal" />
 
             <LinearLayout
                 android:layout_width="match_parent"

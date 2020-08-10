@@ -1,21 +1,14 @@
 package com.umbrella.budgetapp.database.collections
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import java.math.BigDecimal
 
-@Entity(tableName = "shopping_list_items")
+@Parcelize
 data class ShoppingListItem (
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "shopping_list_item_id")
-        val id: Long,
-
-        @ColumnInfo(name = "number")
-        var number: Int? = 0,
-
-        @ColumnInfo(name = "position")
-        var position: Int? = 0,
-
-        @ColumnInfo(name = "checked")
-        var checked: Boolean? = false
-)
+        var position: Int = 0,
+        var name: String = "",
+        var number: Int = 1,
+        var amount: BigDecimal = BigDecimal.ZERO,
+        var checked: Boolean = false
+) : Parcelable

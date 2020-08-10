@@ -1,5 +1,12 @@
 package com.umbrella.budgetapp.database.defaults
 
+import com.umbrella.budgetapp.database.collections.Country
+import java.math.BigDecimal
+
+object DefaultCountries {
+    val defaultCountry = Country(-1, "EUR", "€", BigDecimal(1))
+}
+
 /*
 public class DefaultCountries {
     private List<Country> countries;

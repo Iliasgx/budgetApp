@@ -1,6 +1,8 @@
 package com.umbrella.budgetapp.database.collections
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class User(
@@ -9,43 +11,38 @@ data class User(
         val id: Long,
 
         @ColumnInfo(name = "first_name")
-        var firstName: String? = "",
+        var firstName: String = "",
 
         @ColumnInfo(name = "last_name")
-        var lastName: String? = "",
-
-        @Ignore
-        var fullName: String = "$firstName $lastName",
+        var lastName: String = "",
 
         @ColumnInfo(name = "email")
-        var email: String? = "",
+        var email: String = "",
 
         @ColumnInfo(name = "birthday")
-        var birtday: Long? = 0,
+        var birthday: Long = 0,
 
         @ColumnInfo(name = "gender")
-        var gender: Int? = 0,
+        var gender: Int = 0,
 
-        @Relation(parentColumn = "category_id", entityColumn = "last_used_category_ref")
         @ColumnInfo(name = "last_used_category_ref")
-        var lastUsedCategory: Category? = null,
+        var lastUsedCategoryRef: Long? = 0,
 
-        @Relation(parentColumn = "store_id", entityColumn = "last_used_store_ref")
         @ColumnInfo(name = "last_used_store_ref")
-        var lastUsedStore: Store? = null,
+        var lastUsedStoreRef: Long? = 0,
 
         @ColumnInfo(name = "pref_home_cashflow_filter")
-        var prefHomeCashFlowFilter: Int? = -1,
+        var prefHomeCashFlowFilter: Int? = null,
 
         @ColumnInfo(name = "pref_home_records_filter")
-        var prefHomeRecordsFilter: Int? = -1,
+        var prefHomeRecordsFilter: Int? = null,
 
         @ColumnInfo(name = "pref_records_filter")
-        var prefRecordsFilter: Int? = -1,
+        var prefRecordsFilter: Int? = null,
 
         @ColumnInfo(name = "pref_planned_payments_sorting")
-        var prefPlannedPaymentsSorting: Int? = -1,
+        var prefPlannedPaymentsSorting: Int? = null,
 
         @ColumnInfo(name = "pref_statistics_filter")
-        var prefStatisticsFilter: Int? = -1
+        var prefStatisticsFilter: Int? = null
 )

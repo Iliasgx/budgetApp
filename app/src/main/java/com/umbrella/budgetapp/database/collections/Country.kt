@@ -9,7 +9,7 @@ import java.math.BigDecimal
 data class Country(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "country_id")
-        val id: Long,
+        val id: Long?,
 
         @ColumnInfo(name = "name")
         val name: String? = "",
@@ -18,5 +18,5 @@ data class Country(
         val symbol: String? = "",
 
         @ColumnInfo(name = "default_rate")
-        val defaultRate: BigDecimal? = BigDecimal.ZERO
+        val defaultRate: BigDecimal? = BigDecimal.ONE
 )

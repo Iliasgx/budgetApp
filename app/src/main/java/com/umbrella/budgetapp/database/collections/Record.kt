@@ -1,17 +1,15 @@
 package com.umbrella.budgetapp.database.collections
 
-import android.location.Location
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 import java.math.BigDecimal
 
 @Entity(tableName = "records")
 data class Record(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "record_id")
-        val id: Long,
+        val id: Long?,
 
         @ColumnInfo(name = "description")
         var description: String? = "",
@@ -19,21 +17,17 @@ data class Record(
         @ColumnInfo(name = "payee")
         var payee: String? = "",
 
-        @Relation(parentColumn = "category_id", entityColumn = "category_ref")
         @ColumnInfo(name = "category_ref")
-        var category: Category? = null,
+        var categoryRef: Long? = 0,
 
-        @Relation(parentColumn = "account_id", entityColumn = "account_ref")
         @ColumnInfo(name = "account_ref")
-        var account: Account? = null,
+        var accountRef: Long? = 0,
 
-        @Relation(parentColumn = "store_id", entityColumn = "store_ref")
         @ColumnInfo(name = "store_ref")
-        var store: Store? = null,
+        var storeRef: Long? = 0,
 
-        @Relation(parentColumn = "currency_id", entityColumn = "currency_ref")
         @ColumnInfo(name = "currency_ref")
-        var currency: Currency? = null,
+        var currencyRef: Long? = 0,
 
         @ColumnInfo(name = "type")
         var type: Int? = 0,
@@ -45,8 +39,5 @@ data class Record(
         var amount: BigDecimal? = BigDecimal.ZERO,
 
         @ColumnInfo(name = "timestamp")
-        var timestamp: Long? = 0,
-
-        @ColumnInfo(name = "location")
-        var location: Location? = null
+        var timestamp: Long? = 0
 )

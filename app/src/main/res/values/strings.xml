@@ -6,9 +6,9 @@
     <string name="app_name" translatable="false">Wallet</string>
     <string name="app_info" translatable="false">Expenses tracker</string>
     <string name="copyright" translatable="false">Copyright © %1$d.</string>
-    <string name="navigation_Drawer_Open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_Drawer_Close" translatable="false">Close navigation drawer</string>
-    <string name="nav_Header_Description" translatable="false">Navigation header</string>
+    <string name="navigation_Drawer_Open">Open navigation drawer</string>
+    <string name="navigation_Drawer_Close">Close navigation drawer</string>
+    <string name="nav_Header_Description">Navigation header</string>
 
     <string name="percentage">%1$s%%</string>
     <string name="bar">/ %1$s</string>
@@ -35,7 +35,6 @@
     <string name="title_Goals">Goals</string>
     <string name="title_GoalsDetails">Goal details</string>
     <string name="title_ShoppingLists">Shopping lists</string>
-    <string name="title_ShoppingItems">Shopping items</string>
     <string name="title_ShoppingList_Items">Shopping list items</string>
     <string name="title_Stores">Stores</string>
     <string name="title_Accounts">Accounts</string>
@@ -52,7 +51,9 @@
     <string name="title_add_category">New category</string>
     <string name="title_add_currency">New currency</string>
     <string name="title_add_debt_lent">I lent</string>
+    <string name="title_add_debt_lent_extend">I lent to %1$s</string>
     <string name="title_add_debt_borrowed">I borrowed</string>
+    <string name="title_add_debt_borrowed_extend">I borrowed from %1$s</string>
     <string name="title_add_goal_select">Choose goal</string>
     <string name="title_add_goal">New goal</string>
     <string name="title_add_planned_payment">New planned payment</string>
@@ -135,9 +136,8 @@
     <string name="developers" >Developers</string>
     <string name="authors" >Authors</string>
 
-    <!-- |||||||||||||||| Shopping lists | Shopping items |||||||||||||||| -->
+    <!-- |||||||||||||||| Shopping lists |||||||||||||||| -->
     <string name="shoppingLists_Estimate">Estimate</string>
-    <string name="shoppingItems_Delete">Delete item</string>
 
     <!-- |||||||||||||||| Goals |||||||||||||||| -->
     <string name="goals_Saved" >Saved: %1$d</string>
@@ -294,6 +294,7 @@
     <string name="data_User_Birthday" >Date of birth</string>
     <string name="data_User_Gender" >Select gender</string>
     <string name="data_User_Logout" >Logout</string>
+    <string name="data_User_CreateAccount">Create account</string>
 
     <!-- |||||||||||||||| New record |||||||||||||||| -->
     <string name="data_Record_DefaultAmount" >0</string>
@@ -358,6 +359,7 @@
     <string name="dialog_NewItem_Price_Hint">Price</string>
 
     <!-- |||||||||||||||| Dialog Frequency strings |||||||||||||||| -->
+    <string name="dialog_Frequency_Title">Frequency</string>
     <string name="dialog_Frequency_RepeatingString">Every</string>
     <string name="dialog_Frequency_PeriodMonth_Option1">on the same day each month</string>
     <string name="dialog_Frequency_PeriodMonth_Option2">on every second Monday</string>
@@ -404,4 +406,7 @@
     <string name="customObject_shoppingListItems">Programmatically</string>
     <string name="customObject_renameBoxTitle">Rename list</string>
     <string name="customObject_renameBoxMessage">Rename the current list.</string>
+
+    <string name="emptyRecyclerView_defaultTitle">Your List is Empty</string>
+    <string name="emptyRecyclerView_defaultDescription">There are no items yet. Start adding some now :)</string>
 </resources>

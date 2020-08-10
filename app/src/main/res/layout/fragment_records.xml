@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        tools:listitem="@layout/list_reorderable_view"/>
+        tools:listitem="@layout/list_records"/>
 
    <!-- <include layout="@layout/custom_slider"
         android:layout_width="match_parent"

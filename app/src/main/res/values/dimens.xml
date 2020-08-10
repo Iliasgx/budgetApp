@@ -12,6 +12,10 @@
     <dimen name="spinners_colors_height">25dp</dimen>
     <dimen name="spinners_colors_margins">5dp</dimen>
 
+    <dimen name="emptyRecyclerView_defaultTitleTextSize">20sp</dimen>
+    <dimen name="emptyRecyclerView_defaultDescriptionTextSize">15sp</dimen>
+    <dimen name="emptyRecyclerView_defaultImageSize">80dp</dimen>
+
     <!-- XX -->
     <dimen name="firstKeyline">16dp</dimen>
     <dimen name="secondKeyline">72dp</dimen>
