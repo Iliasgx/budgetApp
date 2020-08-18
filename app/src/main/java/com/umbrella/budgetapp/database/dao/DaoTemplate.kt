@@ -19,7 +19,7 @@ interface DaoTemplate : Base<Template> {
      */
     @Transaction
     @Query("SELECT template_id, name, position, extended_category_name FROM template_cross ORDER BY position ASC")
-    fun getTemplateList() : Flow<List<ExtendedTemplate>>
+    fun getAllTemplates() : Flow<List<ExtendedTemplate>>
 
     /**
      * Find Template by ID. Template with crossReferences.

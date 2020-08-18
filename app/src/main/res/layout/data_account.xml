@@ -93,7 +93,7 @@
 
             <Space android:layout_height="15dp" android:layout_width="match_parent"/>
 
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/data_Card_Account_ExcludeStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

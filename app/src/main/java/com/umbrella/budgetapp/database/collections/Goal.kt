@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 import com.umbrella.budgetapp.database.typeconverters.GoalStatusTypeConverter
 import com.umbrella.budgetapp.enums.GoalStatus
 import java.math.BigDecimal
+import java.util.*
 
 @Entity(tableName = "goals")
 @TypeConverters(GoalStatusTypeConverter::class)
@@ -43,5 +44,5 @@ data class Goal(
         var desiredDate: Long? = 0,
 
         @ColumnInfo(name = "start_date")
-        var startDate: Long? = 0
+        var startDate: Long? = Calendar.getInstance().timeInMillis
 )

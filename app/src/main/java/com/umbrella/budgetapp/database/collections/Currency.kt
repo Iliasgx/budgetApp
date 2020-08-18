@@ -18,5 +18,5 @@ data class Currency(
         var usedRate: BigDecimal? = BigDecimal.ONE,
 
         @ColumnInfo(name = "position")
-        var position: Int?
+        var position: Int? = 0
 )

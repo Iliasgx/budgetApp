@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-interface DaoCategory {
+interface DaoCategory : Base<Category> {
 
     /**
      * Retrieves all categories.

@@ -149,6 +149,7 @@
     <string name="goals_Details_Description">Goal details</string>
     <string name="goals_Details_LastAdded">Last added week amount</string>
     <string name="goals_Details_Estimated">Estimated time to reach goal</string>
+    <string name="goals_Details_EstimatedPeriod">%1$d days</string>
     <string name="goals_Details_AddAmount">Add saved amount</string>
     <string name="goals_Details_SetReached">Set goal as reached</string>
 
@@ -208,11 +209,17 @@
     <string name="data_Template_Payee" >Payee</string>
     <string name="data_Template_Note" >Note</string>
 
+    <string name="data_Template_ErrorMsg_empty">Name can\'t be empty.</string>
+    <string name="data_Template_ErrorMsg_tooShort">Name must at least have %1$d characters.</string>
+
     <!-- |||||||||||||||| New category |||||||||||||||| -->
     <string name="data_Category_Name">Name</string>
     <string name="data_Category_Color">Select color</string>
     <string name="data_Category_Icon">Select icon</string>
     <string name="data_Category_Type">Category type</string>
+
+    <string name="data_Category_ErrorMsg_empty">Name can\'t be empty.</string>
+    <string name="data_Category_ErrorMsg_tooShort">Name must at least have %1$d characters.</string>
 
     <!-- |||||||||||||||| New store |||||||||||||||| -->
     <string name="data_Store_Name" >Name</string>
@@ -221,6 +228,9 @@
     <string name="data_Store_Currency" >Currency</string>
     <string name="data_Store_Category" >Category</string>
     <string name="data_Store_Note" >Note</string>
+
+    <string name="data_Store_ErrorMsg_empty">Name can\'t be empty.</string>
+    <string name="data_Store_ErrorMsg_tooShort">Name must at least have %1$d characters.</string>
 
     <!-- |||||||||||||||| New goal |||||||||||||||| -->
     <string name="data_Goal_Select_HintName" >Your goal"'"s name</string>
@@ -235,6 +245,8 @@
     <string name="data_Goal_Select_Item6" >Health care</string>
     <string name="data_Goal_Select_Item7" >Party</string>
     <string name="data_Goal_Select_Item8" >Charity</string>
+    <string name="data_Goal_Select_Name_ErrorMsg_empty">Name can\'t be empty.</string>
+    <string name="data_Goal_Select_Name_ErrorMsg_tooShort">Name must at least have %1$d characters.</string>
 
     <string name="data_Goal_Name">Name</string>
 
@@ -244,6 +256,9 @@
     <string name="data_Goal_Details_Color" >Select color</string>
     <string name="data_Goal_Details_Icon" >Select icon</string>
     <string name="data_Goal_Details_Note" >Note</string>
+    <string name="data_Goal_Details_Name_ErrorMsg_empty">Name can\'t be empty.</string>
+    <string name="data_Goal_Details_Name_ErrorMsg_tooShort">Name must at least have %1$d characters.</string>
+    <string name="data_Goal_Details_Saved_ErrorMsg_tooLarge">Your saved value can\'t be bigger than your target amount.</string>
 
     <!-- |||||||||||||||| New shopping list |||||||||||||||| -->
     <string name="data_ShoppingList_Title" >Name your list</string>
@@ -252,6 +267,9 @@
     <string name="data_ShoppingList_Store" >Store</string>
     <string name="data_ShoppingList_Create" >Create list</string>
 
+    <string name="data_ShoppingList_ErrorMsg_empty">Name can\'t be empty.</string>
+    <string name="data_ShoppingList_ErrorMsg_tooShort">Name must at least have %1$d characters.</string>
+
     <!-- |||||||||||||||| New account |||||||||||||||| -->
     <string name="data_Account_Name" >Account name</string>
     <string name="data_Account_Type" >Type</string>
@@ -259,6 +277,9 @@
     <string name="data_Account_Currency" >Currency</string>
     <string name="data_Account_Color" >Select color</string>
     <string name="data_Account_Exclude" >Exclude from stats</string>
+    
+    <string name="data_Account_errorMsg_nameEmpty">Name can\'t be empty.</string>
+    <string name="data_Account_errorMsg_nameTooShort">Name must at least have %1$d characters.</string>
 
     <!-- |||||||||||||||| New debt |||||||||||||||| -->
     <string name="data_Debt_Name" >Name</string>
@@ -271,6 +292,10 @@
     <string name="data_Debt_Amount" >Amount</string>
     <string name="data_Debt_Currency" >Currency</string>
     <string name="data_Debt_Date" >Date</string>
+
+    <string name="data_Debt_errorMsg_nameEmpty">Name can\'t be empty.</string>
+    <string name="data_Debt_errorMsg_nameTooShort">Name must at least have %1$d characters.</string>
+    <string name="data_Debt_errorMsg_amountError">The amount must have a minimum of %1$d.</string>
 
     <!-- |||||||||||||||| New planned payment |||||||||||||||| -->
     <string name="data_PlannedPayment_Name" >Name</string>
@@ -285,6 +310,9 @@
     <string name="data_PlannedPayment_Paytype" >Payment type</string>
     <string name="data_PlannedPayment_Payee" >Payee</string>
     <string name="data_PlannedPayment_Note" >Note</string>
+
+    <string name="data_PlannedPayment_errorMsg_nameEmpty">The name can\'t be empty.</string>
+    <string name="data_PlannedPayment_errorMsg_nameTooShort">Name must at least have %1$d characters.</string>
 
     <!-- |||||||||||||||| New user |||||||||||||||| -->
     <string name="data_User_Description" >User settings</string>
@@ -303,10 +331,11 @@
     <string name="data_Record_Description" >More details</string>
     <string name="data_Record_Template">Choose a template</string>
 
+    <string name="data_Record_errorMsg_amount">Value must at least be %1$d.</string>
+
     <string name="data_Record_Details_Description" >Description</string>
     <string name="data_Record_Details_Paytype" >Payment type</string>
     <string name="data_Record_Details_Date" >Date</string>
-    <string name="data_Record_Details_Time" >Time</string>
     <string name="data_Record_Details_Payee" >Payee</string>
     <string name="data_Record_Details_Type" >Type</string>
     <string name="data_Record_Details_Store" >Store</string>
@@ -380,27 +409,6 @@
     <string name="dialog_Amount_Positive">Insert</string>
     <string name="dialog_Amount_Negative">Cancel</string>
     <string name="dialog_default">Default</string>
-
-    <!-- |||||||||||||||| Snackbar information |||||||||||||||| -->
-    <string name="snackbar_success">%1$s has been successfully %2$s.</string>
-    <string name="snackbar_failed">%1$s could not be %2$s.</string>
-    <string name="snackbar_notLoad">Data could not be loaded. Try again later with an internet connection.</string>
-
-    <!-- |||||||||||||||| Toast information |||||||||||||||| -->
-    <string name="goal_requiredFields">Name, target amount and date are required.</string>
-    <string name="user_profile_firstName_error">First name can\'t be empty or contain spaces.</string>
-    <string name="user_profile_lastName_error">Last name can\' contain spaces</string>
-    <string name="user_profile_email_error">Email can\'t be empty.</string>
-    <string name="record_value_error">Value can\'t be 0.</string>
-    <string name="dialog_frequency_noDays_error">Select at least 1 day.</string>
-    <string name="dialog_frequency_noMonth_error">Select a monthly option.</string>
-
-    <!-- |||||||||||||||| Displayed errors and warnings |||||||||||||||| -->
-    <string name="toast_error_empty">Make sure no field is empty.</string>
-    <string name="delete_confirmation">Are you sure you want to delete this %1$s?</string>
-    <string name="goal_reached_warning_title">Goal reached</string>
-    <string name="goal_reached_warning">Once set as reached the item can\'t be activated again.</string>
-    <string name="shoppingListItems_shortInput">Make sure the name is longer than %1$d characters.</string>
 
     <!-- |||||||||||||||| Programmatically objects |||||||||||||||| -->
     <string name="customObject_shoppingListItems">Programmatically</string>

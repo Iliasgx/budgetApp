@@ -3,6 +3,7 @@ package com.umbrella.budgetapp.ui.customs
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -31,7 +32,7 @@ open class ExtendedFragment(@LayoutRes layout: Int): Fragment(layout) {
     fun setToolbar(icon: ToolBarNavIcon, menu: Int = -1) {
         val tb = requireActivity().findViewById<Toolbar>(R.id.toolbar)
 
-        tb?.navigationIcon = context?.getDrawable(icon.id)
+        tb?.navigationIcon = ContextCompat.getDrawable(requireContext(), icon.id)
 
         if (menu != -1) {
             tb?.inflateMenu(menu)

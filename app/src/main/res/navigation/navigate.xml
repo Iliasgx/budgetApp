@@ -69,8 +69,9 @@
         android:label="@string/title_edit_user_profile"
         tools:layout="@layout/data_user" >
         <argument
-            android:name="newUser"
-            app:argType="boolean" />
+            android:name="user_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <navigation android:id="@+id/nav_statistics"
         app:startDestination="@id/statistics">
@@ -118,8 +119,9 @@
             android:label="@string/title_edit_user_profile"
             tools:layout="@layout/data_user" >
             <argument
-                android:name="newUser"
-                app:argType="boolean" />
+                android:name="user_id"
+                app:argType="long"
+                android:defaultValue="0L" />
         </fragment>
         <fragment
             android:id="@+id/settingsLists"
@@ -301,8 +303,12 @@
                 app:argType="long"
                 android:defaultValue="0L" />
             <argument
-                android:name="goal_template"
-                app:argType="string[]"
+                android:name="prefab"
+                app:argType="com.umbrella.budgetapp.enums.GoalPrefabs"
+                android:defaultValue="NONE" />
+            <argument
+                android:name="name"
+                app:argType="string"
                 app:nullable="true"
                 android:defaultValue="@null" />
         </fragment>
@@ -385,7 +391,7 @@
                 android:name="record_id"
                 app:argType="long" />
             <argument
-                android:name="data_basic_record"
+                android:name="basicArguments"
                 app:argType="string[]"
                 app:nullable="true"
                 android:defaultValue="@null" />
@@ -490,7 +496,24 @@
         android:id="@+id/imports"
         android:name="com.umbrella.budgetapp.ui.fragments.screens.ImportsFragment"
         android:label="@string/title_Imports"
-        tools:layout="@layout/fragment_imports" />
+        tools:layout="@layout/fragment_imports" >
+        <action
+            android:id="@+id/importsToUpdateAccount"
+            app:destination="@id/updateAccount" >
+            <argument
+                android:name="account_id"
+                android:defaultValue="0L" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/updateAccount"
+        android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateAccountFragment"
+        tools:layout="@layout/data_account" >
+        <argument
+            android:name="account_id"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
     <action android:id="@+id/globalSettings" app:destination="@id/nav_settings" />
     <action android:id="@+id/globalImports" app:destination="@id/imports" />
     <action android:id="@+id/globalLogin" app:destination="@id/login" />

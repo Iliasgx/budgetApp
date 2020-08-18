@@ -53,8 +53,7 @@
                         android:autofillHints="@string/data_Store_Name"
                         android:ems="10"
                         android:inputType="textNoSuggestions"
-                        android:textSize="18sp"
-                        tools:text="NAME"/>
+                        android:textSize="18sp"/>
                 </LinearLayout>
             </LinearLayout>
 

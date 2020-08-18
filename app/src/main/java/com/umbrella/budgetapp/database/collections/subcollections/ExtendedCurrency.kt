@@ -14,5 +14,5 @@ data class ExtendedCurrency (
         val country: Country?,
 
         @Embedded
-        val currency: Currency?
+        val currency: Currency
 )

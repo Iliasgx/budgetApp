@@ -27,6 +27,14 @@ interface DaoDebt : Base<Debt> {
     fun getAllDebts(type: Int) : Flow<List<ExtendedDebt>>
 
     /**
+     * Get the sum of amount in debts ordered by debtType.
+     *
+     * @return An array of the sum for each debtType.
+     */
+    @Query("SELECT SUM(amount) AS total FROM debts GROUP BY debt_type")
+    fun getFunctionDebt() : Flow<Array<SumFunction>>
+
+    /**
      * Find Debt by ID.
      *
      * @param id: The ID corresponding with the Debt.
@@ -35,13 +43,5 @@ interface DaoDebt : Base<Debt> {
     @Transaction
     @Query("SELECT * FROM debt_cross WHERE debt_id = :id")
     fun getDebtById(id: Long) : ExtendedDebt
-
-    /**
-     * Get the sum of amount in debts ordered by debtType.
-     *
-     * @return An array of the sum for each debtType.
-     */
-    @Query("SELECT SUM(amount) AS total FROM debts GROUP BY debt_type")
-    fun getFunctionDebt() : Array<SumFunction>
 
 }

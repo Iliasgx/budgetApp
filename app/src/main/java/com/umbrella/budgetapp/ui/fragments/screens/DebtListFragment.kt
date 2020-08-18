@@ -35,5 +35,6 @@ class DebtListFragment(private val type: DebtType)  : ExtendedFragment(R.layout.
             }
         })
         binding.fragmentRecyclerView.adapter = adapter
+        binding.fragmentRecyclerView.setHasFixedSize(true)
     }
 }

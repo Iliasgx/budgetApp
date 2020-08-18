@@ -38,6 +38,10 @@ class GoalsAdapter(private val status: GoalStatus, val callBack: CallBack) : Rec
 
     override fun getItemCount() = goals.size
 
+    fun setData(list: List<Goal>) {
+        this.goals = list
+    }
+
     interface CallBack {
         fun onItemClick(itemId: Long)
     }

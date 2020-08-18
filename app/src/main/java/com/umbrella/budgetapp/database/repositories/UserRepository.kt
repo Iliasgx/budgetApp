@@ -14,7 +14,7 @@ class UserRepository {
         daoUser = db.daoUser()
     }
 
-    fun getUserById(id: Long) : User = daoUser.getUserById(id)
+    fun getUserById(id: Long) = daoUser.getUserById(id)
 
     suspend fun addUser(user: User) = daoUser.add(user)
 

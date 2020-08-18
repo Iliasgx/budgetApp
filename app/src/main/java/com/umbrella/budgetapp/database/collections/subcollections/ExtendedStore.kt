@@ -8,7 +8,7 @@ import com.umbrella.budgetapp.database.collections.Store
 @DatabaseView(
         viewName = "store_cross",
         value = """SELECT stores.*, 
-                currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name, 
+                currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name, currency_country_cross.position AS extended_currency_position, 
                 categories.category_id AS extended_category_id, categories.name AS extended_category_name 
                 FROM stores 
                 INNER JOIN currency_country_cross ON stores.currency_ref = currency_country_cross.currency_id 
@@ -16,13 +16,16 @@ import com.umbrella.budgetapp.database.collections.Store
 )
 data class ExtendedStore (
         @Embedded
-        val store: Store?,
+        val store: Store,
 
         @ColumnInfo(name = "extended_currency_id")
         val currencyId: Long?,
 
         @ColumnInfo(name = "extended_currency_name")
         val currencyName: String?,
+
+        @ColumnInfo(name = "extended_currency_position")
+        val currencyPosition: Int?,
 
         @ColumnInfo(name = "extended_category_id")
         val categoryId: Long?,

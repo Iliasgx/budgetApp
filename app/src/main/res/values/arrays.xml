@@ -212,4 +212,37 @@
         <item>Thai baht</item>
         <item>South African rand</item>
     </string-array>
+
+    <string-array name="goalPrefab_names">
+        <item>@string/data_Goal_Select_Item1</item>
+        <item>@string/data_Goal_Select_Item2</item>
+        <item>@string/data_Goal_Select_Item3</item>
+        <item>@string/data_Goal_Select_Item4</item>
+        <item>@string/data_Goal_Select_Item5</item>
+        <item>@string/data_Goal_Select_Item6</item>
+        <item>@string/data_Goal_Select_Item7</item>
+        <item>@string/data_Goal_Select_Item8</item>
+    </string-array>
+
+    <integer-array name="goalPrefab_colors">
+        <item>@color/goal_item1</item>
+        <item>@color/goal_item2</item>
+        <item>@color/goal_item3</item>
+        <item>@color/goal_item4</item>
+        <item>@color/goal_item5</item>
+        <item>@color/goal_item6</item>
+        <item>@color/goal_item7</item>
+        <item>@color/goal_item8</item>
+    </integer-array>
+
+    <integer-array name="goalPrefab_icons">
+        <item>@drawable/goal_item1</item>
+        <item>@drawable/goal_item2</item>
+        <item>@drawable/goal_item3</item>
+        <item>@drawable/goal_item4</item>
+        <item>@drawable/goal_item5</item>
+        <item>@drawable/goal_item6</item>
+        <item>@drawable/goal_item7</item>
+        <item>@drawable/goal_item8</item>
+    </integer-array>
 </resources>

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repos: UserRepository = UserRepository()
+    private val repos = UserRepository()
 
     fun getUserById(id: Long) = repos.getUserById(id)
 

@@ -1,60 +1,63 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.MainActivity
 import com.umbrella.budgetapp.R
-import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.User
 import com.umbrella.budgetapp.database.viewmodels.UserViewModel
 import com.umbrella.budgetapp.databinding.DataUserBinding
 import com.umbrella.budgetapp.extensions.DateTimeFormatter
+import com.umbrella.budgetapp.extensions.Dialogs
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
+import com.umbrella.budgetapp.ui.interfaces.Edit
+import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 import java.util.*
 
-class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user) {
+class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
     private val binding by viewBinding(DataUserBinding::bind)
 
     //ViewModel for holding the user data.
-    private lateinit var model : UserViewModel
+    private val model by viewModels<UserViewModel>()
 
     //The current user, null when it's a new user.
     private var user: User? = null
 
     //Used to save the edited arguments. Used do determine of data has to be updated in the Database.
-    private var editedUser = User(id = 0)
+    private var editedUser = User(id = 0L)
 
     //Arguments received to identify a new user.
-    private var newUser : Boolean = false
+    private var type : Type
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    init {
+        val args : UpdateUserProfileFragmentArgs by navArgs()
 
-        newUser = UpdateUserProfileFragmentArgs.fromBundle(requireArguments()).newUser
+        type = checkType(args.userId)
 
-        model = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        if (!newUser) {
-            //Only execute query when user exist.
-            user = model.getUserById(Memory.loggedUser.id)
+        if (type == Type.EDIT) {
+            user = model.getUserById(args.userId)
             //Set defaultData of editedUser to user (safety reasons).
             editedUser = user!!
-
-            initData()
         } else {
             binding.dataCardUserAction.text = getString(R.string.data_User_CreateAccount)
         }
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (type == Type.EDIT) initData()
         setListeners()
     }
 
-    //SetUp data from User. Only called when user exist already.
-    private fun initData() {
+    /**
+     * Populate necessary views and implement the default data.
+     */
+    override fun initData() {
         with(binding) {
             dataCardUserNameFirst.setText(user!!.firstName, EDITABLE)
             dataCardUserNameLast.setText(user!!.lastName, EDITABLE)
@@ -66,9 +69,13 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user) {
         }
     }
 
-    private fun setListeners() {
+    /**
+     * Set all necessary listeners for the edit screen.
+     * Function called after initData to make sure that listeners are not called when initializing data in the views.
+     */
+    override fun setListeners() {
         with(binding) {
-            binding.dataCardUserAction.setOnClickListener { actionButton() }
+            dataCardUserAction.setOnClickListener { actionButton() }
 
             //Update edited user after a short delay.
             dataCardUserNameFirst.afterTextChangedDelayed { editedUser.firstName = it }
@@ -77,39 +84,41 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user) {
 
             //Start DatePickerDialog on Birthday click. Returns the date and is updated in the variable and in the UI.
             dataCardUserBirthDay.setOnClickListener {
-                val cal = Calendar.getInstance()
+                Dialogs.DatePicker(requireContext(),  object : Dialogs.DatePicker.OnSelectDate {
+                    override fun dateSelected(timeInMillis: Long) {
+                        binding.dataCardUserBirthDay.text = DateTimeFormatter().dateFormat(timeInMillis)
+                        editedUser.birthday = timeInMillis
+                    }
+                }).apply {
+                    if (editedUser.birthday != 0L) initialDate(editedUser.birthday)
+                    beforeToday()
+                    show()
+                }
 
-                DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                    cal.set(year, month, dayOfMonth)
-                    dataCardUserBirthDay.text = DateTimeFormatter().dateFormat(cal.timeInMillis)
-                    editedUser.birthday = cal.timeInMillis
-
-                    //Set initial date (now)
-                }, cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DAY_OF_MONTH])
-                .apply { datePicker.maxDate = cal.timeInMillis } // No future date
-                .show()
             }
         }
     }
 
-    //Create user when not existing, else identify possible changes and save.
-    private fun saveData() {
-        if (newUser) {
+    /**
+     * Check if all requirements are met before saving the data.
+     */
+    override fun checkData() {}
+
+    /**
+     * Save all data after the requirements are checked.
+     */
+    override fun saveData() {
+        if (type == Type.NEW) {
             model.addUser(editedUser)
-        } else if (editedUser !== user) {
+        } else if (hasChanges(user!!, editedUser)) {
             model.updateUser(editedUser)
         }
     }
 
-    /**
-     * ActionButton actions:
-     *  - new user: createUser
-     *  - Existing user: save possible changes and return the user back to the login screen due to logout.
-     */
     private fun actionButton() {
         saveData()
 
-        if (!newUser) {
+        if (type == Type.EDIT) {
             (requireActivity() as MainActivity).logUserOut()
             findNavController().navigate(UpdateUserProfileFragmentDirections.globalLogin())
         } else {

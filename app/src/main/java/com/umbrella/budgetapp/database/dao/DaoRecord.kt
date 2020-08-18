@@ -22,7 +22,7 @@ interface DaoRecord : Base<Record> {
      */
     @Transaction
     @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_currency_symbol FROM record_cross WHERE account_ref IN (:accountIds) ORDER BY timestamp DESC")
-    fun getAllRecordsOfAccount(vararg accountIds: Long) : Flow<List<ExtendedRecord>>
+    fun getAllRecordsOfAccounts(vararg accountIds: Long) : Flow<List<ExtendedRecord>>
 
     /**
      * Retrieves all records with crossReferences.
@@ -35,7 +35,7 @@ interface DaoRecord : Base<Record> {
      */
     @Transaction
     @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_currency_symbol FROM record_cross WHERE account_ref IN (:accountIds) ORDER BY timestamp DESC LIMIT :limit OFFSET :offset")
-    fun getAllRecordsOfAccount(vararg accountIds: Long, @IntRange(from = 1) limit: Int, offset: Int = 0) : Flow<List<ExtendedRecord>>
+    fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, offset: Int = 0) : Flow<List<ExtendedRecord>>
 
     /**
      * Find Record by ID with crossReferences.

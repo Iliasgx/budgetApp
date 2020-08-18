@@ -29,7 +29,8 @@
             android:textColor="@android:color/white"
             android:textAllCaps="true"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:tag="0"/>
 
         <RadioButton
             android:id="@+id/data_Card_RecordBasic_Title2"
@@ -43,7 +44,8 @@
             android:textColor="@android:color/white"
             android:textAllCaps="true"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:tag="1"/>
 
         <RadioButton
             android:id="@+id/data_Card_RecordBasic_Title3"
@@ -58,7 +60,8 @@
             android:textColor="@android:color/white"
             android:textAllCaps="true"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:tag="2"/>
     </RadioGroup>
 
     <androidx.cardview.widget.CardView
@@ -198,7 +201,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/data_Card_RecordBasic_More"
+        android:id="@+id/data_Card_RecordBasic_Template"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -212,7 +215,7 @@
         android:id="@+id/data_Card_RecordBasic_TableLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/data_Card_RecordBasic_More"
+        android:layout_below="@id/data_Card_RecordBasic_Template"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@id/data_Card_RecordBasic_GridLayout"
@@ -363,7 +366,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:columnCount="1"
-        android:layout_below="@id/data_Card_RecordBasic_More"
+        android:layout_below="@id/data_Card_RecordBasic_Template"
         android:layout_alignParentEnd="true">
 
         <Button
