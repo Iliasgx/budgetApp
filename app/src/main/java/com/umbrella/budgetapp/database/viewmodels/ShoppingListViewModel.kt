@@ -14,7 +14,9 @@ class ShoppingListViewModel(application: Application) : AndroidViewModel(applica
 
     private val repos = ShoppingListRepository()
 
-    fun getShoppingListById(id: Long) = repos.getShoppingListById(id)
+    fun getShoppingListById(id: Long) = repos.getShoppingListById(id).asLiveData()
+
+    fun getExtendedShoppingListById(id: Long) = repos.getExtendedShoppingListById(id)
 
     fun getAllShoppingLists() : LiveData<List<ShoppingList>> = repos.getAllShoppingLists().asLiveData()
 

@@ -10,9 +10,7 @@ import androidx.room.DatabaseView
                     ORDER BY currencies.position ASC"""
 )
 data class CurrencyAndName (
-        //ID of Currency.
         val id: Long?,
 
-        //Name of Country.
         val name: String?
 )

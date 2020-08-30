@@ -32,6 +32,7 @@ import com.umbrella.budgetapp.database.typeconverters.BigDecimalTypeConverter
             ExtendedShoppingList::class,
             ExtendedDebt::class,
             ExtendedPlannedPayment::class,
+            ExtendedPayments::class,
             ExtendedRecord::class,
             ExtendedAccount::class
         ],

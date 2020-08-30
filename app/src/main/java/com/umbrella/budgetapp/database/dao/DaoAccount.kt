@@ -32,13 +32,13 @@ interface DaoAccount : Base<Account> {
     fun getAllAccountsSmall(@IntRange(from = 1) limit: Int) : Flow<List<ExtendedAccount>>
 
     /**
-     * Retrieves all accounts in a crossReference with a Currency.
+     * Retrieves all list information of accounts.
      *
      * @return The list of accounts in a Flow.
      */
     @Transaction
-    @Query("SELECT account_id, name, position, color, type, exclude_stats FROM account_cross ORDER BY position ASC")
-    fun getAllAccounts() : Flow<List<ExtendedAccount>>
+    @Query("SELECT account_id, name, position, color, type, exclude_stats FROM accounts ORDER BY position ASC")
+    fun getAllAccounts() : Flow<List<Account>>
 
     /**
      * Find Account by ID. Account with crossReferences.
@@ -76,4 +76,10 @@ interface DaoAccount : Base<Account> {
      */
     @Query("UPDATE accounts SET position = position - 1 WHERE account_id IN (:ids)")
     suspend fun decreasePositionOfIds(vararg ids: Long)
+
+    @Query("UPDATE accounts SET position = position + 1 WHERE position > :startPos AND position < :endPos")
+    suspend fun increasePositions(startPos: Int, endPos: Int)
+
+    @Query("UPDATE accounts SET position = position - 1 WHERE position > :startPos AND position < :endPos")
+    suspend fun decreasePositions(startPos: Int, endPos: Int)
 }

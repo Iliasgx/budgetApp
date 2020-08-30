@@ -16,7 +16,7 @@ import com.umbrella.budgetapp.database.collections.ShoppingList
 )
 data class ExtendedShoppingList (
         @Embedded
-        val shoppingList: ShoppingList?,
+        val shoppingList: ShoppingList,
 
         @ColumnInfo(name = "extended_category_id")
         val categoryId: Long?,

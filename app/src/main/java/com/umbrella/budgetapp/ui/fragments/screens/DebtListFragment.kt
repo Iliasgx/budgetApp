@@ -2,9 +2,13 @@ package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.DebtsAdapter
+import com.umbrella.budgetapp.database.viewmodels.DebtViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
 import com.umbrella.budgetapp.enums.DebtType
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
@@ -18,8 +22,9 @@ class DebtListFragment(private val type: DebtType)  : ExtendedFragment(R.layout.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: 09/08/2020 Get data with type
-        //type
+        val model by viewModels<DebtViewModel>()
+
+        model.getAllDebts(type.ordinal).observe(viewLifecycleOwner, Observer { adapter.setData(it) })
 
         setupRecyclerView()
     }
@@ -34,7 +39,10 @@ class DebtListFragment(private val type: DebtType)  : ExtendedFragment(R.layout.
                 findNavController().navigate(DebtsFragmentDirections.debtsToAddRecordDialog(itemId))
             }
         })
-        binding.fragmentRecyclerView.adapter = adapter
-        binding.fragmentRecyclerView.setHasFixedSize(true)
+        binding.fragmentRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = adapter
+            setHasFixedSize(true)
+        }
     }
 }

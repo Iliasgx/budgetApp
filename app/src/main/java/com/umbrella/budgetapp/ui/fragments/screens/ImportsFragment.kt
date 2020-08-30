@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.adapters.BaseAdapter
 import com.umbrella.budgetapp.adapters.ImportAdapter
 import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.databinding.FragmentImportsBinding
@@ -32,7 +33,7 @@ class ImportsFragment : ExtendedFragment(R.layout.fragment_imports) {
 
     private fun setUpAdapter() {
         // Adapter for accounts to import.
-        val adapter = ImportAdapter(object : ImportAdapter.CallBack {
+        val adapter = ImportAdapter(object : BaseAdapter.CallBack {
             override fun onItemClick(itemId: Long) {
                 Toast.makeText(context, "Coming soon", Toast.LENGTH_SHORT).show()
             }

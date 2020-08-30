@@ -17,16 +17,26 @@ interface DaoShoppingList : Base<ShoppingList> {
      *
      * @return The list of shoppingLists in a Flow.
      */
-    @Query("SELECT shopping_list_id, name, COUNT(items) AS items_count FROM shopping_lists ORDER BY name")
+    @Query("SELECT shopping_list_id, name, items AS items_count FROM shopping_lists ORDER BY name")
     fun getAllShoppingLists() : Flow<List<ShoppingList>>
 
     /**
-     * Find ShoppingList by ID.
+     * Find ShoppingList By ID.
+     *
+     * @param id: The id corresponding with the ShoppingList.
+     * @return the ShoppingList corresponding with the given id.
+     */
+    @Query("SELECT * FROM shopping_lists WHERE shopping_list_id =:id")
+    fun getShoppingListById(id: Long) : Flow<ShoppingList>
+
+    /**
+     * Find an extended ShoppingList by ID.
      *
      * @param id: The id corresponding with the ShoppingList.
      * @return A crossReference of the shoppingLists with the attached entities.
      */
     @Transaction
     @Query("SELECT * FROM shopping_list_cross WHERE shopping_list_id =:id")
-    fun getShoppingListById(id: Long) : ExtendedShoppingList
+    fun getExtendedShoppingListById(id: Long) : ExtendedShoppingList
+
 }

@@ -21,7 +21,7 @@ class AccountRepository {
 
     fun getAllAccountsSmall(@IntRange(from = 1) limit: Int) : Flow<List<ExtendedAccount>> = daoAccount.getAllAccountsSmall(limit)
 
-    fun getAllAccounts() : Flow<List<ExtendedAccount>> = daoAccount.getAllAccounts()
+    fun getAllAccounts() : Flow<List<Account>> = daoAccount.getAllAccounts()
 
     fun getAccountById(id: Long) : ExtendedAccount = daoAccount.getAccountById(id)
     
@@ -30,6 +30,10 @@ class AccountRepository {
     suspend fun increasePositionOfIds(vararg ids: Long) = daoAccount.increasePositionOfIds(*ids)
 
     suspend fun decreasePositionOfIds(vararg ids: Long) = daoAccount.decreasePositionOfIds(*ids)
+
+    suspend fun increasePositions(startPos: Int, endPos: Int) = daoAccount.increasePositions(startPos, endPos)
+
+    suspend fun decreasePositions(startPos: Int, endPos: Int) = daoAccount.decreasePositions(startPos, endPos)
 
     suspend fun addAccount(account: Account) = daoAccount.add(account)
 

@@ -1,6 +1,9 @@
 package com.umbrella.budgetapp.database.collections
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.umbrella.budgetapp.database.typeconverters.ShoppingListItemListTypeConverter
 
 @Entity(tableName = "shopping_lists")
@@ -24,7 +27,4 @@ data class ShoppingList(
 
         @ColumnInfo(name = "items")
         var items: MutableList<ShoppingListItem>? = mutableListOf()
-) {
-        @Ignore
-        val items_count: Int? = 0
-}
+)

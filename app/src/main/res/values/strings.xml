@@ -6,13 +6,14 @@
     <string name="app_name" translatable="false">Wallet</string>
     <string name="app_info" translatable="false">Expenses tracker</string>
     <string name="copyright" translatable="false">Copyright © %1$d.</string>
-    <string name="navigation_Drawer_Open">Open navigation drawer</string>
-    <string name="navigation_Drawer_Close">Close navigation drawer</string>
-    <string name="nav_Header_Description">Navigation header</string>
+    <string name="navigation_Drawer_Open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_Drawer_Close" translatable="false">Close navigation drawer</string>
+    <string name="nav_Header_Description" translatable="false">Navigation header</string>
 
-    <string name="percentage">%1$s%%</string>
-    <string name="bar">/ %1$s</string>
+    <string name="percentage" translatable="false">%1$s%%</string>
+    <string name="bar" translatable="false">/ %1$s</string>
     <string name="number_days">%1$d days</string>
+    <string name="negate" translatable="false">- %1$s</string>
 
     <!-- |||||||||||||||| Drawer menu strings |||||||||||||||| -->
     <string name="menu_Home">Home</string>
@@ -138,6 +139,7 @@
 
     <!-- |||||||||||||||| Shopping lists |||||||||||||||| -->
     <string name="shoppingLists_Estimate">Estimate</string>
+    <string name="shoppingLists_nrOfItems">%1$d items</string>
 
     <!-- |||||||||||||||| Goals |||||||||||||||| -->
     <string name="goals_Saved" >Saved: %1$d</string>
@@ -277,6 +279,8 @@
     <string name="data_Account_Currency" >Currency</string>
     <string name="data_Account_Color" >Select color</string>
     <string name="data_Account_Exclude" >Exclude from stats</string>
+
+    <string name="account_excluded">Excluded</string>
     
     <string name="data_Account_errorMsg_nameEmpty">Name can\'t be empty.</string>
     <string name="data_Account_errorMsg_nameTooShort">Name must at least have %1$d characters.</string>
@@ -404,7 +408,7 @@
     <string name="day_ShortCut7">Sun</string>
 
     <!-- |||||||||||||||| Dialog strings |||||||||||||||| -->
-    <string name="dialog_Amount_DefValue">0</string>
+    <string name="dialog_Amount_DefValue" translatable="false">0</string>
     <string name="dialog_Amount_Other">Clear</string>
     <string name="dialog_Amount_Positive">Insert</string>
     <string name="dialog_Amount_Negative">Cancel</string>

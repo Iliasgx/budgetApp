@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.adapters.BaseAdapter
 import com.umbrella.budgetapp.adapters.GoalsAdapter
 import com.umbrella.budgetapp.database.viewmodels.GoalViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
@@ -26,22 +27,15 @@ class GoalsListFragment(private val status: GoalStatus) : ExtendedFragment(R.lay
         val model by viewModels<GoalViewModel>()
 
         when (status) {
-            REACHED -> {
-                model.getAllGoalsReached().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-            }
-            else -> {
-                model.getAllGoalsUnreached(status.ordinal).observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-            }
+            REACHED -> model.getAllGoalsReached().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
+            else -> model.getAllGoalsUnreached(status.ordinal).observe(viewLifecycleOwner, Observer { adapter.setData(it) })
         }
-
-        // TODO: 09/08/2020 Get data with status
-        //status
 
         setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        adapter = GoalsAdapter(status, object : GoalsAdapter.CallBack {
+        adapter = GoalsAdapter(status, object : BaseAdapter.CallBack {
             override fun onItemClick(itemId: Long) {
                 view?.findNavController()?.navigate(GoalsFragmentDirections.goalsToGoalDetails(itemId))
             }
