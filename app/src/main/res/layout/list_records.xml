@@ -44,7 +44,6 @@
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:textSize="12sp"
-            android:textStyle="italic"
             android:text="@string/defaultText" />
     </LinearLayout>
 

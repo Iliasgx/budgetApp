@@ -18,6 +18,8 @@ class RecordViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getRecordById(id: Long) = repos.getRecordById(id)
 
+    fun getAllRecords() : LiveData<List<ExtendedRecord>> = repos.getAllRecords().asLiveData()
+
     fun getAllRecordsOfAccounts(vararg accountIds: Long) : LiveData<List<ExtendedRecord>> = repos.getAllRecordsOfAccounts(*accountIds).asLiveData()
 
     fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, offset: Int) : LiveData<List<ExtendedRecord>> = repos.getAllRecordsOfAccounts(accountIds = *accountIds, limit = limit, offset = offset).asLiveData()

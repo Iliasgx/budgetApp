@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPayments
+import com.umbrella.budgetapp.enums.PayType
 import com.umbrella.budgetapp.extensions.autoNotify
 import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.extensions.inflate
@@ -55,7 +56,7 @@ class PlannedPaymentsAdapter(val callBack: CallBack) : BaseAdapter<ExtendedPayme
                     list_PlannedPayments_Amount.apply {
                         currencyText(Memory.lastUsedCountry.symbol!!, item.plannedPayment.amount!!)
 
-                        if (item.plannedPayment.type == 1) { // Expense
+                        if (item.plannedPayment.type == PayType.EXPENSE) {
                             text = context.getString(R.string.negate, text)
                             setTextColor(context.getColor(R.color.negativeColor))
                         } else {

@@ -11,6 +11,7 @@ import com.umbrella.budgetapp.adapters.BaseAdapter
 import com.umbrella.budgetapp.adapters.PlannedPaymentsAdapter
 import com.umbrella.budgetapp.database.viewmodels.PlannedPaymentViewModel
 import com.umbrella.budgetapp.databinding.FragmentPlannedPaymentsBinding
+import com.umbrella.budgetapp.enums.PayType
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 
 class PlannedPaymentsFragment : ExtendedFragment(R.layout.fragment_planned_payments) {
@@ -27,9 +28,8 @@ class PlannedPaymentsFragment : ExtendedFragment(R.layout.fragment_planned_payme
 
         setUpRecyclerView()
 
-        binding.plannedPaymentsFAB.setOnClickListener {
-            // TODO: 30/08/2020 Fix this with Expenses, Income buttons showing up
-        }
+        binding.plannedPaymentsFABIncome.setOnClickListener { findNavController().navigate(PlannedPaymentsFragmentDirections.plannedPaymentsToUpdatePlannedPayments(type = PayType.INCOME)) }
+        binding.plannedPaymentsFABExpenses.setOnClickListener { findNavController().navigate(PlannedPaymentsFragmentDirections.plannedPaymentsToUpdatePlannedPayments(type = PayType.EXPENSE)) }
     }
 
     private fun setUpRecyclerView() {

@@ -23,7 +23,7 @@
             android:id="@+id/plannedPaymentsFAB_expenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_label="@string/lent"
+            app:fab_label="@string/income"
             android:src="@drawable/lent"
             android:tag="0"/>
 
@@ -31,7 +31,7 @@
             android:id="@+id/plannedPaymentsFAB_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_label="@string/borrowed"
+            app:fab_label="@string/expense"
             android:src="@drawable/borrowed"
             android:tag="1"/>
     </com.github.clans.fab.FloatingActionMenu>

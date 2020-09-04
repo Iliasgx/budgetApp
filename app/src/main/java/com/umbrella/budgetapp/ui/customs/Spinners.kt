@@ -109,7 +109,7 @@ sealed class Spinners {
      * Internal function for initializing the adapter and binding it to the adapter.
      */
     internal fun <T> initRoom(fragment: Fragment, spinner: Spinner, list : LiveData<List<T>>) {
-        val adapter = ArrayAdapter<T>(fragment.requireContext(), android.R.layout.simple_spinner_item, emptyList())
+        val adapter = ArrayAdapter<T>(fragment.requireContext(), android.R.layout.simple_spinner_item, mutableListOf())
 
         bindSpinner(spinner, adapter)
 

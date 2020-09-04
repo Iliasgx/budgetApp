@@ -68,8 +68,13 @@ public abstract class BudgetDatabase: RoomDatabase() {
             if (temp != null) return temp
 
             synchronized(this) {
-                val instance = Room
+                /*val instance = Room
                         .databaseBuilder(context.applicationContext, BudgetDatabase::class.java, DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
+                        .build()*/
+
+                val instance = Room
+                        .inMemoryDatabaseBuilder(context.applicationContext, BudgetDatabase::class.java)
                         .fallbackToDestructiveMigration()
                         .build()
                 INSTANCE = instance

@@ -33,17 +33,16 @@ class DebtsFragment: ExtendedFragment(R.layout.content_debts) {
 
         TabLayoutMediator(binding.debtsTabLayout, binding.debtsViewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.goals_Tab1)
-                1 -> getString(R.string.goals_Tab2)
-                else -> getString(R.string.goals_Tab3)
+                0 -> getString(R.string.debts_Tab1)
+                else -> getString(R.string.debts_Tab2)
             }
         }.attach()
     }
 
-    inner class HomeViewPagerAdapter(fragment: ExtendedFragment) : FragmentStateAdapter(fragment) {
+    class HomeViewPagerAdapter(fragment: ExtendedFragment) : FragmentStateAdapter(fragment) {
 
         override fun createFragment(position: Int) = DebtListFragment(DebtType.values()[position])
 
-        override fun getItemCount() = 3
+        override fun getItemCount() = 2
     }
 }

@@ -1,9 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
@@ -13,6 +18,7 @@ import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndNam
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPlannedPayment
 import com.umbrella.budgetapp.database.viewmodels.PlannedPaymentViewModel
 import com.umbrella.budgetapp.databinding.DataPlannedPaymentBinding
+import com.umbrella.budgetapp.enums.PayType
 import com.umbrella.budgetapp.extensions.DateTimeFormatter
 import com.umbrella.budgetapp.extensions.Dialogs
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
@@ -32,28 +38,49 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
         const val MIN_AMOUNT = 1.0f
     }
 
+    val args : UpdatePlannedPaymentFragmentArgs by navArgs()
+
     private val model by viewModels<PlannedPaymentViewModel>()
 
-    private var extPlannedPayment : ExtendedPlannedPayment
+    private lateinit var extPlannedPayment : ExtendedPlannedPayment
 
-    private val type: Type
+    private lateinit var type: Type
+
+    private lateinit var initPayType: PayType
 
     private var editData = PlannedPayment(id = 0L)
 
-    init {
-        val args : UpdatePlannedPaymentFragmentArgs by navArgs()
-
-        type = checkType(args.plannedPaymentId)
-
-        extPlannedPayment = model.getPlannedPaymentById(args.plannedPaymentId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.NEW) editData = extPlannedPayment.plannedPayment
+        type = checkType(args.plannedPaymentId)
 
-        initData()
+        initPayType = args.type
+
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_planned_payment
+            Type.EDIT -> R.string.title_edit_planned_payment
+        })
+
+        model.getPlannedPaymentById(args.plannedPaymentId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extPlannedPayment = it
+                editData = extPlannedPayment.plannedPayment
+            }
+
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -71,6 +98,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
             if (type == Type.NEW) {
                 dataCardPlannedPaymentAmount.currencyText(Memory.lastUsedCountry.symbol!!, BigDecimal.ZERO)
                 dataCardPlannedPaymentFrom.text = DateTimeFormatter().dateFormat(Calendar.getInstance().timeInMillis)
+                dataCardPlannedPaymentType.setSelection(initPayType.ordinal)
             } else {
                 dataCardPlannedPaymentName.setText(extPlannedPayment.plannedPayment.name, EDITABLE)
                 dataCardPlannedPaymentFrom.text = DateTimeFormatter().dateFormat(extPlannedPayment.plannedPayment.startDate!!)
@@ -81,7 +109,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
                 dataCardPlannedPaymentAmount.currencyText("", extPlannedPayment.plannedPayment.amount!!)
                 dataCardPlannedPaymentCurrency.setSelection(extPlannedPayment.currencyPosition!!)
                 dataCardPlannedPaymentAccount.setSelection(extPlannedPayment.accountPosition!!)
-                dataCardPlannedPaymentType.setSelection(extPlannedPayment.plannedPayment.type!!)
+                dataCardPlannedPaymentType.setSelection(extPlannedPayment.plannedPayment.type!!.ordinal)
                 dataCardPlannedPaymentCategory.text = extPlannedPayment.categoryName
                 dataCardPlannedPaymentPayType.setSelection(extPlannedPayment.plannedPayment.paymentType!!)
                 dataCardPlannedPaymentPayee.setText(extPlannedPayment.plannedPayment.payee, EDITABLE)
@@ -151,7 +179,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
                 reminderOptions = dataCardPlannedPaymentReminder.selectedItemPosition
                 currencyRef = (dataCardPlannedPaymentCurrency.selectedItem as CurrencyAndName).id
                 accountRef = (dataCardPlannedPaymentAccount.selectedItem as Account).id
-                type = dataCardPlannedPaymentType.selectedItemPosition
+                type = PayType.values()[dataCardPlannedPaymentType.selectedItemPosition]
                 paymentType = dataCardPlannedPaymentPayType.selectedItemPosition
             }
         }
@@ -169,5 +197,11 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
         } else if (hasChanges(extPlannedPayment.plannedPayment, editData)) {
             model.updatePlannedPayment(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Toast.makeText(context, "succeed", Toast.LENGTH_SHORT).show()
+        //checkData()
+        return true
     }
 }

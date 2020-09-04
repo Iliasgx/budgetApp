@@ -5,18 +5,18 @@
 
     <group  android:id="@+id/menu_basics" android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_group1_item1"
+            android:id="@+id/globalHome"
             android:icon="@drawable/home"
             android:contentDescription="@string/menu_Home"
             android:title="@string/menu_Home"/>
 
         <item
-            android:id="@+id/menu_group1_item2"
+            android:id="@+id/globalRecords"
             android:icon="@drawable/records"
             android:contentDescription="@string/menu_Records"
             android:title="@string/menu_Records"/>
         <item
-            android:id="@+id/menu_group1_item3"
+            android:id="@+id/globalStatistics"
             android:icon="@drawable/statistics"
             android:contentDescription="@string/menu_Statistics"
             android:title="@string/menu_Statistics"/>
@@ -24,18 +24,18 @@
 
     <group  android:id="@+id/menu_money" android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_group2_item1"
+            android:id="@+id/globalPlannedPayments"
             android:icon="@drawable/planned_payments"
             android:contentDescription="@string/menu_PlannedPayments"
             android:title="@string/menu_PlannedPayments"/>
 
         <item
-            android:id="@+id/menu_group2_item2"
+            android:id="@+id/globalDebts"
             android:icon="@drawable/debt"
             android:contentDescription="@string/menu_Debts"
             android:title="@string/menu_Debts"/>
         <item
-            android:id="@+id/menu_group2_item3"
+            android:id="@+id/globalGoals"
             android:icon="@drawable/goals"
             android:contentDescription="@string/menu_Goals"
             android:title="@string/menu_Goals"/>
@@ -43,13 +43,13 @@
 
     <group android:id="@+id/menu_shopping" android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_group3_item1"
+            android:id="@+id/globalShopping"
             android:icon="@drawable/shopping_list"
             android:contentDescription="@string/menu_ShoppingLists"
             android:title="@string/menu_ShoppingLists"/>
 
         <item
-            android:id="@+id/menu_group3_item2"
+            android:id="@+id/globalStores"
             android:icon="@drawable/stores"
             android:contentDescription="@string/menu_Stores"
             android:title="@string/menu_Stores"/>
@@ -57,13 +57,13 @@
 
     <group android:id="@+id/menu_others" android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_group4_item1"
+            android:id="@+id/globalSettings"
             android:icon="@drawable/settings"
             android:contentDescription="@string/menu_Settings"
             android:title="@string/menu_Settings"/>
 
         <item
-            android:id="@+id/menu_group4_item2"
+            android:id="@+id/globalImports"
             android:icon="@drawable/imports"
             android:contentDescription="@string/menu_Imports"
             android:title="@string/menu_Imports"/>

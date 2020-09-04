@@ -13,6 +13,6 @@ data class ExtendedPayments(
         @Embedded
         val plannedPayment: PlannedPayment,
 
-        @Embedded
+        @Embedded(prefix = "cat_")
         val category: Category
 )

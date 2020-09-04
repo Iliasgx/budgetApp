@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.umbrella.budgetapp.database.collections.PlannedPayment
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPayments
+import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPlannedPayment
 import com.umbrella.budgetapp.database.repositories.PlannedPaymentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ class PlannedPaymentViewModel(application: Application) : AndroidViewModel(appli
 
     private val repos = PlannedPaymentRepository()
 
-    fun getPlannedPaymentById(id: Long) = repos.getPlannedPaymentById(id)
+    fun getPlannedPaymentById(id: Long) : LiveData<ExtendedPlannedPayment> =  repos.getPlannedPaymentById(id).asLiveData()
 
     fun getAllPlannedPayments() : LiveData<List<ExtendedPayments>> = repos.getAllPlannedPayments().asLiveData()
 

@@ -17,6 +17,15 @@ interface DaoRecord : Base<Record> {
     /**
      * Retrieves all records with crossReferences.
      *
+     * @return The list of records in a Flow.
+     */
+    @Transaction
+    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_currency_symbol FROM record_cross ORDER BY timestamp DESC")
+    fun getAllRecords() : Flow<List<ExtendedRecord>>
+
+    /**
+     * Retrieves all records with crossReferences.
+     *
      * @param accountIds: An array of account ID's to sort with.
      * @return The list of records in a Flow.
      */

@@ -5,10 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.umbrella.budgetapp.database.typeconverters.FrequencyTypeConverter
+import com.umbrella.budgetapp.database.typeconverters.PayTypeTypeConverter
+import com.umbrella.budgetapp.enums.PayType
 import java.math.BigDecimal
 
 @Entity(tableName = "planned_payments")
-@TypeConverters(FrequencyTypeConverter::class)
+@TypeConverters(FrequencyTypeConverter::class, PayTypeTypeConverter::class)
 data class PlannedPayment(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "planned_payments_id")
@@ -39,7 +41,7 @@ data class PlannedPayment(
         var frequency: Map<String, String>? = emptyMap(),
 
         @ColumnInfo(name = "type")
-        var type: Int? = 0,
+        var type: PayType? = PayType.INCOME,
 
         @ColumnInfo(name = "payment_type")
         var paymentType: Int? = 0,

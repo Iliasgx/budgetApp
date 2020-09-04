@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.BaseAdapter
@@ -37,7 +37,7 @@ class GoalsListFragment(private val status: GoalStatus) : ExtendedFragment(R.lay
     private fun setUpRecyclerView() {
         adapter = GoalsAdapter(status, object : BaseAdapter.CallBack {
             override fun onItemClick(itemId: Long) {
-                view?.findNavController()?.navigate(GoalsFragmentDirections.goalsToGoalDetails(itemId))
+                findNavController().navigate(GoalsFragmentDirections.goalsToGoalDetails(itemId))
             }
         })
         binding.fragmentRecyclerView.apply {

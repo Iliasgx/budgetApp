@@ -36,7 +36,7 @@ class DebtListFragment(private val type: DebtType)  : ExtendedFragment(R.layout.
             }
 
             override fun onCreateRecord(itemId: Long) {
-                findNavController().navigate(DebtsFragmentDirections.debtsToAddRecordDialog(itemId))
+                //findNavController().navigate(DebtsFragmentDirections.debtsToAddRecordDialog(itemId))
             }
         })
         binding.fragmentRecyclerView.apply {

@@ -2,6 +2,7 @@ package com.umbrella.budgetapp.ui.customs
 
 import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -26,22 +27,24 @@ open class ExtendedFragment(@LayoutRes layout: Int): Fragment(layout) {
     }
 
     /**
-     * Set Toolbar for the current fragment.
+     * Set Toolbar for the current fragment with NavIcon.
      * @param icon implement icon of ToolbarNavIcon
-     * @param menu Inflate the menu, if -1, removes menu.
      *
      * @see ToolBarNavIcon
      */
-    fun setToolbar(icon: ToolBarNavIcon, menu: Int = -1) {
+    fun setToolbar(icon: ToolBarNavIcon) {
         val tb = requireActivity().findViewById<Toolbar>(R.id.toolbar)
 
         tb?.navigationIcon = ContextCompat.getDrawable(requireContext(), icon.id)
+    }
 
-        if (menu != -1) {
-            tb?.inflateMenu(menu)
-        } else {
-            tb?.menu?.clear()
-        }
+    /**
+     * Set Title of the current fragment.
+     *
+     * @param titleId The id corresponding with the String title.
+     */
+    fun setTitle(@StringRes titleId: Int) {
+        requireActivity().findViewById<Toolbar>(R.id.toolbar)?.title = getString(titleId)
     }
 
     /*

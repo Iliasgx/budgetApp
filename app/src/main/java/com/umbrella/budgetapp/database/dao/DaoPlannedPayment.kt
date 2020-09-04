@@ -40,5 +40,5 @@ interface DaoPlannedPayment : Base<PlannedPayment> {
      */
     @Transaction
     @Query("SELECT * FROM planned_payment_cross WHERE planned_payments_id = :id")
-    fun getPlannedPaymentById(id: Long) : ExtendedPlannedPayment
+    fun getPlannedPaymentById(id: Long) : Flow<ExtendedPlannedPayment>
 }
