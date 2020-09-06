@@ -15,7 +15,7 @@ class TemplateViewModel(application: Application) : AndroidViewModel(application
 
     private val repos = TemplateRepository()
 
-    fun getTemplateById(id: Long) = repos.getTemplateById(id)
+    fun getTemplateById(id: Long) = repos.getTemplateById(id).asLiveData()
 
     fun getAllTemplates() : LiveData<List<ExtendedTemplate>> = repos.getAllTemplates().asLiveData()
 
@@ -24,6 +24,10 @@ class TemplateViewModel(application: Application) : AndroidViewModel(application
     fun increasePositionOfIds(vararg ids: Long) = viewModelScope.launch(Dispatchers.IO) { repos.increasePositionOfIds(*ids) }
 
     fun decreasePositionOfIds(vararg ids: Long) = viewModelScope.launch(Dispatchers.IO) { repos.decreasePositionOfIds(*ids) }
+
+    fun increasePositions(startPos: Int, endPos: Int) = viewModelScope.launch(Dispatchers.IO) { repos.increasePositions(startPos, endPos) }
+
+    fun decreasePositions(startPos: Int, endPos: Int) = viewModelScope.launch(Dispatchers.IO) { repos.decreasePositions(startPos, endPos) }
 
     fun addTemplate(template: Template) = viewModelScope.launch(Dispatchers.IO) { repos.addTemplate(template) }
 

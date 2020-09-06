@@ -1,8 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
@@ -13,6 +19,7 @@ import com.umbrella.budgetapp.enums.GoalStatus
 import com.umbrella.budgetapp.extensions.DateTimeFormatter
 import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
+import kotlinx.android.synthetic.main._activity.*
 import java.math.BigDecimal
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -22,23 +29,36 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
 
     private val model by viewModels<GoalViewModel>()
 
-    private var goal : Goal
+    val args : GoalDetailsFragmentArgs by navArgs()
 
-    init {
-        val args : GoalDetailsFragmentArgs by navArgs()
+    private lateinit var goal : Goal
 
-        goal = model.getGoalById(args.goalId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpData()
+        model.getGoalById(args.goalId).observe(viewLifecycleOwner, Observer {
+            goal = it
+            setUpData()
+
+            updateFields()
+        })
 
         binding.apply {
             goalDetailsAddAmount.setOnClickListener { addSavedAmount() }
-            goalDetailsSetReached.setOnClickListener { setAsReached() }
+            goalDetailsSetReached.setOnClickListener { model.updateGoal(goal) }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.goal_more_options, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+        menu.findItem(R.id.menuLayout_GoalMoreOptions_Edit).isVisible = true
     }
 
     private fun setUpData() {
@@ -93,11 +113,23 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
         // Add value in Goal and in field LastAddedWeekAmount
     }
 
-    /**
-     * Set the current goal as reached. Even when the target amount is not yet reached.
-     */
-    private fun setAsReached() {
-        goal.status = GoalStatus.REACHED
-        // TODO: 18/08/2020 update layout after set
+    private fun updateFields() {
+        val isReached = (goal.status == GoalStatus.REACHED)
+
+        binding.goalDetailsOptionsMenu.isVisible = isReached
+        requireActivity().toolbar?.menu?.findItem(R.id.menuLayout_GoalMoreOptions_Delete)?.isVisible = isReached
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menuLayout_GoalMoreOptions_Delete -> {
+                model.removeGoal(goal)
+            }
+            R.id.menuLayout_GoalMoreOptions_Edit -> {
+                findNavController().navigate(GoalDetailsFragmentDirections.goalDetailsToUpdateGoalDetails(goal.id!!))
+            }
+        }
+        findNavController().navigateUp()
+        return true
     }
 }

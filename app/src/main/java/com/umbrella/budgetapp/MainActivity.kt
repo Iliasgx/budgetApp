@@ -1,13 +1,14 @@
 package com.umbrella.budgetapp
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.umbrella.budgetapp.databinding.ActivityBinding
 
 class MainActivity : AppCompatActivity() {
@@ -39,37 +40,26 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         binding.toolbar.visibility = View.VISIBLE
 
-        val config = AppBarConfiguration
-                .Builder(topLevels)
-                .setOpenableLayout(binding.drawerLayout)
-                .build()
-
-        NavigationUI.setupActionBarWithNavController(this, navController, config);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-
         setUpDrawerMenu()
 
-        //Checks first item (Home)
+        // Checks first item (Home)
         binding.navView.setCheckedItem(R.id.globalHome)
     }
 
     private fun setUpDrawerMenu() {
-        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close)
-        binding.drawerLayout.addDrawerListener(toggle)
+        val config = AppBarConfiguration(topLevels, binding.drawerLayout)
 
-        //Syncs drawerLayout on state restored.
-        toggle.syncState()
+        binding.navView.setupWithNavController(navController)
+        binding.toolbar.setupWithNavController(navController, config)
+    }
 
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
-            navController.navigate(menuItem.itemId)
-
-            //navController.navigate(id)
-            menuItem.isChecked = true
-
-            binding.drawerLayout.close()
-            true
-        }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     fun logUserOut() {
@@ -77,7 +67,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        //Close drawer onBackPress
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.close()
         } else {

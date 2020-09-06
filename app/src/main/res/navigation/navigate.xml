@@ -267,11 +267,12 @@
     <fragment
         android:id="@+id/updateShoppingList"
         android:name="com.umbrella.budgetapp.ui.fragments.editors.UpdateShoppingListFragment"
-        tools:layout="@layout/data_shopping_list" >
+        android:label="@string/title_edit_shopping_list"
+        tools:layout="@layout/data_shopping_list">
         <argument
             android:name="shopping_list_id"
-            app:argType="long"
-            android:defaultValue="0L" />
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/shoppingLists"
@@ -288,8 +289,7 @@
     <fragment
         android:id="@+id/shoppingListItems"
         android:name="com.umbrella.budgetapp.ui.fragments.screens.ShoppingListItemsFragment"
-        android:label="@string/title_ShoppingList_Items"
-        tools:layout="@layout/fragment_recycler_view" >
+        tools:layout="@layout/fragment_recycler_view">
         <argument
             android:name="shopping_list_id"
             app:argType="long" />

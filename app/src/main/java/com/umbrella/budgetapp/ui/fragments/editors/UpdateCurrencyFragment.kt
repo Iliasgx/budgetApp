@@ -1,9 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Currency
@@ -29,28 +34,44 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
         val decimalFormat = DecimalFormat("#.###0", DecimalFormatSymbols(Locale.GERMAN))
     }
 
+    val args : UpdateCurrencyFragmentArgs by navArgs()
+
     private val model by viewModels<CurrencyViewModel>()
 
-    private val extCurrency: ExtendedCurrency
+    private lateinit var extCurrency: ExtendedCurrency
 
-    private val type: Type
+    private lateinit var type: Type
 
     private var editData = Currency(id = 0L)
 
-    init {
-        val args : UpdateCurrencyFragmentArgs by navArgs()
-
-        type = checkType(args.currencyId)
-
-        extCurrency = model.getCurrencyById(args.currencyId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.EDIT) editData = extCurrency.currency
+        type = checkType(args.currencyId)
 
-        initData()
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_currency
+            Type.EDIT -> R.string.title_edit_currency
+        })
+
+        model.getCurrencyById(args.currencyId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extCurrency = it
+                editData = extCurrency.currency
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -128,5 +149,14 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
         } else if (hasChanges(extCurrency.currency, editData)) {
             model.updateCurrency(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

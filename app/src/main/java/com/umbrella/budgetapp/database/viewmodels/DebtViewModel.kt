@@ -16,7 +16,7 @@ class DebtViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repos = DebtRepository()
 
-    fun getDebtById(id: Long) = repos.getDebtById(id)
+    fun getDebtById(id: Long) = repos.getDebtById(id).asLiveData()
 
     fun getAllDebts(type: Int) : LiveData<List<ExtendedDebt>> = repos.getAllDebts(type).asLiveData()
 

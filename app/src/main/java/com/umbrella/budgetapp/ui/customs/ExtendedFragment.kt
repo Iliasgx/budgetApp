@@ -10,11 +10,14 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewbinding.ViewBinding
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.adapters.BaseAdapter
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -45,6 +48,15 @@ open class ExtendedFragment(@LayoutRes layout: Int): Fragment(layout) {
      */
     fun setTitle(@StringRes titleId: Int) {
         requireActivity().findViewById<Toolbar>(R.id.toolbar)?.title = getString(titleId)
+    }
+
+    /**
+     * Set Title of the current fragment.
+     *
+     * @param title The title to show.
+     */
+    fun setTitle(title: String) {
+        requireActivity().findViewById<Toolbar>(R.id.toolbar)?.title = title
     }
 
     /*
@@ -109,6 +121,16 @@ open class ExtendedFragment(@LayoutRes layout: Int): Fragment(layout) {
         interface OnAction {
             fun onMoved(itemId: Long, oldPosition: Int, newPosition: Int)
             fun onSwiped(itemId: Long)
+        }
+    }
+
+    fun RecyclerView.fix(adapter: BaseAdapter<*>, manager: DragManageAdapter? = null) {
+        layoutManager = LinearLayoutManager(context)
+        setAdapter(adapter)
+        setHasFixedSize(true)
+
+        if (manager != null) {
+            ItemTouchHelper(manager).attachToRecyclerView(this)
         }
     }
 }

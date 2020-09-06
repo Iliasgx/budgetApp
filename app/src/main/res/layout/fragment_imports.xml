@@ -44,7 +44,7 @@
         android:layout_marginHorizontal="60dp"
         android:background="@android:color/holo_red_light" />
 
-    <com.umbrella.budgetapp.ui.components.EmptyRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imports_accountRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

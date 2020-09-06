@@ -39,7 +39,7 @@ interface DaoCurrency : Base<Currency> {
      */
     @Transaction
     @Query("SELECT * FROM currency_country_cross WHERE currency_id =:id")
-    fun getCurrencyById(id: Long) : ExtendedCurrency
+    fun getCurrencyById(id: Long) : Flow<ExtendedCurrency>
 
     /**
      * Change the position of a single Currency.
@@ -67,4 +67,10 @@ interface DaoCurrency : Base<Currency> {
      */
     @Query("UPDATE currencies SET position = position - 1 WHERE currency_id IN (:ids)")
     suspend fun decreasePositionOfIds(vararg ids: Long)
+
+    @Query("UPDATE currencies SET position = position + 1 WHERE position > :startPos AND position < :endPos")
+    suspend fun increasePositions(startPos: Int, endPos: Int)
+
+    @Query("UPDATE currencies SET position = position - 1 WHERE position > :startPos AND position < :endPos")
+    suspend fun decreasePositions(startPos: Int, endPos: Int)
 }

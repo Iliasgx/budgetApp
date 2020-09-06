@@ -1,10 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
@@ -30,25 +34,40 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
         const val MIN_AMOUNT = 0.01f
     }
 
+    val args : UpdateRecordBasicFragmentArgs by navArgs()
+
     private val model by viewModels<RecordViewModel>()
 
     private var editData = Record(id = 0L)
 
-    private val receivedTemplate : ExtendedTemplate?
+    private var receivedTemplate : ExtendedTemplate? = null
 
-    init {
-        val args : UpdateRecordBasicFragmentArgs by navArgs()
-
-        receivedTemplate = if (args.templateId != 0L) {
-            val tempModel by viewModels<TemplateViewModel>()
-
-            tempModel.getTemplateById(args.templateId)
-        } else null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
+
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(R.string.title_Records)
+
+        if (args.templateId != 0L) {
+            val tempModel by viewModels<TemplateViewModel>()
+
+            tempModel.getTemplateById(args.templateId).observe(viewLifecycleOwner, Observer {
+                receivedTemplate = it
+                initData()
+            })
+        } else {
+            initData()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -60,22 +79,22 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
 
             // Add details of template when a record is created from a template.
             if (receivedTemplate != null) {
-                dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>(receivedTemplate.template.type ?: 0).id)
-                dataCardRecordBasicAmount.currencyText("", receivedTemplate.template.amount!!)
-                dataCardRecordBasicCurrency.text = receivedTemplate.currencyName
-                dataCardRecordBasicAccount.text = receivedTemplate.accountName
-                dataCardRecordBasicCategory.text = receivedTemplate.categoryName
+                dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>(receivedTemplate!!.template.type ?: 0).id)
+                dataCardRecordBasicAmount.currencyText("", receivedTemplate!!.template.amount!!)
+                dataCardRecordBasicCurrency.text = receivedTemplate!!.currencyName
+                dataCardRecordBasicAccount.text = receivedTemplate!!.accountName
+                dataCardRecordBasicCategory.text = receivedTemplate!!.category.name
 
                 //Transfer data from template to Record.
                 editData.apply {
-                    amount = receivedTemplate.template.amount
-                    currencyRef = receivedTemplate.currencyId
-                    accountRef = receivedTemplate.accountId
-                    categoryRef = receivedTemplate.categoryId
-                    storeRef = receivedTemplate.storeId
-                    description = receivedTemplate.template.note
-                    payee = receivedTemplate.template.payee
-                    paymentType = receivedTemplate.template.paymentType
+                    amount = receivedTemplate!!.template.amount
+                    currencyRef = receivedTemplate!!.currencyId
+                    accountRef = receivedTemplate!!.accountId
+                    categoryRef = receivedTemplate!!.category.id
+                    storeRef = receivedTemplate!!.storeId
+                    description = receivedTemplate!!.template.note
+                    payee = receivedTemplate!!.template.payee
+                    paymentType = receivedTemplate!!.template.paymentType
                 }
             }
         }
@@ -167,9 +186,9 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
                         Pair("type", editData.paymentType.toString())
                 ) + if (receivedTemplate != null) {
                     addBundle(
-                            Pair("description", receivedTemplate.template.note.toString()),
-                            Pair("store", receivedTemplate.template.storeRef.toString()),
-                            Pair("payee", receivedTemplate.template.payee.toString())
+                            Pair("description", receivedTemplate!!.template.note.toString()),
+                            Pair("store", receivedTemplate!!.template.storeRef.toString()),
+                            Pair("payee", receivedTemplate!!.template.payee.toString())
                     )
                 } else emptyArray()
         ))
@@ -180,6 +199,15 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
         val temp = mutableListOf<String>()
         pair.forEach { temp.add("${it.first}|${it.second}") }
         return temp.toTypedArray()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 
     private fun calculatorListeners() {

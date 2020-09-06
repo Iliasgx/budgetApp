@@ -44,7 +44,7 @@ class AccountsAdapter(val callback: CallBack) : BaseAdapter<Account>() {
                     }
 
                     setOnClickListener {
-                        if (adapterPosition != RecyclerView.NO_POSITION) callback.onItemClick(accounts[adapterPosition].id!!)
+                        if (adapterPosition != RecyclerView.NO_POSITION) callback.onItemClick(item.id!!)
                     }
                 }
             }

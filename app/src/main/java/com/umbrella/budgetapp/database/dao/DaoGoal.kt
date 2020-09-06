@@ -37,6 +37,6 @@ interface DaoGoal : Base<Goal> {
      * @return The Goal represented by the ID.
      */
     @Query("SELECT * FROM goals WHERE goal_id = :id")
-    fun getGoalById(id: Long) : Goal
+    fun getGoalById(id: Long) : Flow<Goal>
 
 }

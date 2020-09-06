@@ -1,9 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Store
@@ -24,28 +29,44 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
         const val MIN_NAME_LENGTH = 3
     }
 
+    val args : UpdateStoreFragmentArgs by navArgs()
+
     private val model by viewModels<StoreViewModel>()
 
-    private val extStore : ExtendedStore
+    private lateinit var extStore : ExtendedStore
 
-    private val type: Type
+    private lateinit var type: Type
 
     private var editData = Store(id = 0L)
 
-    init {
-        val args : UpdateStoreFragmentArgs by navArgs()
-
-        type = checkType(args.storeId)
-
-        extStore = model.getStoreById(args.storeId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.NEW) editData = extStore.store
+        type = checkType(args.storeId)
 
-        initData()
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_store
+            Type.EDIT -> R.string.title_edit_store
+        })
+
+        model.getStoreById(args.storeId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extStore = it
+                editData = extStore.store
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -58,7 +79,7 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
             if (type == Type.EDIT) {
                 dataCardStoreName.setText(extStore.store.name, EDITABLE)
                 dataCardStoreCurrency.setSelection(extStore.currencyPosition!!)
-                dataCardStoreCategory.text = extStore.categoryName
+                dataCardStoreCategory.text = extStore.category.name
                 dataCardStoreNote.setText(extStore.store.note, EDITABLE)
             }
         }
@@ -115,5 +136,14 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
         } else if (hasChanges(extStore.store, editData)) {
             model.updateStore(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

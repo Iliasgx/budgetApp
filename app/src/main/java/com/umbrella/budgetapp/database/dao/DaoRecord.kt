@@ -54,6 +54,6 @@ interface DaoRecord : Base<Record> {
      */
     @Transaction
     @Query("SELECT * FROM record_cross WHERE record_id = :id")
-    fun getRecordById(id: Long) : ExtendedRecord
+    fun getRecordById(id: Long) : Flow<ExtendedRecord>
 
 }

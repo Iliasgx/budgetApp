@@ -1,11 +1,16 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Category
@@ -25,28 +30,44 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
         const val MIN_NAME_LENGTH = 5
     }
 
+    val args : UpdateCategoryFragmentArgs by navArgs()
+
     private val model by viewModels<CategoryViewModel>()
 
-    private var category: Category
+    private lateinit var category: Category
 
-    private val type: Type
+    private lateinit var type: Type
 
     private var editData = Category(id = 0L)
 
-    init {
-        val args : UpdateCategoryFragmentArgs by navArgs()
-
-        type = checkType(args.categoryId)
-
-        category = model.getCategoryById(args.categoryId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.NEW) editData = category
+        type = checkType(args.categoryId)
 
-        initData()
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_category
+            Type.EDIT -> R.string.title_edit_category
+        })
+
+        model.getCategoryById(args.categoryId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                category = it
+                editData = category
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -132,5 +153,14 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
         } else if (hasChanges(category, editData)) {
             model.updateCategory(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

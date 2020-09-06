@@ -24,6 +24,10 @@ class TemplateRepository {
 
     suspend fun decreasePositionOfIds(vararg ids: Long) = daoTemplate.decreasePositionOfIds(*ids)
 
+    suspend fun increasePositions(startPos: Int, endPos: Int) = daoTemplate.increasePositions(startPos, endPos)
+
+    suspend fun decreasePositions(startPos: Int, endPos: Int) = daoTemplate.decreasePositions(startPos, endPos)
+
     suspend fun addTemplate(template: Template) = daoTemplate.add(template)
 
     suspend fun updateTemplate(template: Template) = daoTemplate.update(template)

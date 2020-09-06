@@ -1,10 +1,15 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
@@ -12,6 +17,7 @@ import com.umbrella.budgetapp.database.collections.Goal
 import com.umbrella.budgetapp.database.viewmodels.GoalViewModel
 import com.umbrella.budgetapp.databinding.DataGoalDetailsBinding
 import com.umbrella.budgetapp.enums.GoalPrefabs
+import com.umbrella.budgetapp.enums.GoalStatus
 import com.umbrella.budgetapp.extensions.DateTimeFormatter
 import com.umbrella.budgetapp.extensions.Dialogs
 import com.umbrella.budgetapp.extensions.currencyText
@@ -20,6 +26,7 @@ import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.customs.Spinners.Colors.Size.SMALL
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
+import kotlinx.android.synthetic.main._activity.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -31,44 +38,54 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
         const val MIN_TARGET_AMOUNT = 1.0f
     }
 
-    private var model : GoalViewModel
+    val args : UpdateGoalDetailsFragmentArgs by navArgs()
 
-    // Current represented goal.
-    private var goal : Goal
+    private val model by viewModels<GoalViewModel>()
 
-    // If the user is creating a new goal or editing one.
-    private var type: Type
+    private lateinit var goal : Goal
 
-    // The name of the current goal. Only set when the user is creating a new goal and chose to set a name without a template.
-    private val name : String?
+    private lateinit var type: Type
+
+    // The name of the current goal. Only set when the user is creating a new goal and chose to set a name.
+    private var name : String? = null
 
     // A prefab of the chosen goal when the user created the goal. Only set when user is creating a new goal.
-    private val goalPrefab : GoalPrefabs
+    private lateinit var goalPrefab : GoalPrefabs
 
-    //The goal variable used to hold the changed data.
-    private var editGoal : Goal = Goal(id = 0L)
+    private var editData : Goal = Goal(id = 0L)
 
-    init {
-        val args : UpdateGoalDetailsFragmentArgs by navArgs()
-
-        model = ViewModelProvider(this).get(GoalViewModel::class.java)
-        type = checkType(args.goalId)
-
-        name = args.name
-        goalPrefab = args.prefab
-
-        //Find the goal by it's ID.
-        goal = model.getGoalById(args.goalId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //When the user is editing, put values of the goal in the editable goal to hold already all values when saving.
-        //Also used to identify if there were changes that have to be saved.
-        if (type == Type.NEW) editGoal = goal
+        type = checkType(args.goalId)
 
-        initData()
+        name = args.name
+        goalPrefab = args.prefab
+
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_goal
+            Type.EDIT -> R.string.title_edit_goal
+        })
+
+        model.getGoalById(args.goalId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                goal = it
+                editData = goal
+            }
+            updateMenu()
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.goal_more_options, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -90,7 +107,7 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
                 if (goalPrefab == GoalPrefabs.NONE) {
                     dataCardGoalDetailsName.setText(name, EDITABLE)
                 } else {
-                    dataCardGoalDetailsName.setText(resources.getStringArray(R.array.goalPrefab_names)[goalPrefab.ordinal])
+                    dataCardGoalDetailsName.setText(name ?: resources.getStringArray(R.array.goalPrefab_names)[goalPrefab.ordinal])
                     dataCardGoalDetailsIcon.setSelection(goalPrefab.ordinal)
                     dataCardGoalDetailsColor.setSelection(goalPrefab.ordinal)
                 }
@@ -108,6 +125,19 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
         }
         //Set listeners after initializing the data so no listeners would be called already.
         setListeners()
+    }
+
+    private fun updateMenu() {
+        toolbar?.menu?.apply {
+            if (type == Type.EDIT) {
+                val isActive = editData.status == GoalStatus.ACTIVE
+
+                findItem(R.id.menuLayout_GoalMoreOptions_pause).isVisible = isActive
+                findItem(R.id.menuLayout_GoalMoreOptions_start).isVisible = !isActive
+            } else {
+                findItem(R.id.menuLayout_GoalMoreOptions_Edit).isVisible = true
+            }
+        }
     }
 
     /**
@@ -131,10 +161,10 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
                 Dialogs.DatePicker(requireContext(), object: Dialogs.DatePicker.OnSelectDate {
                     override fun dateSelected(timeInMillis: Long) {
                         dataCardGoalDetailsDate.text = DateTimeFormatter().dateFormat(timeInMillis)
-                        editGoal.desiredDate = timeInMillis
+                        editData.desiredDate = timeInMillis
                     }
                 }).apply {
-                    initialDate(editGoal.desiredDate ?: Calendar.getInstance().timeInMillis)
+                    initialDate(editData.desiredDate ?: Calendar.getInstance().timeInMillis)
                     fromToday()
                     show()
                 }
@@ -161,13 +191,13 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
         if (!nameCorrect) return
 
         //Check if the user hasn't saved already more than the target was. (Then a Goal would not be needed.) Return if not met requirements.
-        if (editGoal.savedAmount!! >= editGoal.targetAmount!!) {
+        if (editData.savedAmount!! >= editData.targetAmount!!) {
             Toast.makeText(context, getString(R.string.data_Goal_Details_Saved_ErrorMsg_tooLarge), Toast.LENGTH_SHORT).show()
             return
         }
 
         //Update EditGoal with data that is set without listeners.
-        editGoal.apply {
+        editData.apply {
             name = binding.dataCardGoalDetailsName.text.trim().toString()
             note = binding.dataCardGoalDetailsNote.text.trim().toString()
             color = binding.dataCardGoalDetailsColor.selectedItemPosition
@@ -183,9 +213,30 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
      */
     override fun saveData() {
         if (type == Type.NEW) {
-            model.addGoal(editGoal)
-        } else if (hasChanges(goal, editGoal)) {
-            model.updateGoal(editGoal)
+            model.addGoal(editData)
+        } else if (hasChanges(goal, editData)) {
+            model.updateGoal(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menuLayout_GoalMoreOptions_Save -> {
+                checkData()
+            }
+            R.id.menuLayout_GoalMoreOptions_Delete -> {
+                model.removeGoal(goal)
+                findNavController().navigateUp()
+            }
+            R.id.menuLayout_GoalMoreOptions_start -> {
+                editData.status = GoalStatus.ACTIVE
+                updateMenu()
+            }
+            R.id.menuLayout_GoalMoreOptions_pause -> {
+                editData.status = GoalStatus.PAUSED
+                updateMenu()
+            }
+        }
+        return true
     }
 }

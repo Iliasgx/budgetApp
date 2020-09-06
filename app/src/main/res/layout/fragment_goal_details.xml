@@ -160,30 +160,36 @@
         android:textColor="@android:color/black"
         android:textSize="15sp" />
 
-    <include
-        android:id="@+id/divider"
-        layout="@layout/custom_divider"
+    <LinearLayout
+        android:id="@+id/goal_Details_optionsMenu"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/goal_Details_AddAmount" />
-
-    <Button
-        android:id="@+id/goal_Details_AddAmount"
-        android:layout_above="@id/goal_Details_SetReached"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="0dp"
-        android:text="@string/goals_Details_AddAmount"
-        style="@style/Button_Add"/>
-
-    <TextView
-        android:id="@+id/goal_Details_SetReached"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/goal_Details_EstimatedPeriod"
         android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="center"
-        android:text="@string/goals_Details_SetReached"
-        style="@style/Text_Button_More"/>
+        android:gravity="bottom">
 
+        <include
+            android:id="@+id/divider"
+            layout="@layout/custom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <Button
+            android:id="@+id/goal_Details_AddAmount"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/goals_Details_AddAmount"
+            style="@style/Button_Add"/>
+
+        <TextView
+            android:id="@+id/goal_Details_SetReached"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:text="@string/goals_Details_SetReached"
+            style="@style/Text_Button_More"/>
+    </LinearLayout>
 </RelativeLayout>

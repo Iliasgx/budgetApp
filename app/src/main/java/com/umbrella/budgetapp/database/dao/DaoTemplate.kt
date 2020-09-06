@@ -18,7 +18,7 @@ interface DaoTemplate : Base<Template> {
      * @return The list of templates in a Flow.
      */
     @Transaction
-    @Query("SELECT template_id, name, position, extended_category_name FROM template_cross ORDER BY position ASC")
+    @Query("SELECT template_id, name, position, cat_name, cat_color, cat_icon FROM template_cross ORDER BY position ASC")
     fun getAllTemplates() : Flow<List<ExtendedTemplate>>
 
     /**
@@ -29,7 +29,7 @@ interface DaoTemplate : Base<Template> {
      */
     @Transaction
     @Query("SELECT * FROM template_cross WHERE template_id = :id")
-    fun getTemplateById(id: Long) : ExtendedTemplate
+    fun getTemplateById(id: Long) : Flow<ExtendedTemplate>
 
     /**
      * Change the position of a single Template.
@@ -57,4 +57,10 @@ interface DaoTemplate : Base<Template> {
      */
     @Query("UPDATE templates SET position = position - 1 WHERE template_id IN (:ids)")
     suspend fun decreasePositionOfIds(vararg ids: Long)
+
+    @Query("UPDATE templates SET position = position + 1 WHERE position > :startPos AND position < :endPos")
+    suspend fun increasePositions(startPos: Int, endPos: Int)
+
+    @Query("UPDATE templates SET position = position - 1 WHERE position > :startPos AND position < :endPos")
+    suspend fun decreasePositions(startPos: Int, endPos: Int)
 }

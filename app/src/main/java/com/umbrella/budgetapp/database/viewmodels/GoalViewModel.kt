@@ -14,7 +14,7 @@ class GoalViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repos = GoalRepository()
 
-    fun getGoalById(id: Long) = repos.getGoalById(id)
+    fun getGoalById(id: Long) = repos.getGoalById(id).asLiveData()
 
     fun getAllGoalsUnreached(status: Int) : LiveData<List<Goal>> = repos.getAllGoalsUnreached(status).asLiveData()
 

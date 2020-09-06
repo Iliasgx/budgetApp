@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.BaseAdapter
 import com.umbrella.budgetapp.adapters.RecordsAdapter
@@ -26,6 +25,12 @@ class RecordsFragment : ExtendedFragment(R.layout.fragment_records) {
         model.getAllRecords().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
 
         setUpRecyclerView()
+
+        binding.recordsFAB.setOnClickListener {
+            findNavController().navigate(RecordsFragmentDirections.recordsToUpdateRecordBasic())
+        }
+
+        // TODO: 06/09/2020 set filterPeriod text and total amount
     }
 
     private fun setUpRecyclerView() {
@@ -35,10 +40,6 @@ class RecordsFragment : ExtendedFragment(R.layout.fragment_records) {
             }
         })
 
-        binding.fragmentRecordsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = adapter
-            setHasFixedSize(true)
-        }
+        binding.fragmentRecordsRecyclerView.fix(adapter)
     }
 }

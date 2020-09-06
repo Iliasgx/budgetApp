@@ -42,6 +42,6 @@ interface DaoDebt : Base<Debt> {
      */
     @Transaction
     @Query("SELECT * FROM debt_cross WHERE debt_id = :id")
-    fun getDebtById(id: Long) : ExtendedDebt
+    fun getDebtById(id: Long) : Flow<ExtendedDebt>
 
 }

@@ -25,6 +25,8 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbar(ToolBarNavIcon.CANCEL)
+
         initData()
     }
 
@@ -51,7 +53,7 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
                 // TODO: 13/08/2020 Add Store DialogFragment
             }
 
-            dataCardShoppingListCreate.setOnClickListener { createList() }
+            dataCardShoppingListCreate.setOnClickListener { checkData() }
         }
     }
 
@@ -82,9 +84,5 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
      */
     override fun saveData() {
         model.addShoppingList(editData)
-    }
-
-    private fun createList() {
-        checkData()
     }
 }

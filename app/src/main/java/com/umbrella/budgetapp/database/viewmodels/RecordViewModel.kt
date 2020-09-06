@@ -16,7 +16,7 @@ class RecordViewModel(application: Application) : AndroidViewModel(application) 
 
     private val repos = RecordRepository()
 
-    fun getRecordById(id: Long) = repos.getRecordById(id)
+    fun getRecordById(id: Long) = repos.getRecordById(id).asLiveData()
 
     fun getAllRecords() : LiveData<List<ExtendedRecord>> = repos.getAllRecords().asLiveData()
 

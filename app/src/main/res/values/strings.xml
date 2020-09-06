@@ -47,6 +47,7 @@
     <string name="title_Templates">Templates</string>
 
     <string name="title_addChange_record">€ 0.00</string>
+    <string name="title_addChange_record_value">%1$s</string>
 
     <string name="title_add_account">New account</string>
     <string name="title_add_category">New category</string>

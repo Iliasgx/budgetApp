@@ -7,7 +7,8 @@
         android:titleCondensed="@string/menuResources_Title_Pause"
         android:icon="@drawable/pause"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
     <item android:id="@+id/menuLayout_GoalMoreOptions_start"
         android:title="@string/menuResources_Title_Activate"
@@ -22,14 +23,15 @@
         android:titleCondensed="@string/menuResources_Title_Delete"
         android:icon="@drawable/delete"
         android:orderInCategory="3"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
     <item android:id="@+id/menuLayout_GoalMoreOptions_Save"
         android:title="@string/menuResources_Title_Save"
         android:titleCondensed="@string/menuResources_Title_Save"
         android:icon="@drawable/check"
         android:orderInCategory="4"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:visible="false"/>
 
     <item android:id="@+id/menuLayout_GoalMoreOptions_Edit"
@@ -37,5 +39,6 @@
         android:titleCondensed="@string/menuResources_Title_Edit"
         android:icon="@drawable/edit"
         android:orderInCategory="5"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 </menu>

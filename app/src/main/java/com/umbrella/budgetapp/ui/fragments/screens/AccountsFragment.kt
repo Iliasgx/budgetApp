@@ -5,10 +5,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.DOWN
 import androidx.recyclerview.widget.ItemTouchHelper.UP
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.AccountsAdapter
 import com.umbrella.budgetapp.adapters.BaseAdapter.CallBack
@@ -59,12 +57,6 @@ class AccountsFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
             override fun onSwiped(itemId: Long) {}
         })
 
-        binding.fragmentRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = adapter
-            setHasFixedSize(true)
-
-            ItemTouchHelper(manager).attachToRecyclerView(this)
-        }
+        binding.fragmentRecyclerView.fix(adapter, manager)
     }
 }

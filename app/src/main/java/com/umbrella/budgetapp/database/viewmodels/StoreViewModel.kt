@@ -15,7 +15,7 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repos = StoreRepository()
 
-    fun getStoreById(id: Long) = repos.getStoreById(id)
+    fun getStoreById(id: Long) = repos.getStoreById(id).asLiveData()
 
     fun getAllStores() : LiveData<List<ExtendedStore>> = repos.getAllStores().asLiveData()
 

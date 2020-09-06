@@ -3,12 +3,12 @@ package com.umbrella.budgetapp.database.collections.subcollections
 import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
 import androidx.room.Embedded
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Template
 
 @DatabaseView(
         viewName = "template_cross",
-        value = """SELECT templates.*, 
-                categories.category_id AS extended_category_id, categories.name AS extended_category_name, 
+        value = """SELECT templates.*, categories.*, 
                 accounts.account_id AS extended_account_id, accounts.name AS extended_account_name, accounts.position AS extended_account_position, 
                 stores.store_id AS extended_store_id, stores.name AS extended_store_name, 
                 currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name, currency_country_cross.position AS extended_currency_name 
@@ -22,11 +22,8 @@ data class ExtendedTemplate (
         @Embedded
         val template: Template,
 
-        @ColumnInfo(name = "extended_category_id")
-        val categoryId: Long?,
-
-        @ColumnInfo(name = "extended_category_name")
-        val categoryName: String?,
+        @Embedded(prefix = "cat_")
+        val category: Category,
 
         @ColumnInfo(name = "extended_account_id")
         val accountId: Long?,

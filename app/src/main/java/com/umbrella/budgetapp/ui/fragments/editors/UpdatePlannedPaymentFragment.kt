@@ -6,9 +6,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
@@ -73,7 +73,6 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
                 extPlannedPayment = it
                 editData = extPlannedPayment.plannedPayment
             }
-
             initData()
         })
     }
@@ -200,8 +199,11 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(context, "succeed", Toast.LENGTH_SHORT).show()
-        //checkData()
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
         return true
     }
 }

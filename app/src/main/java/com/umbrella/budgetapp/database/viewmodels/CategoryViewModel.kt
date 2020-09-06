@@ -14,7 +14,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
 
     private val repos = CategoryRepository()
 
-    fun getCategoryById(id: Long) = repos.getCategoryById(id)
+    fun getCategoryById(id: Long) = repos.getCategoryById(id).asLiveData()
 
     fun getAllCategories() : LiveData<List<Category>> = repos.getAllCategories().asLiveData()
 

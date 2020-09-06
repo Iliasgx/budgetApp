@@ -26,6 +26,10 @@ class CurrencyRepository {
 
     suspend fun decreasePositionOfIds(vararg ids: Long) = daoCurrency.decreasePositionOfIds(*ids)
 
+    suspend fun increasePositions(startPos: Int, endPos: Int) = daoCurrency.increasePositions(startPos, endPos)
+
+    suspend fun decreasePositions(startPos: Int, endPos: Int) = daoCurrency.decreasePositions(startPos, endPos)
+
     suspend fun addCurrency(currency: Currency) = daoCurrency.add(currency)
 
     suspend fun updateCurrency(currency: Currency) = daoCurrency.update(currency)

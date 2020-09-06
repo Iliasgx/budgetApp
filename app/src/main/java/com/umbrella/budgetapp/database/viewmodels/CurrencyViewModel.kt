@@ -16,7 +16,7 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
 
     private val repos = CurrencyRepository()
 
-    fun getCurrencyById(id: Long) = repos.getCurrencyById(id)
+    fun getCurrencyById(id: Long) = repos.getCurrencyById(id).asLiveData()
 
     fun getAllCurrencies() : LiveData<List<ExtendedCurrency>> = repos.getAllCurrencies().asLiveData()
 
@@ -27,6 +27,10 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
     fun increasePositionOfIds(vararg ids: Long) = viewModelScope.launch(Dispatchers.IO) { repos.increasePositionOfIds(*ids) }
 
     fun decreasePositionOfIds(vararg ids: Long) = viewModelScope.launch(Dispatchers.IO) { repos.decreasePositionOfIds(*ids) }
+
+    fun increasePositions(startPos: Int, endPos: Int) = viewModelScope.launch(Dispatchers.IO) { repos.increasePositions(startPos, endPos) }
+
+    fun decreasePositions(startPos: Int, endPos: Int) = viewModelScope.launch(Dispatchers.IO) { repos.decreasePositions(startPos, endPos) }
 
     fun addCurrency(currency: Currency) = viewModelScope.launch(Dispatchers.IO) { repos.addCurrency(currency) }
 

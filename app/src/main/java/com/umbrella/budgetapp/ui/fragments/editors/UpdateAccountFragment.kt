@@ -1,9 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
@@ -27,28 +32,47 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
         const val MIN_NAME_LENGTH = 2
     }
 
+    val args : UpdateAccountFragmentArgs by navArgs()
+
     private val model by viewModels<AccountViewModel>()
 
-    private var extAccount : ExtendedAccount
+    private lateinit var extAccount : ExtendedAccount
 
-    private var type: Type
+    private lateinit var type: Type
 
     private var editData = Account(id = 0L)
 
-    init {
-        val args : UpdateAccountFragmentArgs by navArgs()
-
-        type = checkType(args.accountId)
-
-        extAccount = model.getAccountById(args.accountId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.NEW) editData = extAccount.account
+        type = checkType(args.accountId)
 
-        initData()
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_account
+            Type.EDIT -> R.string.title_edit_account
+        })
+
+        model.getAccountById(args.accountId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extAccount = it
+                editData = extAccount.account
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate( when(type) {
+            Type.NEW -> R.menu.save
+            Type.EDIT -> R.menu.save_delete
+        }, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -132,5 +156,15 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
         } else if (hasChanges(extAccount.account, editData)) {
             model.updateAccount(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly || item.itemId == R.id.menuLayout_SaveDelete_Save) {
+            checkData()
+        } else {
+            if (item.itemId == R.id.menuLayout_SaveDelete_Delete) model.removeAccount(extAccount.account)
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

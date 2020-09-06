@@ -1,9 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Account
@@ -28,28 +33,44 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
         const val MIN_AMOUNT = 1.0f
     }
 
+    val args : UpdateTemplateFragmentArgs by navArgs()
+
     private val model by viewModels<TemplateViewModel>()
 
-    private val extTemplate : ExtendedTemplate
+    private lateinit var extTemplate : ExtendedTemplate
 
-    private val type: Type
+    private lateinit var type: Type
 
     private var editData = Template(id = 0L)
 
-    init {
-        val args : UpdateTemplateFragmentArgs by navArgs()
-
-        type = checkType(args.templateId)
-
-        extTemplate = model.getTemplateById(args.templateId)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.NEW) editData = extTemplate.template
+        type = checkType(args.templateId)
 
-        initData()
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> R.string.title_add_template
+            Type.EDIT -> R.string.title_edit_template
+        })
+
+        model.getTemplateById(args.templateId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extTemplate = it
+                editData = extTemplate.template
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -70,7 +91,7 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
                 dataCardTemplateAmount.currencyText("", extTemplate.template.amount!!)
                 dataCardTemplateCurrency.setSelection(extTemplate.currencyPosition!!)
                 dataCardTemplateAccount.setSelection(extTemplate.accountPosition!!)
-                dataCardTemplateCategory.text = extTemplate.categoryName
+                dataCardTemplateCategory.text = extTemplate.category.name
                 dataCardTemplateType.setSelection(extTemplate.template.type!!)
                 dataCardTemplatePayType.setSelection(extTemplate.template.paymentType!!)
                 dataCardTemplateStore.text = extTemplate.storeName
@@ -148,5 +169,14 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
         } else if (hasChanges(extTemplate.template, editData)) {
             model.updateTemplate(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

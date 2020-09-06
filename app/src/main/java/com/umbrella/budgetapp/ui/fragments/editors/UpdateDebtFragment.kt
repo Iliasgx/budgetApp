@@ -1,10 +1,15 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
@@ -33,36 +38,56 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
         const val MIN_NAME_LENGTH = 3
         const val MIN_AMOUNT = 1.0f
     }
+    val args : UpdateDebtFragmentArgs by navArgs()
 
     private val model by viewModels<DebtViewModel>()
 
-    private var extDebt : ExtendedDebt
+    private lateinit var extDebt : ExtendedDebt
 
-    private var type: Type
+    private lateinit var type: Type
 
-    private var debtType: DebtType
+    private lateinit var debtType: DebtType
 
     private var editData = Debt(id = 0L)
 
-    init {
-        val args : UpdateDebtFragmentArgs by navArgs()
-
-        type = checkType(args.debtId)
-
-        extDebt = model.getDebtById(args.debtId)
-
-        debtType = when(type) {
-            Type.NEW -> DebtType.values()[args.debtType]
-            Type.EDIT -> extDebt.debt.debtType!!
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.NEW) editData = extDebt.debt
+        type = checkType(args.debtId)
 
-        initData()
+        debtType = when(type) {
+            Type.NEW -> DebtType.values()[args.debtType]
+            Type.EDIT -> extDebt.debt.debtType!!
+        }
+
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(when (type) {
+            Type.NEW -> {
+                when (debtType) {
+                    DebtType.LENT -> R.string.title_add_debt_lent
+                    DebtType.BORROWED -> R.string.title_add_debt_borrowed
+                }
+            }
+            Type.EDIT -> R.string.title_edit_debt
+        })
+
+        model.getDebtById(args.debtId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extDebt = it
+                editData = extDebt.debt
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -167,5 +192,14 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
         } else if (hasChanges(extDebt.debt, editData)) {
             model.updateDebt(editData)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

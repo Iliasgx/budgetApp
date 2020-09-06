@@ -1,9 +1,14 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Account
@@ -31,35 +36,46 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
         const val MIN_AMOUNT = 0.01f
     }
 
+    val args : UpdateRecordDetailsFragmentArgs by navArgs()
+
     private val model by viewModels<RecordViewModel>()
 
     private lateinit var extRecord: ExtendedRecord
 
-    private val type: Type
+    private lateinit var type: Type
 
     private var editData = Record(id = 0L)
 
     private var bundle : Array<String>? = null
 
-    init {
-        val args : UpdateRecordDetailsFragmentArgs by navArgs()
-
-        type = checkType(args.recordId)
-
-        if (type == Type.EDIT) {
-            extRecord = model.getRecordById(args.recordId)
-        } else {
-            bundle = args.basicArguments
-        }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (type == Type.EDIT) editData = extRecord.record
+        type = checkType(args.recordId)
 
-        initData()
+        setToolbar(ToolBarNavIcon.CANCEL)
+
+        model.getRecordById(args.recordId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                extRecord = it
+                editData = extRecord.record
+
+                setTitle(R.string.title_addChange_record_value)
+            } else {
+                bundle = args.basicArguments
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -85,7 +101,9 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
 
                     if (containsKey("store")) {
                         val storeModel by viewModels<StoreViewModel>()
-                        dataCardRecordDetailsStore.text = storeModel.getStoreById(getValue("store").toLong()).store.name
+                        storeModel.getStoreById(getValue("store").toLong()).observe(viewLifecycleOwner, Observer {
+                            dataCardRecordDetailsStore.text = it.store.name
+                        })
                     }
 
                     editData.apply {
@@ -138,6 +156,8 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
             dataCardRecordDetailsAmount.setOnClickListener {
                 // TODO: 15/08/2020 AmountDialog MIN_VALUE
                 //MIN_AMOUNT
+
+                //Result as setTitle change
             }
 
             // Open a DateTimePickerDialog with the current date + time.
@@ -191,5 +211,14 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
             temp[base[0]] = base[1]
         }
         return temp
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

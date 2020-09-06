@@ -25,7 +25,7 @@ interface DaoCategory : Base<Category> {
      * @return The Category represented by the ID.
      */
     @Query("SELECT * FROM categories WHERE category_id = :id")
-    fun getCategoryById(id: Long) : Category
+    fun getCategoryById(id: Long) : Flow<Category>
 
 
 }

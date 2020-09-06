@@ -1,9 +1,13 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.MainActivity
@@ -22,36 +26,43 @@ import java.util.*
 class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
     private val binding by viewBinding(DataUserBinding::bind)
 
-    //ViewModel for holding the user data.
+    val args : UpdateUserProfileFragmentArgs by navArgs()
+
     private val model by viewModels<UserViewModel>()
 
-    //The current user, null when it's a new user.
     private var user: User? = null
 
-    //Used to save the edited arguments. Used do determine of data has to be updated in the Database.
+    private lateinit var type : Type
+
     private var editedUser = User(id = 0L)
 
-    //Arguments received to identify a new user.
-    private var type : Type
-
-    init {
-        val args : UpdateUserProfileFragmentArgs by navArgs()
-
-        type = checkType(args.userId)
-
-        if (type == Type.EDIT) {
-            user = model.getUserById(args.userId)
-            //Set defaultData of editedUser to user (safety reasons).
-            editedUser = user!!
-        } else {
-            binding.dataCardUserAction.text = getString(R.string.data_User_CreateAccount)
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (type == Type.EDIT) initData()
-        setListeners()
+
+        type = checkType(args.userId)
+
+        // Screen also used to create a new account, can't create cancel button then because they can't continue without profile.
+        if (type == Type.EDIT) setToolbar(ToolBarNavIcon.CANCEL)
+
+        model.getUserById(args.userId).observe(viewLifecycleOwner, Observer {
+            if (type == Type.EDIT) {
+                user = it
+                editedUser = user!!
+            } else {
+                binding.dataCardUserAction.text = getString(R.string.data_User_CreateAccount)
+            }
+            initData()
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (type == Type.EDIT) inflater.inflate(R.menu.save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
@@ -67,6 +78,7 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
             val tempDate = if (user!!.birthday != 0L) user!!.birthday else Calendar.getInstance().timeInMillis
             dataCardUserBirthDay.text = DateTimeFormatter().dateFormat(tempDate)
         }
+        setListeners()
     }
 
     /**
@@ -124,5 +136,14 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
         } else {
             findNavController().navigateUp()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menuLayout_SaveOnly) {
+            checkData()
+        } else {
+            findNavController().navigateUp()
+        }
+        return true
     }
 }

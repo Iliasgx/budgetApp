@@ -29,5 +29,5 @@ interface DaoStore : Base<Store> {
      */
     @Transaction
     @Query("SELECT * FROM stores WHERE store_id = :id")
-    fun getStoreById(id: Long) : ExtendedStore
+    fun getStoreById(id: Long) : Flow<ExtendedStore>
 }

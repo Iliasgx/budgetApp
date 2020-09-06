@@ -48,7 +48,7 @@ interface DaoAccount : Base<Account> {
      */
     @Transaction
     @Query("SELECT * FROM account_cross WHERE account_id = :id")
-    fun getAccountById(id: Long) : ExtendedAccount
+    fun getAccountById(id: Long) : Flow<ExtendedAccount>
 
     /**
      * Change the position of a single account.

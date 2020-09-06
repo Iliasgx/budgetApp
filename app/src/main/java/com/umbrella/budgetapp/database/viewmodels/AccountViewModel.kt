@@ -16,7 +16,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
 
     private val repos = AccountRepository()
 
-    fun getAccountById(id: Long) = repos.getAccountById(id)
+    fun getAccountById(id: Long) = repos.getAccountById(id).asLiveData()
 
     fun getAccountBasics() : LiveData<List<Account>> = repos.getAccountBasics().asLiveData()
 

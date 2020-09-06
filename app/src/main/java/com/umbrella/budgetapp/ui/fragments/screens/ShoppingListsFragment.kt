@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.ShoppingListAdapter
 import com.umbrella.budgetapp.database.viewmodels.ShoppingListViewModel
@@ -42,10 +41,6 @@ class ShoppingListsFragment : ExtendedFragment(R.layout.fragment_recycler_view) 
             }
         })
 
-        binding.fragmentRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = adapter
-            setHasFixedSize(true)
-        }
+        binding.fragmentRecyclerView.fix(adapter)
     }
 }

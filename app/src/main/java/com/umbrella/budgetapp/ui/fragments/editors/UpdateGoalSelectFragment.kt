@@ -22,10 +22,20 @@ class UpdateGoalSelectFragment : ExtendedFragment(R.layout.data_goal_select) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbar(ToolBarNavIcon.CANCEL)
+        setTitle(R.string.title_add_goal_select)
+
         binding.dataCardGoalSelectGrid.adapter =
                 GoalPrefabAdapter(object : GoalPrefabAdapter.CallBack {
                     override fun onSelectPrefab(prefab: GoalPrefabs) {
-                        findNavController().navigate(UpdateGoalSelectFragmentDirections.goalSelectToUpdateGoalDetails(prefab = prefab))
+                        val tempName = checkRequirements()
+
+                        val navDir = if (tempName.isNullOrBlank()) {
+                            UpdateGoalSelectFragmentDirections.goalSelectToUpdateGoalDetails(prefab = prefab)
+                        } else {
+                            UpdateGoalSelectFragmentDirections.goalSelectToUpdateGoalDetails(name = tempName, prefab = prefab)
+                        }
+                        findNavController().navigate(navDir)
                     }
                 })
 
@@ -37,6 +47,17 @@ class UpdateGoalSelectFragment : ExtendedFragment(R.layout.data_goal_select) {
                     else -> findNavController().navigate(UpdateGoalSelectFragmentDirections.goalSelectToUpdateGoalDetails(name = this.toString()))
                 }
             }
+        }
+    }
+
+    private fun checkRequirements() : String? {
+        with(binding.dataCardGoalSelectName.text.trim()) {
+            when {
+                isBlank() -> binding.dataCardGoalSelectCreate.error = getString(R.string.data_Goal_Select_Name_ErrorMsg_empty)
+                length < MIN_NAME_LENGTH -> binding.dataCardGoalSelectCreate.error = getString(R.string.data_Goal_Select_Name_ErrorMsg_tooShort, MIN_NAME_LENGTH)
+                else -> return this.toString()
+            }
+            return null
         }
     }
 
