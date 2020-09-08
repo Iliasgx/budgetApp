@@ -19,6 +19,7 @@ import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.databinding.DataAccountBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
 import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.interfaces.Edit
@@ -110,7 +111,12 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
             dataCardAccountName.afterTextChangedDelayed { editData.name = it }
 
             dataCardAccountCurrValue.setOnClickListener {
-                // TODO: 13/08/2020 AmountDialog
+                findNavController().navigate(UpdateAccountFragmentDirections.globalDialogAmount(editData.currentValue?.toEngineeringString()))
+            }
+
+            getNavigationResult<String>(R.id.updateAccount, "amount") { result ->
+                editData.currentValue = BigDecimal(result)
+                dataCardAccountCurrValue.text = result
             }
         }
     }

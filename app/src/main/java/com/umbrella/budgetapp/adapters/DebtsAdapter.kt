@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
+import com.umbrella.budgetapp.database.collections.Debt
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedDebt
 import com.umbrella.budgetapp.enums.DebtType
 import com.umbrella.budgetapp.extensions.autoNotify
@@ -37,7 +38,7 @@ class DebtsAdapter(private val type : DebtType, val callBack: CallBack) : BaseAd
     }
 
     interface CallBack : BaseAdapter.CallBack {
-        fun onCreateRecord(itemId: Long)
+        fun onCreateRecord(item: Debt)
     }
 
     init {
@@ -59,7 +60,7 @@ class DebtsAdapter(private val type : DebtType, val callBack: CallBack) : BaseAd
                         list_Debts_Amount.text = String.format("${Memory.lastUsedCountry.symbol} ${NumberFormat.getCurrencyInstance().format(item.debt.amount)}")
                         list_Debts_Date.text = SimpleDateFormat("DD/MM/YYYY", Locale.getDefault()).format(Date(item.debt.timestamp!!))
 
-                        list_debts_create_record.setOnClickListener { callBack.onCreateRecord(debts[adapterPosition].debt.id!!) }
+                        list_debts_create_record.setOnClickListener { callBack.onCreateRecord(debts[adapterPosition].debt) }
                     }
 
                     itemView.setOnClickListener {

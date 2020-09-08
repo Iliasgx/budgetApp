@@ -371,6 +371,9 @@
         <action
             android:id="@+id/plannedPaymentsToUpdatePlannedPayments"
             app:destination="@id/updatePlannedPayment" />
+        <action
+            android:id="@+id/plannedPaymentsToSortDialog"
+            app:destination="@id/sortDialog" />
     </fragment>
     <fragment
         android:id="@+id/updatePlannedPayment"
@@ -398,6 +401,24 @@
                 android:defaultValue="0L" />
         </action>
     </fragment>
+    <dialog
+        android:id="@+id/amountDialog"
+        android:name="com.umbrella.budgetapp.ui.dialogs.AmountDialog"
+        tools:layout="@layout/dialog_amount" >
+        <argument
+            android:name="initValue"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="0" />
+        <argument
+            android:name="minValue"
+            app:argType="float"
+            android:defaultValue="0" />
+        <argument
+            android:name="maxValue"
+            app:argType="float"
+            android:defaultValue="0" />
+    </dialog>
     <action android:id="@+id/globalLogin" app:destination="@id/login" />
     <action android:id="@+id/globalStatistics" app:destination="@id/statistics" />
     <action android:id="@+id/globalRecords" app:destination="@id/records" />
@@ -411,4 +432,37 @@
     <action android:id="@+id/globalSettings" app:destination="@id/settingsDefault" />
     <action android:id="@+id/globalStores" app:destination="@id/stores" />
     <action android:id="@+id/globalImports" app:destination="@id/imports" />
+    <action android:id="@+id/globalDialogAmount" app:destination="@id/amountDialog" />
+    <action android:id="@+id/globalAddRecord" app:destination="@id/addRecordDialog" />
+    <fragment
+        android:id="@+id/sortDialog"
+        android:name="com.umbrella.budgetapp.ui.dialogs.SortDialog"
+        tools:layout="@layout/dialog_sort">
+        <argument
+            android:name="currentFilter"
+            app:argType="com.umbrella.budgetapp.enums.SortType"
+            android:defaultValue="DEFAULT" />
+    </fragment>
+    <dialog
+        android:id="@+id/addRecordDialog"
+        android:name="com.umbrella.budgetapp.ui.dialogs.AddRecordDialog"
+        tools:layout="@layout/dialog_record">
+        <argument
+            android:name="accountRef"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="categoryRef"
+            app:argType="long" />
+        <argument
+            android:name="amount"
+            app:argType="string" />
+        <argument
+            android:name="currency_ref"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="note"
+            app:argType="string" />
+    </dialog>
 </navigation>

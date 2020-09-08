@@ -21,6 +21,7 @@ import com.umbrella.budgetapp.enums.GoalStatus
 import com.umbrella.budgetapp.extensions.DateTimeFormatter
 import com.umbrella.budgetapp.extensions.Dialogs
 import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.customs.Spinners.Colors.Size.SMALL
@@ -53,6 +54,11 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
     private lateinit var goalPrefab : GoalPrefabs
 
     private var editData : Goal = Goal(id = 0L)
+
+    // Identifier for the result callback from the AmountDialog
+    // True - TargetAmount
+    // False - SavedAmount
+    private var clickedTargetAmount = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,13 +153,23 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
     override fun setListeners() {
         with(binding) {
             dataCardGoalDetailsAmount.setOnClickListener {
-                // TODO: 11/08/2020 AmountDialog (with option MIN_VALUE + MAX_VALUE)
-                MIN_TARGET_AMOUNT // -> Set
+                clickedTargetAmount = true
+                findNavController().navigate(UpdateGoalDetailsFragmentDirections.globalDialogAmount(editData.targetAmount?.toEngineeringString(), MIN_TARGET_AMOUNT))
             }
 
             dataCardGoalDetailsSaved.setOnClickListener {
-                // TODO: 11/08/2020 AmountDialog
-                MIN_TARGET_AMOUNT // -> Set
+                clickedTargetAmount = false
+                findNavController().navigate(UpdateGoalDetailsFragmentDirections.globalDialogAmount(editData.savedAmount?.toEngineeringString()))
+            }
+
+            getNavigationResult<String>(R.id.updateGoalDetails, "amount") { result ->
+                if (clickedTargetAmount) {
+                    editData.targetAmount = BigDecimal(result)
+                    dataCardGoalDetailsAmount.text = result
+                } else {
+                    editData.savedAmount = BigDecimal(result)
+                    dataCardGoalDetailsSaved.text = result
+                }
             }
 
             //Open a DatePickerDialog with the current date.

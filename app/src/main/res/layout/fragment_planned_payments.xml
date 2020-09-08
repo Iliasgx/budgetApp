@@ -20,7 +20,7 @@
         style="@style/defaultFAB">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/plannedPaymentsFAB_expenses"
+            android:id="@+id/plannedPaymentsFAB_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_label="@string/income"
@@ -28,7 +28,7 @@
             android:tag="0"/>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/plannedPaymentsFAB_income"
+            android:id="@+id/plannedPaymentsFAB_expenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_label="@string/expense"

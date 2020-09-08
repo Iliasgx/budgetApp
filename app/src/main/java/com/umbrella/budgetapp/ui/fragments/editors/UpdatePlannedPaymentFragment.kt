@@ -19,10 +19,7 @@ import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPlanne
 import com.umbrella.budgetapp.database.viewmodels.PlannedPaymentViewModel
 import com.umbrella.budgetapp.databinding.DataPlannedPaymentBinding
 import com.umbrella.budgetapp.enums.PayType
-import com.umbrella.budgetapp.extensions.DateTimeFormatter
-import com.umbrella.budgetapp.extensions.Dialogs
-import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
-import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.interfaces.Edit
@@ -144,12 +141,18 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
             }
 
             dataCardPlannedPaymentAmount.setOnClickListener {
-                // TODO: 13/08/2020 AmountDialog + MIN_VALUE
+                findNavController().navigate(UpdatePlannedPaymentFragmentDirections.globalDialogAmount(editData.amount?.toEngineeringString(), MIN_AMOUNT))
             }
 
             dataCardPlannedPaymentCategory.setOnClickListener {
                 // TODO: 13/08/2020 Categories
                 //Category -> DialogFragment with select
+            }
+
+            getNavigationResult<String>(R.id.updatePlannedPayment, "amount") { result ->
+                editData.amount = BigDecimal(result)
+
+                dataCardPlannedPaymentAmount.text = result
             }
         }
     }

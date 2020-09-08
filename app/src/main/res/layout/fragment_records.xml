@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_records_coordLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/fragment_records_subToolbarLayout"
+    <RelativeLayout
+        android:id="@+id/fragment_records_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="3dp"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:background="@color/colorPrimary">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/fragment_records_filter_period"
+        <LinearLayout
+            android:id="@+id/fragment_records_subToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="start|center_vertical"
-            android:textColor="@color/colorBackground"
-            tools:text="Last 1 year" />
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/fragment_records_filter_totalAmount"
+            <TextView
+                android:id="@+id/fragment_records_filter_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/colorBackground"
+                tools:text="Last 1 year" />
+
+            <TextView
+                android:id="@+id/fragment_records_filter_totalAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:textColor="@color/colorBackground"
+                tools:text="€13.20"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_records_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end|center_vertical"
-            android:textColor="@color/colorBackground"
-            tools:text="€13.20"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/fragment_records_subToolbarLayout"
+            android:scrollbars="none"
+            tools:listitem="@layout/list_records"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_records_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/fragment_records_subToolbarLayout"
-        android:scrollbars="none"
-        tools:listitem="@layout/list_records"/>
+    </RelativeLayout>
 
-    <com.github.clans.fab.FloatingActionMenu
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/recordsFAB"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/fragment_records_subToolbarLayout"
-        style="@style/defaultFAB"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/add"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_behavior=".ui.customs.ScrollAwareFABBehavior"/>
 
    <!-- <include layout="@layout/custom_slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"/>-->
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import androidx.room.RoomWarnings
 import androidx.room.Transaction
 import com.umbrella.budgetapp.database.collections.Template
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTemplate
+import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,8 +19,8 @@ interface DaoTemplate : Base<Template> {
      * @return The list of templates in a Flow.
      */
     @Transaction
-    @Query("SELECT template_id, name, position, cat_name, cat_color, cat_icon FROM template_cross ORDER BY position ASC")
-    fun getAllTemplates() : Flow<List<ExtendedTemplate>>
+    @Query("SELECT * FROM template_cross_category ORDER BY position ASC")
+    fun getAllTemplates() : Flow<List<TemplateAndCategory>>
 
     /**
      * Find Template by ID. Template with crossReferences.

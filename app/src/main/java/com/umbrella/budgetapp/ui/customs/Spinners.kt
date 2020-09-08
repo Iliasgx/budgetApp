@@ -11,9 +11,10 @@ import android.widget.Spinner
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.database.viewmodels.CurrencyViewModel
 import com.umbrella.budgetapp.extensions.inflate
@@ -42,7 +43,7 @@ sealed class Spinners {
             bindSpinner(spinner, ColorAdapter(fragment, fragment.resources.getIntArray(R.array.colors).asList(), size))
         }
 
-        private class ColorAdapter internal constructor(private val fragment: Fragment, private val items: List<Int>, private val size: Size) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_colors, 0, items) {
+        private class ColorAdapter(private val fragment: Fragment, private val items: List<Int>, private val size: Size) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_colors, 0, items) {
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 return createItemView(position, parent)
@@ -73,7 +74,7 @@ sealed class Spinners {
             bindSpinner(spinner, IconAdapter(fragment))
         }
 
-        private class IconAdapter internal constructor(private val fragment: Fragment) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_icons) {
+        private class IconAdapter(private val fragment: Fragment) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_icons) {
             private val array: TypedArray = fragment.resources.obtainTypedArray(R.array.icons)
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -108,18 +109,12 @@ sealed class Spinners {
     /**
      * Internal function for initializing the adapter and binding it to the adapter.
      */
-    internal fun <T> initRoom(fragment: Fragment, spinner: Spinner, list : LiveData<List<T>>) {
+    internal fun <T> initRoom(fragment: Fragment, spinner: Spinner) : ArrayAdapter<T> {
         val adapter = ArrayAdapter<T>(fragment.requireContext(), android.R.layout.simple_spinner_item, mutableListOf())
 
         bindSpinner(spinner, adapter)
 
-        list.observe(fragment.viewLifecycleOwner, Observer { items ->
-            adapter.apply {
-                clear()
-                addAll(items)
-                notifyDataSetChanged()
-            }
-        })
+        return adapter
     }
 
     /**
@@ -127,10 +122,26 @@ sealed class Spinners {
      */
     class Currencies(fragment: Fragment, spinner: Spinner) : Spinners() {
 
+        private var list = mutableListOf<CurrencyAndName>()
+
         init {
             val model by fragment.viewModels<CurrencyViewModel>()
 
-            initRoom(fragment, spinner, model.getBasicCurrencies())
+            val adapter = initRoom<CurrencyAndName>(fragment, spinner)
+
+            model.getBasicCurrencies().observe(fragment.viewLifecycleOwner, Observer { items ->
+                list = items.toMutableList()
+
+                adapter.apply {
+                    clear()
+                    addAll(items)
+                    notifyDataSetChanged()
+                }
+            })
+        }
+
+        fun getPosition(currencyId: Long) : Int {
+            return list.indexOf(list.find { curr -> curr.id == currencyId })
         }
     }
 
@@ -139,10 +150,26 @@ sealed class Spinners {
      */
     class Accounts(fragment: Fragment, spinner: Spinner) : Spinners() {
 
+        private var list = mutableListOf<Account>()
+
         init {
             val model by fragment.viewModels<AccountViewModel>()
 
-            initRoom(fragment, spinner, model.getAccountBasics())
+            val adapter = initRoom<Account>(fragment, spinner)
+
+            model.getAccountBasics().observe(fragment.viewLifecycleOwner, Observer { items ->
+                list = items.toMutableList()
+
+                adapter.apply {
+                    clear()
+                    addAll(items)
+                    notifyDataSetChanged()
+                }
+            })
+        }
+
+        fun getPosition(accountId: Long) : Int {
+            return list.indexOf(list.find { acc -> acc.id == accountId })
         }
     }
 }

@@ -18,6 +18,7 @@ import com.umbrella.budgetapp.databinding.FragmentGoalDetailsBinding
 import com.umbrella.budgetapp.enums.GoalStatus
 import com.umbrella.budgetapp.extensions.DateTimeFormatter
 import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import kotlinx.android.synthetic.main._activity.*
 import java.math.BigDecimal
@@ -109,8 +110,13 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
      * Add a new amount. One step closer to the goal.
      */
     private fun addSavedAmount() {
-        // TODO: 18/08/2020 Dialog
-        // Add value in Goal and in field LastAddedWeekAmount
+        findNavController().navigate(GoalDetailsFragmentDirections.globalDialogAmount())
+
+        getNavigationResult<String>(R.id.goalDetails, "amount") { result ->
+            goal.savedAmount?.add(BigDecimal(result))
+            goal.lastAmount = BigDecimal(result)
+            model.updateGoal(goal)
+        }
     }
 
     private fun updateFields() {

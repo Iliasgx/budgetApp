@@ -18,10 +18,7 @@ import com.umbrella.budgetapp.database.collections.subcollections.ExtendedRecord
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.StoreViewModel
 import com.umbrella.budgetapp.databinding.DataRecordDetailsBinding
-import com.umbrella.budgetapp.extensions.DateTimeFormatter
-import com.umbrella.budgetapp.extensions.Dialogs
-import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
-import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.interfaces.Edit
@@ -154,10 +151,17 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
             }
 
             dataCardRecordDetailsAmount.setOnClickListener {
-                // TODO: 15/08/2020 AmountDialog MIN_VALUE
-                //MIN_AMOUNT
+                findNavController().navigate(UpdateRecordDetailsFragmentDirections.globalDialogAmount(editData.amount?.toEngineeringString(), MIN_AMOUNT))
 
                 //Result as setTitle change
+            }
+
+            getNavigationResult<String>(R.id.updateRecordDetails, "amount") { result ->
+                editData.amount = BigDecimal(result)
+
+                dataCardRecordDetailsAmount.text = result
+
+                setTitle(getString(R.string.title_addChange_record_value, "", BigDecimal(result)))
             }
 
             // Open a DateTimePickerDialog with the current date + time.

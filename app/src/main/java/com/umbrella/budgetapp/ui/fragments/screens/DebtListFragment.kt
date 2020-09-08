@@ -7,9 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.DebtsAdapter
+import com.umbrella.budgetapp.database.collections.Debt
 import com.umbrella.budgetapp.database.viewmodels.DebtViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
 import com.umbrella.budgetapp.enums.DebtType
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.fragments.contentholders.DebtsFragmentDirections
 
@@ -34,11 +36,21 @@ class DebtListFragment(private val type: DebtType)  : ExtendedFragment(R.layout.
                 findNavController().navigate(DebtsFragmentDirections.debtsToUpdateDebt(itemId))
             }
 
-            override fun onCreateRecord(itemId: Long) {
-                // TODO: 06/09/2020 create record dialog
-            }
+            override fun onCreateRecord(item: Debt) { createRecord(item) }
         })
 
         binding.fragmentRecyclerView.fix(adapter)
+    }
+
+    private fun createRecord(debt: Debt) {
+        findNavController().navigate(DebtListFragmentDirections.globalAddRecord(
+                debt.accountRef!!,
+                debt.categoryRef!!,
+                debt.amount.toString(),
+                debt.currencyRef!!,
+                debt.description.orEmpty()
+        ))
+
+        getNavigationResult<Boolean>(R.id.debtListFragment, "record") { findNavController().navigateUp() }
     }
 }

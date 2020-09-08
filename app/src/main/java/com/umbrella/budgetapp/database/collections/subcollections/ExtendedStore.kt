@@ -18,7 +18,7 @@ data class ExtendedStore (
         @Embedded
         val store: Store,
 
-        @Embedded
+        @Embedded(prefix = "cat_")
         val category: Category,
 
         @ColumnInfo(name = "extended_currency_id")

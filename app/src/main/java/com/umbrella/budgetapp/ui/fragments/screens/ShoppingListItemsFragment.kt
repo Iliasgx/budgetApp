@@ -14,6 +14,7 @@ import com.umbrella.budgetapp.adapters.ShoppingListItemsAdapter
 import com.umbrella.budgetapp.database.collections.ShoppingList
 import com.umbrella.budgetapp.database.viewmodels.ShoppingListViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 
 class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
@@ -81,9 +82,15 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
     }
 
     private fun createRecord() {
-        // TODO: 06/09/2020 Dialog record
+        findNavController().navigate(ShoppingListItemsFragmentDirections.globalAddRecord(
+                0L,
+                shoppingList.categoryRef!!,
+                shoppingList.items?.filter { item -> item.checked }?.sumByDouble { item -> item.amount.multiply(item.number.toBigDecimal()).toDouble() }.toString(),
+                0L,
+                shoppingList.name!!
+        ))
 
-        findNavController().navigateUp()
+        getNavigationResult<Boolean>(R.id.shoppingListItems, "dialog") { findNavController().navigateUp() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

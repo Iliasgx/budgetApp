@@ -31,4 +31,11 @@ data class Account(
 
         @ColumnInfo(name = "exclude_stats")
         var excludeStats: Boolean? = false
-)
+) {
+        /**
+         * Returns a string representation of the object.
+         */
+        override fun toString(): String {
+                return name ?: ""
+        }
+}

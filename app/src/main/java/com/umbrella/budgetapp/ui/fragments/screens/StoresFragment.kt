@@ -2,6 +2,7 @@ package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,8 @@ class StoresFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.fragmentFloatingActionButton.isVisible = true
 
         model.getAllStores().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
 

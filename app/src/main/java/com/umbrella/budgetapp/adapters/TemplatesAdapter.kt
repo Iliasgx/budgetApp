@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.budgetapp.R
-import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTemplate
+import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
 import com.umbrella.budgetapp.extensions.autoNotify
 import com.umbrella.budgetapp.extensions.inflate
 import kotlinx.android.synthetic.main.list_reorderable_view.view.*
 import kotlin.properties.Delegates
 
-class TemplatesAdapter(val callback: CallBack) : BaseAdapter<ExtendedTemplate>() {
+class TemplatesAdapter(val callback: CallBack) : BaseAdapter<TemplateAndCategory>() {
 
-    var templates: List<ExtendedTemplate> by Delegates.observable(emptyList()) {
+    var templates: List<TemplateAndCategory> by Delegates.observable(emptyList()) {
         _, oldList, newList -> autoNotify(oldList, newList) { o, n -> o.template.id == n.template.id }
     }
 
@@ -28,13 +28,13 @@ class TemplatesAdapter(val callback: CallBack) : BaseAdapter<ExtendedTemplate>()
 
     override fun getItemCount() = templates.size
 
-    override fun setData(list: List<ExtendedTemplate>) {
+    override fun setData(list: List<TemplateAndCategory>) {
         templates = list
     }
 
     init {
-        onBind(object : Bind<ExtendedTemplate> {
-            override fun onBinding(item: ExtendedTemplate, itemView: View, adapterPosition: Int) {
+        onBind(object : Bind<TemplateAndCategory> {
+            override fun onBinding(item: TemplateAndCategory, itemView: View, adapterPosition: Int) {
                 with (itemView) {
                     list_ReorderableView_Img.apply {
                         setBackgroundColor(context.getColor(item.category.color!!))

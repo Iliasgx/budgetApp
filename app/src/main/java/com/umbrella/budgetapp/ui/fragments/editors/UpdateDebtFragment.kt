@@ -20,10 +20,7 @@ import com.umbrella.budgetapp.database.collections.subcollections.ExtendedDebt
 import com.umbrella.budgetapp.database.viewmodels.DebtViewModel
 import com.umbrella.budgetapp.databinding.DataDebtBinding
 import com.umbrella.budgetapp.enums.DebtType
-import com.umbrella.budgetapp.extensions.DateTimeFormatter
-import com.umbrella.budgetapp.extensions.Dialogs
-import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
-import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.interfaces.Edit
@@ -130,8 +127,12 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
             }
 
             dataCardDebtAmount.setOnClickListener {
-                // TODO: 13/08/2020 AmountDialog with MIN_VALUE
-                //MIN_AMOUNT
+                findNavController().navigate(UpdateDebtFragmentDirections.globalDialogAmount(editData.amount?.toEngineeringString(), MIN_AMOUNT))
+            }
+
+            getNavigationResult<String>(R.id.updateDebt, "amount") { result ->
+                editData.amount = BigDecimal(result)
+                dataCardDebtAmount.text = result
             }
 
             dataCardDebtDate.setOnClickListener {

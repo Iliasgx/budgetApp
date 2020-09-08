@@ -47,7 +47,7 @@
     <string name="title_Templates">Templates</string>
 
     <string name="title_addChange_record">€ 0.00</string>
-    <string name="title_addChange_record_value">%1$s</string>
+    <string name="title_addChange_record_value">%1$s %2$d</string>
 
     <string name="title_add_account">New account</string>
     <string name="title_add_category">New category</string>
@@ -387,6 +387,8 @@
     <string name="dialog_Record_Positive">Create record</string>
     <string name="dialog_Record_Negative">Cancel</string>
 
+    <string name="dialog_Record_error_amount">Value must be bigger than %1$d.</string>
+
     <!-- |||||||||||||||| Dialog New Item strings |||||||||||||||| -->
     <string name="dialog_NewItem_Title">New item</string>
     <string name="dialog_NewItem_Name_Hint">Item name</string>
@@ -408,11 +410,15 @@
     <string name="day_ShortCut6">Sat</string>
     <string name="day_ShortCut7">Sun</string>
 
-    <!-- |||||||||||||||| Dialog strings |||||||||||||||| -->
+    <!-- |||||||||||||||| Dialog Amount |||||||||||||||| -->
     <string name="dialog_Amount_DefValue" translatable="false">0</string>
     <string name="dialog_Amount_Other">Clear</string>
     <string name="dialog_Amount_Positive">Insert</string>
     <string name="dialog_Amount_Negative">Cancel</string>
+
+    <string name="dialog_Amount_error_min">Value must be bigger than %1$d.</string>
+    <string name="dialog_Amount_error_max">Value must be smaller than %1$d.</string>
+
     <string name="dialog_default">Default</string>
 
     <!-- |||||||||||||||| Programmatically objects |||||||||||||||| -->

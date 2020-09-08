@@ -18,12 +18,11 @@ import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTempla
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.TemplateViewModel
 import com.umbrella.budgetapp.databinding.DataRecordBasicBinding
+import com.umbrella.budgetapp.enums.CalculatorFunction.*
 import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.ui.components.Calculator
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
-import com.umbrella.budgetapp.ui.fragments.editors.UpdateRecordBasicFragment.Function.*
 import com.umbrella.budgetapp.ui.interfaces.Edit
-import kotlinx.android.synthetic.main.data_record_basic.*
-import java.math.BigDecimal
 import java.util.*
 
 // Screen can only be used to add a new Record, not to edit it. For editing, the Detail Screen is used.
@@ -214,151 +213,33 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
         val cal = Calculator()
 
         with(binding) {
-            dataCardRecordBasicZero.setOnClickListener  { cal.calculate(ZERO) }
-            dataCardRecordBasicOne.setOnClickListener   { cal.calculate(ONE) }
-            dataCardRecordBasicTwo.setOnClickListener   { cal.calculate(TWO) }
-            dataCardRecordBasicThree.setOnClickListener { cal.calculate(THREE) }
-            dataCardRecordBasicFour.setOnClickListener  { cal.calculate(FOUR) }
-            dataCardRecordBasicFive.setOnClickListener  { cal.calculate(FIVE) }
-            dataCardRecordBasicSix.setOnClickListener   { cal.calculate(SIX) }
-            dataCardRecordBasicSeven.setOnClickListener { cal.calculate(SEVEN) }
-            dataCardRecordBasicEight.setOnClickListener { cal.calculate(EIGHT) }
-            dataCardRecordBasicNine.setOnClickListener  { cal.calculate(NINE) }
+            cal.updateListener = object : Calculator.OnUpdateListener {
+                override fun onUpdate(value: String) {
+                    if (cal.isNegative()) dataCardRecordBasicTitleGroup.check(0)
 
-            dataCardRecordBasicDot.setOnClickListener       { cal.calculate(DOT) }
-            dataCardRecordBasicBackspace.setOnClickListener { cal.calculate(REMOVE) }
-
-            dataCardRecordBasicDivide.setOnClickListener    { cal.calculate(DIVIDE) }
-            dataCardRecordBasicMultiply.setOnClickListener  { cal.calculate(MULTIPLY) }
-            dataCardRecordBasicSubtract.setOnClickListener  { cal.calculate(SUBTRACT) }
-            dataCardRecordBasicAdd.setOnClickListener       { cal.calculate(ADD) }
-            dataCardRecordBasicEquals.setOnClickListener    { cal.calculate(EQUALS) }
-        }
-    }
-
-    /**
-     * Class used as Calculator for the current value.
-     */
-    inner class Calculator {
-
-        //Total value of the calculation.
-        private var value = BigDecimal.ZERO
-
-        //The current value used, null as first value or after operator activated.
-        private var currentValue: String? = null
-
-        //The current active operator, null if no operator used yet or equal was pressed.
-        private var currentOperator: Function? = null
-
-        //The basic function to make proper changes.
-        fun calculate(function: Function) {
-            synchronized(this) {
-                when(function) {
-                    DOT -> {
-                        if (currentValue != null) {
-                            if (!currentValue!!.contains('.')) {
-                                if (currentValue!!.isEmpty()) {
-                                    currentValue = "0."
-                                } else {
-                                    currentValue += "."
-                                }
-                            }
-                        } else {
-                            currentValue = "0."
-                        }
-                        updateScreen(currentValue!!)
-                    }
-                    REMOVE -> {
-                        currentValue?.dropLast(1)
-
-                        if (currentValue!!.isEmpty()) currentValue = "0"
-
-                        if (currentValue != null) updateScreen(currentValue!!)
-                    }
-                    EQUALS -> {
-                        if (currentValue != null) {
-                            if (currentValue!!.last() == '.') currentValue!!.dropLast(1)
-                            if (currentValue!!.isNotEmpty() || BigDecimal(currentValue!!) != BigDecimal.ZERO) {
-                                if (currentOperator != null) {
-                                    val tempValue = BigDecimal(currentValue)
-                                    when (currentOperator) {
-                                        DIVIDE -> value.divide(tempValue)
-                                        MULTIPLY -> value.multiply(tempValue)
-                                        SUBTRACT -> value.subtract(tempValue)
-                                        else /*Add*/ -> value.add(tempValue)
-                                    }
-                                }
-                            }
-                            currentValue = null
-                            currentOperator = null
-                            updateScreen(value.toEngineeringString())
-                        }
-                    }
-                    DIVIDE, MULTIPLY, SUBTRACT, ADD -> {
-                        if (currentValue != null) {
-                            if (currentOperator != null) {
-                                val tempValue = BigDecimal(currentValue)
-                                when (currentOperator) {
-                                    DIVIDE -> value.divide(tempValue)
-                                    MULTIPLY -> value.multiply(tempValue)
-                                    SUBTRACT -> value.subtract(tempValue)
-                                    else /*Add*/ -> value.add(tempValue)
-                                }
-                                updateScreen(value.toEngineeringString())
-                            } else {
-                                value = BigDecimal(currentValue)
-                            }
-                            currentValue = null
-                            currentOperator = function
-                        }
-                    }
-                    else -> { // Numbers 0-9
-                        if (currentValue != null) {
-                            if (currentValue!!.isNotEmpty()) {
-                                if (currentValue!! == "0") {
-                                    currentValue = function.ordinal.toString()
-                                } else {
-                                    if (currentValue!!.contains('.')) {
-                                        if (currentValue!!.substringAfter('.').length != 2) {
-                                            currentValue += function.ordinal.toString()
-                                        }
-                                    } else {
-                                        currentValue += function.ordinal.toString()
-                                    }
-                                }
-                            } else {
-                                currentValue = function.ordinal.toString()
-                            }
-                        } else {
-                            currentValue = function.ordinal.toString()
-                        }
-                        updateScreen(currentValue!!)
-                    }
+                    dataCardRecordBasicAmount.text = cal.getAbsValue()
                 }
             }
-        }
 
-        private fun updateScreen(amount : String) {
-            // Signum -> if value < 0
-            if (BigDecimal(amount).signum() == -1) {
-                data_Card_RecordBasic_TitleGroup.check(0)
-            }
+            dataCardRecordBasicZero.setOnClickListener { cal.calculate(ZERO) }
+            dataCardRecordBasicOne.setOnClickListener { cal.calculate(ONE) }
+            dataCardRecordBasicTwo.setOnClickListener { cal.calculate(TWO) }
+            dataCardRecordBasicThree.setOnClickListener { cal.calculate(THREE) }
+            dataCardRecordBasicFour.setOnClickListener { cal.calculate(FOUR) }
+            dataCardRecordBasicFive.setOnClickListener { cal.calculate(FIVE) }
+            dataCardRecordBasicSix.setOnClickListener { cal.calculate(SIX) }
+            dataCardRecordBasicSeven.setOnClickListener { cal.calculate(SEVEN) }
+            dataCardRecordBasicEight.setOnClickListener { cal.calculate(EIGHT) }
+            dataCardRecordBasicNine.setOnClickListener { cal.calculate(NINE) }
 
-            //Return absolute value because the 'Mark' already indicates if the value is negative or not.
-            data_Card_RecordBasic_Amount.text = BigDecimal(amount).abs().toEngineeringString()
+            dataCardRecordBasicDot.setOnClickListener { cal.calculate(DOT) }
+            dataCardRecordBasicBackspace.setOnClickListener { cal.calculate(REMOVE) }
+
+            dataCardRecordBasicDivide.setOnClickListener { cal.calculate(DIVIDE) }
+            dataCardRecordBasicMultiply.setOnClickListener { cal.calculate(MULTIPLY) }
+            dataCardRecordBasicSubtract.setOnClickListener { cal.calculate(SUBTRACT) }
+            dataCardRecordBasicAdd.setOnClickListener { cal.calculate(ADD) }
+            dataCardRecordBasicEquals.setOnClickListener { cal.calculate(EQUALS) }
         }
     }
-
-    //Enum of all possible functions with the calculator.
-    enum class Function {
-        ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-        DOT,
-        DIVIDE,
-        MULTIPLY,
-        SUBTRACT,
-        ADD,
-        EQUALS,
-        REMOVE
-    }
-
 }

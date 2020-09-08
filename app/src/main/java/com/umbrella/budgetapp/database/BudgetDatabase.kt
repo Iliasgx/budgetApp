@@ -28,6 +28,7 @@ import com.umbrella.budgetapp.database.typeconverters.BigDecimalTypeConverter
             CurrencyAndName::class,
             ExtendedCurrency::class,
             ExtendedTemplate::class,
+            TemplateAndCategory::class,
             ExtendedStore::class,
             ExtendedShoppingList::class,
             ExtendedDebt::class,
@@ -41,7 +42,7 @@ import com.umbrella.budgetapp.database.typeconverters.BigDecimalTypeConverter
 @TypeConverters(
         BigDecimalTypeConverter::class
 )
-public abstract class BudgetDatabase: RoomDatabase() {
+abstract class BudgetDatabase: RoomDatabase() {
 
     abstract fun daoAccount() : DaoAccount
     abstract fun daoCategory() : DaoCategory

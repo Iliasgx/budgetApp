@@ -19,6 +19,7 @@ import com.umbrella.budgetapp.database.viewmodels.TemplateViewModel
 import com.umbrella.budgetapp.databinding.DataTemplateBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
 import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.interfaces.Edit
@@ -114,8 +115,7 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
             dataCardTemplateNote.afterTextChangedDelayed { editData.note = it }
 
             dataCardTemplateAmount.setOnClickListener {
-                // TODO: 14/08/2020 AMOUNT DIALOG -> MIN_VALUE
-                //MIN_AMOUNT
+                findNavController().navigate(UpdateTemplateFragmentDirections.globalDialogAmount(editData.amount?.toEngineeringString(), MIN_AMOUNT))
             }
 
             dataCardTemplateCategory.setOnClickListener {
@@ -124,6 +124,11 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
 
             dataCardTemplateStore.setOnClickListener {
                 // TODO: 14/08/2020 Store dialogFragment
+            }
+
+            getNavigationResult<String>(R.id.updateTemplate, "amount") { result ->
+                editData.amount = BigDecimal(result)
+                dataCardTemplateAmount.text = result
             }
         }
     }
