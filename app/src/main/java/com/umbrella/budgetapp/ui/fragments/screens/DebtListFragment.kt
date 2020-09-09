@@ -11,6 +11,7 @@ import com.umbrella.budgetapp.database.collections.Debt
 import com.umbrella.budgetapp.database.viewmodels.DebtViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
 import com.umbrella.budgetapp.enums.DebtType
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.fragments.contentholders.DebtsFragmentDirections

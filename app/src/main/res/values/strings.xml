@@ -390,9 +390,9 @@
     <string name="dialog_Record_error_amount">Value must be bigger than %1$d.</string>
 
     <!-- |||||||||||||||| Dialog New Item strings |||||||||||||||| -->
-    <string name="dialog_NewItem_Title">New item</string>
     <string name="dialog_NewItem_Name_Hint">Item name</string>
     <string name="dialog_NewItem_Price_Hint">Price</string>
+    <string name="dialog_NewItem_error_name">Must have a name.</string>
 
     <!-- |||||||||||||||| Dialog Frequency strings |||||||||||||||| -->
     <string name="dialog_Frequency_Title">Frequency</string>
@@ -420,6 +420,9 @@
     <string name="dialog_Amount_error_max">Value must be smaller than %1$d.</string>
 
     <string name="dialog_default">Default</string>
+    <string name="dialog_rename_title">Rename shopping list</string>
+    <string name="dialog_rename_hint">Shopping list name</string>
+    <string name="dialog_rename_error_name">Name must at least have %1$d characters.</string>
 
     <!-- |||||||||||||||| Programmatically objects |||||||||||||||| -->
     <string name="customObject_shoppingListItems">Programmatically</string>

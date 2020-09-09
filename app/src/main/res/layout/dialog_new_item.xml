@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialog_FilterStore_Card"
-    style="@style/CardView_Default">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_newItem_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_gravity="bottom">
 
-    <RelativeLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_newItem_textLayout_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@id/dialog_newItem_textLayout_price">
 
-        <EditText
-            android:id="@+id/dialog_newItem_ItemName"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_newItem_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="15"
             android:maxLines="1"
             android:inputType="text"
             android:importantForAutofill="no"
-            android:hint="@string/dialog_NewItem_Name_Hint"
-            android:layout_toStartOf="@id/dialog_newItem_ItemPrice"
-            android:layout_alignParentStart="true"/>
+            android:imeOptions="actionDone"
+            android:hint="@string/dialog_NewItem_Name_Hint"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/dialog_newItem_ItemPrice"
-            android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_newItem_textLayout_price"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_newItem_price"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxEms="30"
             android:minEms="5"
             android:maxLength="8"
             android:maxLines="1"
+            android:imeOptions="actionDone"
             android:inputType="numberDecimal"
             android:importantForAutofill="no"
-            android:hint="@string/dialog_NewItem_Price_Hint"
-            android:layout_alignParentEnd="true"/>
-
-        <TextView
-            android:id="@+id/dialog_newItem_Ok"
-            style="@style/Text_Button_More"
-            android:layout_width="wrap_content"
-            android:text="@android:string/ok"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_below="@id/dialog_newItem_ItemPrice"/>
-
-        <TextView
-            android:id="@+id/dialog_newItem_Cancel"
-            style="@style/Text_Button_More"
-            android:layout_width="wrap_content"
-            android:text="@android:string/cancel"
-            android:layout_toStartOf="@id/dialog_newItem_Ok"
-            android:layout_marginEnd="40dp"
-            android:layout_below="@id/dialog_newItem_ItemPrice"/>
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+            android:hint="@string/dialog_NewItem_Price_Hint"/>
+    </com.google.android.material.textfield.TextInputLayout>
+</RelativeLayout>

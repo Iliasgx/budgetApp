@@ -12,6 +12,7 @@ import com.umbrella.budgetapp.adapters.AccountsAdapter
 import com.umbrella.budgetapp.adapters.BaseAdapter.CallBack
 import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 
 class AccountsFragment : ExtendedFragment(R.layout.fragment_recycler_view) {

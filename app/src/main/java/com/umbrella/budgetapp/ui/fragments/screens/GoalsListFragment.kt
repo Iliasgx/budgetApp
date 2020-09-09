@@ -12,6 +12,7 @@ import com.umbrella.budgetapp.database.viewmodels.GoalViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
 import com.umbrella.budgetapp.enums.GoalStatus
 import com.umbrella.budgetapp.enums.GoalStatus.REACHED
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.fragments.contentholders.GoalsFragmentDirections
 

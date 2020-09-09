@@ -16,6 +16,7 @@ import com.umbrella.budgetapp.database.viewmodels.PlannedPaymentViewModel
 import com.umbrella.budgetapp.databinding.FragmentPlannedPaymentsBinding
 import com.umbrella.budgetapp.enums.PayType
 import com.umbrella.budgetapp.enums.SortType
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 

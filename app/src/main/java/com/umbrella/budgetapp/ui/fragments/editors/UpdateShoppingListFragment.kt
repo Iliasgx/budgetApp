@@ -18,7 +18,7 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
 
     private var editData = ShoppingList(id = 0L)
 
-    private companion object {
+    companion object {
         const val MIN_NAME_LENGTH = 4
     }
 

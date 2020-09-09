@@ -19,6 +19,14 @@ interface Edit {
      */
     fun checkType(id: Long) : Type { return if (id == 0L) Type.NEW else Type.EDIT }
 
+    /**
+     * Check if the edited item is still the same as the base item or it has changes.
+     *
+     * @param baseItem The item that was first initiated.
+     * @param editItem The edited item that needs to be checked.
+     *
+     * @return If editItem is edited and no longer the same as baseItem.
+     */
     fun hasChanges(baseItem: Any, editItem: Any) : Boolean { return editItem !==  baseItem }
 
     /**

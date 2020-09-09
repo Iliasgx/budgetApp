@@ -10,6 +10,7 @@ import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.ShoppingListAdapter
 import com.umbrella.budgetapp.database.viewmodels.ShoppingListViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 
 class ShoppingListsFragment : ExtendedFragment(R.layout.fragment_recycler_view) {

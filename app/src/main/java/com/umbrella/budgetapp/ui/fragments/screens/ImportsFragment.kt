@@ -11,6 +11,7 @@ import com.umbrella.budgetapp.adapters.BaseAdapter
 import com.umbrella.budgetapp.adapters.ImportAdapter
 import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.databinding.FragmentImportsBinding
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 
 class ImportsFragment : ExtendedFragment(R.layout.fragment_imports) {

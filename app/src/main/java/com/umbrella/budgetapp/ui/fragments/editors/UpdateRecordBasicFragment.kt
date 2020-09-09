@@ -13,15 +13,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
+import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Record
+import com.umbrella.budgetapp.database.collections.subcollections.ExtendedCurrency
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTemplate
+import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.TemplateViewModel
 import com.umbrella.budgetapp.databinding.DataRecordBasicBinding
 import com.umbrella.budgetapp.enums.CalculatorFunction.*
 import com.umbrella.budgetapp.extensions.currencyText
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.components.Calculator
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import java.util.*
 
@@ -39,7 +45,11 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
 
     private var editData = Record(id = 0L)
 
+    // Used when user navigated to creating a record from a template. Not used for the Template Dialog in this screen.
     private var receivedTemplate : ExtendedTemplate? = null
+
+    // Used to identify if this is the first time the initializer is called, making sure listeners are not called twice.
+    private var firstInit = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +64,12 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
 
         if (args.templateId != 0L) {
             val tempModel by viewModels<TemplateViewModel>()
+            val singleDao = tempModel.getTemplateById(args.templateId)
 
-            tempModel.getTemplateById(args.templateId).observe(viewLifecycleOwner, Observer {
+            singleDao.observe(viewLifecycleOwner, Observer {
                 receivedTemplate = it
                 initData()
+                singleDao.removeObservers(viewLifecycleOwner)
             })
         } else {
             initData()
@@ -98,7 +110,10 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             }
         }
 
-        setListeners()
+        if (firstInit) {
+            setListeners()
+            firstInit = false // First initializer finished.
+        }
     }
 
     /**
@@ -125,21 +140,55 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             dataCardRecordBasicTitleGroup.check(dataCardRecordBasicTitleGroup.checkedRadioButtonId)
 
             dataCardRecordBasicCurrency.setOnClickListener {
-                // TODO: 15/08/2020 Currency Dialog
-                //Set in textView Tag the position
+                navToDialog(DataLocationType.CURRENCY)
+
+                getNavigationResult<ExtendedCurrency>(R.id.updateRecordBasic, "data") { result ->
+                    dataCardRecordBasicCurrency.apply {
+                        text = result.country?.name
+                        tag = result.currency.position
+                    }
+                        editData.currencyRef = result.currency.id
+                }
             }
 
             dataCardRecordBasicAccount.setOnClickListener {
-                // TODO: 15/08/2020 Account Dialog
-                //Set in textView Tag the position
+                navToDialog(DataLocationType.ACCOUNT)
+
+                getNavigationResult<Account>(R.id.updateRecordBasic, "data") { result ->
+                    dataCardRecordBasicAccount.apply {
+                        text = result.name
+                        tag = result.position
+                    }
+
+                    editData.accountRef = result.id
+                }
             }
 
             dataCardRecordBasicCategory.setOnClickListener {
-                // TODO: 15/08/2020 Category Dialog
+                navToDialog(DataLocationType.CATEGORY)
+
+                getNavigationResult<Category>(R.id.updateRecordBasic, "data") { result ->
+                    dataCardRecordBasicCategory.text = result.name
+
+                    editData.categoryRef = result.id
+                }
             }
 
             dataCardRecordBasicTemplate.setOnClickListener {
-                // TODO: 15/08/2020 Template Dialog
+                navToDialog(DataLocationType.TEMPLATE)
+
+                getNavigationResult<TemplateAndCategory>(R.id.updateRecordBasic, "data") { result ->
+                    dataCardRecordBasicTemplate.text = result.template.name
+
+                    val tempMod by viewModels<TemplateViewModel>()
+                    val singleDao = tempMod.getTemplateById(result.template.id!!)
+
+                    singleDao.observe(viewLifecycleOwner, Observer {
+                        receivedTemplate = it
+                        initData()
+                        singleDao.removeObservers(viewLifecycleOwner)
+                    })
+                }
             }
 
             //Save data to Bundle and transfer it to the detail screen. Used when the user wants to add additional info.
@@ -148,6 +197,10 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
 
         //Set all listeners for the calculator.
         calculatorListeners()
+    }
+
+    private fun navToDialog(dataType: DataLocationType) {
+        findNavController().navigate(UpdateRecordBasicFragmentDirections.globalDataListDialog(dataType))
     }
 
     /**
@@ -221,25 +274,25 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
                 }
             }
 
-            dataCardRecordBasicZero.setOnClickListener { cal.calculate(ZERO) }
-            dataCardRecordBasicOne.setOnClickListener { cal.calculate(ONE) }
-            dataCardRecordBasicTwo.setOnClickListener { cal.calculate(TWO) }
+            dataCardRecordBasicZero.setOnClickListener  { cal.calculate(ZERO) }
+            dataCardRecordBasicOne.setOnClickListener   { cal.calculate(ONE) }
+            dataCardRecordBasicTwo.setOnClickListener   { cal.calculate(TWO) }
             dataCardRecordBasicThree.setOnClickListener { cal.calculate(THREE) }
-            dataCardRecordBasicFour.setOnClickListener { cal.calculate(FOUR) }
-            dataCardRecordBasicFive.setOnClickListener { cal.calculate(FIVE) }
-            dataCardRecordBasicSix.setOnClickListener { cal.calculate(SIX) }
+            dataCardRecordBasicFour.setOnClickListener  { cal.calculate(FOUR) }
+            dataCardRecordBasicFive.setOnClickListener  { cal.calculate(FIVE) }
+            dataCardRecordBasicSix.setOnClickListener   { cal.calculate(SIX) }
             dataCardRecordBasicSeven.setOnClickListener { cal.calculate(SEVEN) }
             dataCardRecordBasicEight.setOnClickListener { cal.calculate(EIGHT) }
-            dataCardRecordBasicNine.setOnClickListener { cal.calculate(NINE) }
+            dataCardRecordBasicNine.setOnClickListener  { cal.calculate(NINE) }
 
-            dataCardRecordBasicDot.setOnClickListener { cal.calculate(DOT) }
+            dataCardRecordBasicDot.setOnClickListener       { cal.calculate(DOT) }
             dataCardRecordBasicBackspace.setOnClickListener { cal.calculate(REMOVE) }
 
-            dataCardRecordBasicDivide.setOnClickListener { cal.calculate(DIVIDE) }
-            dataCardRecordBasicMultiply.setOnClickListener { cal.calculate(MULTIPLY) }
-            dataCardRecordBasicSubtract.setOnClickListener { cal.calculate(SUBTRACT) }
-            dataCardRecordBasicAdd.setOnClickListener { cal.calculate(ADD) }
-            dataCardRecordBasicEquals.setOnClickListener { cal.calculate(EQUALS) }
+            dataCardRecordBasicDivide.setOnClickListener    { cal.calculate(DIVIDE) }
+            dataCardRecordBasicMultiply.setOnClickListener  { cal.calculate(MULTIPLY) }
+            dataCardRecordBasicSubtract.setOnClickListener  { cal.calculate(SUBTRACT) }
+            dataCardRecordBasicAdd.setOnClickListener       { cal.calculate(ADD) }
+            dataCardRecordBasicEquals.setOnClickListener    { cal.calculate(EQUALS) }
         }
     }
 }

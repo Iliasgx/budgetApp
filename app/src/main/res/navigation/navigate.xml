@@ -419,22 +419,7 @@
             app:argType="float"
             android:defaultValue="0" />
     </dialog>
-    <action android:id="@+id/globalLogin" app:destination="@id/login" />
-    <action android:id="@+id/globalStatistics" app:destination="@id/statistics" />
-    <action android:id="@+id/globalRecords" app:destination="@id/records" />
-    <action android:id="@+id/globalPlannedPayments" app:destination="@id/plannedPayments" />
-    <action android:id="@+id/globalDebts" app:destination="@id/debts" />
-    <action android:id="@+id/globalShopping" app:destination="@id/shoppingLists" />
-    <action android:id="@+id/globalGoals" app:destination="@id/goals" />
-    <action android:id="@+id/globalHome" app:destination="@id/home" />
-    <action android:id="@+id/globalAbout" app:destination="@id/about" />
-    <action android:id="@+id/globalUserProfile" app:destination="@id/updateUserProfile" />
-    <action android:id="@+id/globalSettings" app:destination="@id/settingsDefault" />
-    <action android:id="@+id/globalStores" app:destination="@id/stores" />
-    <action android:id="@+id/globalImports" app:destination="@id/imports" />
-    <action android:id="@+id/globalDialogAmount" app:destination="@id/amountDialog" />
-    <action android:id="@+id/globalAddRecord" app:destination="@id/addRecordDialog" />
-    <fragment
+    <dialog
         android:id="@+id/sortDialog"
         android:name="com.umbrella.budgetapp.ui.dialogs.SortDialog"
         tools:layout="@layout/dialog_sort">
@@ -442,7 +427,7 @@
             android:name="currentFilter"
             app:argType="com.umbrella.budgetapp.enums.SortType"
             android:defaultValue="DEFAULT" />
-    </fragment>
+    </dialog>
     <dialog
         android:id="@+id/addRecordDialog"
         android:name="com.umbrella.budgetapp.ui.dialogs.AddRecordDialog"
@@ -465,4 +450,28 @@
             android:name="note"
             app:argType="string" />
     </dialog>
+    <dialog
+        android:id="@+id/dataListDialog"
+        android:name="com.umbrella.budgetapp.ui.dialogs.DataListDialog"
+        tools:layout="@layout/dialog_recycler_view">
+        <argument
+            android:name="type"
+            app:argType="com.umbrella.budgetapp.ui.dialogs.DataListDialog$DataLocationType" />
+    </dialog>
+    <action android:id="@+id/globalLogin" app:destination="@id/login" />
+    <action android:id="@+id/globalStatistics" app:destination="@id/statistics" />
+    <action android:id="@+id/globalRecords" app:destination="@id/records" />
+    <action android:id="@+id/globalPlannedPayments" app:destination="@id/plannedPayments" />
+    <action android:id="@+id/globalDebts" app:destination="@id/debts" />
+    <action android:id="@+id/globalShopping" app:destination="@id/shoppingLists" />
+    <action android:id="@+id/globalGoals" app:destination="@id/goals" />
+    <action android:id="@+id/globalHome" app:destination="@id/home" />
+    <action android:id="@+id/globalAbout" app:destination="@id/about" />
+    <action android:id="@+id/globalUserProfile" app:destination="@id/updateUserProfile" />
+    <action android:id="@+id/globalSettings" app:destination="@id/settingsDefault" />
+    <action android:id="@+id/globalStores" app:destination="@id/stores" />
+    <action android:id="@+id/globalImports" app:destination="@id/imports" />
+    <action android:id="@+id/globalDialogAmount" app:destination="@id/amountDialog" />
+    <action android:id="@+id/globalAddRecord" app:destination="@id/addRecordDialog" />
+    <action android:id="@+id/globalDataListDialog" app:destination="@id/dataListDialog" />
 </navigation>

@@ -1,21 +1,27 @@
 package com.umbrella.budgetapp.ui.fragments.screens
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.textfield.TextInputEditText
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.adapters.ShoppingListItemsAdapter
 import com.umbrella.budgetapp.database.collections.ShoppingList
+import com.umbrella.budgetapp.database.collections.ShoppingListItem
 import com.umbrella.budgetapp.database.viewmodels.ShoppingListViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecyclerViewBinding
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
+import com.umbrella.budgetapp.ui.fragments.editors.UpdateShoppingListFragment
+import java.math.BigDecimal
+import java.util.*
 
 class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
     private val binding by viewBinding(FragmentRecyclerViewBinding::bind)
@@ -39,9 +45,9 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
         setUpRecyclerView()
 
         model.getShoppingListById(args.shoppingListId).observe(viewLifecycleOwner, Observer {
-            shoppingList = it
+            if (shoppingList != it ) setTitle(it.name!!)
 
-            setTitle(shoppingList.name!!)
+            shoppingList = it
 
             if (!it.items.isNullOrEmpty()) {
                 adapter.setData(it.items!!.toList())
@@ -59,7 +65,7 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
     private fun setUpRecyclerView() {
         adapter = ShoppingListItemsAdapter(object : ShoppingListItemsAdapter.CallBack {
             override fun onItemClick(position: Int) {
-                // TODO: 30/08/2020 Open dialog again to change name and price
+                addItem(shoppingList.items!![position])
             }
 
             override fun onItemCheck(position: Int, checked: Boolean) {
@@ -77,11 +83,7 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
         binding.fragmentRecyclerView.fix(adapter)
     }
 
-    private fun addItem() {
-        // TODO: 06/09/2020 add new item to shopping list
-    }
-
-    private fun createRecord() {
+    private fun createRecord() : Boolean {
         findNavController().navigate(ShoppingListItemsFragmentDirections.globalAddRecord(
                 0L,
                 shoppingList.categoryRef!!,
@@ -91,26 +93,104 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
         ))
 
         getNavigationResult<Boolean>(R.id.shoppingListItems, "dialog") { findNavController().navigateUp() }
+
+        return true
+    }
+
+    // Function for adding a new item or updating an existing item.
+    // When item is @null, function identifies it as adding a new one, else updating.
+    private fun addItem(item: ShoppingListItem? = null) {
+        lateinit var dg: AlertDialog
+
+        val viewInflated = LayoutInflater.from(context).inflate(R.layout.dialog_new_item, view as ViewGroup, false)
+
+        val editTextName = viewInflated.findViewById<TextInputEditText>(R.id.dialog_newItem_name)
+        val editTextPrice = viewInflated.findViewById<TextInputEditText>(R.id.dialog_newItem_price)
+
+        // Inner function for checking the values.
+        fun innerCheck(key: Int, event: KeyEvent) : Boolean {
+            // If enter button was clicked.
+            if (event.action == KeyEvent.ACTION_DOWN && key == KeyEvent.KEYCODE_ENTER) {
+
+                val mName = editTextName.text?.trim()
+
+                // Name is required for the Items, price not.
+                if (mName.isNullOrBlank()) {
+                    editTextName.error = getString(R.string.dialog_NewItem_error_name)
+                } else {
+                    val mPrice = if (editTextPrice.text.isNullOrBlank()) BigDecimal.ZERO else editTextPrice.text.toString().toBigDecimal()
+
+                    // Add a new item to the list or else updates the right one.
+                    if (item == null) {
+                        shoppingList.items?.add(ShoppingListItem(shoppingList.items?.size ?: 0, mName.toString(), 1, mPrice, false))
+                    } else {
+                        shoppingList.items!![item.position].apply {
+                            name = mName.toString()
+                            amount = mPrice
+                        }
+                    }
+                    model.updateShoppingList(shoppingList)
+                    dg.dismiss()
+                }
+                return true // Right key
+            }
+            return false // Wrong key
+        }
+
+        dg = AlertDialog.Builder(context).apply {
+            setView(viewInflated)
+
+            // When updating, fill already defined values in.
+            if (item != null) {
+                editTextName.setText(item.name, EDITABLE)
+                editTextPrice.setText(item.amount.toEngineeringString(), EDITABLE)
+            }
+
+            // Returns if pressed key is the correct one.
+            editTextName.setOnKeyListener { _, key, event -> return@setOnKeyListener innerCheck(key, event) }
+            editTextPrice.setOnKeyListener { _, key, event -> return@setOnKeyListener innerCheck(key, event) }
+        }.show()
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun renameList() : Boolean {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.dialog_rename_title))
+
+            val viewInflated = LayoutInflater.from(context).inflate(R.layout.dialog_rename, view as ViewGroup, false)
+
+            val editText = viewInflated.findViewById<TextInputEditText>(R.id.dialog_rename_name)
+
+            setView(viewInflated)
+
+            setPositiveButton(android.R.string.ok) { dialog, _ ->
+                val mText = editText.text?.trim()
+
+                if (mText.isNullOrBlank() || mText.length < UpdateShoppingListFragment.MIN_NAME_LENGTH) {
+                    editText.error = getString(R.string.dialog_rename_error_name, UpdateShoppingListFragment.MIN_NAME_LENGTH)
+                } else {
+                    shoppingList.name = mText.toString().toLowerCase(Locale.ROOT).capitalize()
+                    model.updateShoppingList(shoppingList)
+                    dialog.dismiss()
+                }
+            }
+
+            setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
+        }.show()
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menuLayout_ReminderOptions_Reminder -> {
-                // TODO: 06/09/2020 Reminder Dialog
+                // TODO-UPCOMING: Reminder Dialog (possible, not required)
                 true
             }
-            R.id.menuLayout_ReminderOptions_Rename -> {
-                // TODO: 06/09/2020 Dialog to rename (title automatically updated)
-                true
-            }
-            R.id.menuLayout_ReminderOptions_CreateRecord -> {
-                createRecord()
-                true
-            }
+            R.id.menuLayout_ReminderOptions_Rename -> { renameList() }
+            R.id.menuLayout_ReminderOptions_CreateRecord -> { createRecord() }
             R.id.menuLayout_ReminderOptions_DeleteList -> {
                 model.removeShoppingList(shoppingList)
                 findNavController().navigateUp()
-                true
             }
             else -> false
         }

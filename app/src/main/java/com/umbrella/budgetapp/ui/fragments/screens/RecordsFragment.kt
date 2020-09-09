@@ -10,6 +10,7 @@ import com.umbrella.budgetapp.adapters.BaseAdapter
 import com.umbrella.budgetapp.adapters.RecordsAdapter
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.databinding.FragmentRecordsBinding
+import com.umbrella.budgetapp.extensions.fix
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 
 class RecordsFragment : ExtendedFragment(R.layout.fragment_records) {
