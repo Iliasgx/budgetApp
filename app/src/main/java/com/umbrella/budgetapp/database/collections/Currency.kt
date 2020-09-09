@@ -11,7 +11,7 @@ data class Currency(
         @ColumnInfo(name = "currency_id")
         val id: Long?,
 
-        @ColumnInfo(name = "country_ref", index = true)
+        @ColumnInfo(name = "country_ref")
         val countryRef: Long? = 0,
 
         @ColumnInfo(name = "used_rate")

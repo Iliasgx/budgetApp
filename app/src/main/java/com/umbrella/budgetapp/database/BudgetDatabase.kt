@@ -5,16 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.umbrella.budgetapp.database.collections.*
 import com.umbrella.budgetapp.database.collections.subcollections.*
 import com.umbrella.budgetapp.database.dao.*
 import com.umbrella.budgetapp.database.typeconverters.BigDecimalTypeConverter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Database(
         entities = [
             Account::class,
             Category::class,
-            Country::class,
             Currency::class,
             Debt::class,
             Goal::class,
@@ -26,7 +28,6 @@ import com.umbrella.budgetapp.database.typeconverters.BigDecimalTypeConverter
             User::class],
         views = [
             CurrencyAndName::class,
-            ExtendedCurrency::class,
             ExtendedTemplate::class,
             TemplateAndCategory::class,
             ExtendedStore::class,
@@ -37,7 +38,7 @@ import com.umbrella.budgetapp.database.typeconverters.BigDecimalTypeConverter
             ExtendedRecord::class,
             ExtendedAccount::class
         ],
-        version = 5,
+        version = 1,
         exportSchema = false)
 @TypeConverters(
         BigDecimalTypeConverter::class
@@ -46,7 +47,6 @@ abstract class BudgetDatabase: RoomDatabase() {
 
     abstract fun daoAccount() : DaoAccount
     abstract fun daoCategory() : DaoCategory
-    abstract fun daoCountry() : DaoCountry
     abstract fun daoCurrency() : DaoCurrency
     abstract fun daoDebt() : DaoDebt
     abstract fun daoGoal() : DaoGoal
@@ -76,10 +76,27 @@ abstract class BudgetDatabase: RoomDatabase() {
 
                 val instance = Room
                         .inMemoryDatabaseBuilder(context.applicationContext, BudgetDatabase::class.java)
+                        .addCallback(object : Callback() {
+                            override fun onCreate(db: SupportSQLiteDatabase) {
+                                super.onCreate(db)
+
+                            }
+                        })
                         .fallbackToDestructiveMigration()
                         .build()
                 INSTANCE = instance
                 return instance
+            }
+        }
+    }
+
+    private class DatabaseCallBack(private val scope: CoroutineScope) : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { database ->
+                scope.launch {
+
+                }
             }
         }
     }

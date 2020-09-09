@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.PlannedPayment
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPlannedPayment
@@ -22,6 +23,7 @@ import com.umbrella.budgetapp.enums.PayType
 import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 import java.math.BigDecimal
@@ -145,8 +147,12 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
             }
 
             dataCardPlannedPaymentCategory.setOnClickListener {
-                // TODO: 13/08/2020 Categories
-                //Category -> DialogFragment with select
+                findNavController().navigate(UpdatePlannedPaymentFragmentDirections.globalDataListDialog(CATEGORY))
+
+                getNavigationResult<Category>(R.id.updatePlannedPayment, "data") { result ->
+                    editData.categoryRef = result.id
+                    dataCardPlannedPaymentCategory.text = result.name
+                }
             }
 
             getNavigationResult<String>(R.id.updatePlannedPayment, "amount") { result ->

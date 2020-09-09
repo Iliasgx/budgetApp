@@ -28,7 +28,7 @@ interface DaoAccount : Base<Account> {
      * @return The list of accounts in a Flow.
      */
     @Transaction
-    @Query("SELECT account_id, name, color, current_value, position, exclude_stats, extended_currency_symbol FROM account_cross ORDER BY position ASC LIMIT :limit")
+    @Query("SELECT account_id, name, color, current_value, position, exclude_stats, extended_country_ref FROM account_cross ORDER BY position ASC LIMIT :limit")
     fun getAllAccountsSmall(@IntRange(from = 1) limit: Int) : Flow<List<ExtendedAccount>>
 
     /**

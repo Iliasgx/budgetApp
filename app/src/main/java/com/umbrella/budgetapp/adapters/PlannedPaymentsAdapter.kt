@@ -54,7 +54,7 @@ class PlannedPaymentsAdapter(val callBack: CallBack) : BaseAdapter<ExtendedPayme
                     }
 
                     list_PlannedPayments_Amount.apply {
-                        currencyText(Memory.lastUsedCountry.symbol!!, item.plannedPayment.amount!!)
+                        currencyText(Memory.lastUsedCountry.symbol, item.plannedPayment.amount!!)
 
                         if (item.plannedPayment.type == PayType.EXPENSE) {
                             text = context.getString(R.string.negate, text)

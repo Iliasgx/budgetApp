@@ -2,12 +2,9 @@ package com.umbrella.budgetapp.database.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.umbrella.budgetapp.database.collections.Currency
-import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
-import com.umbrella.budgetapp.database.collections.subcollections.ExtendedCurrency
 import com.umbrella.budgetapp.database.repositories.CurrencyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,9 +15,9 @@ class CurrencyViewModel(application: Application) : AndroidViewModel(application
 
     fun getCurrencyById(id: Long) = repos.getCurrencyById(id).asLiveData()
 
-    fun getAllCurrencies() : LiveData<List<ExtendedCurrency>> = repos.getAllCurrencies().asLiveData()
+    fun getAllCurrencies() = repos.getAllCurrencies().asLiveData()
 
-    fun getBasicCurrencies() : LiveData<List<CurrencyAndName>> = repos.getBasicCurrencies().asLiveData()
+    fun getBasicCurrencies() = repos.getBasicCurrencies().asLiveData()
 
     fun changePosition(id: Long, position: Int) = repos.changePosition(id, position)
 

@@ -9,11 +9,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import com.umbrella.budgetapp.databinding.ActivityBinding
+import kotlinx.android.synthetic.main._activity.*
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityBinding
-
+class MainActivity : AppCompatActivity(R.layout._activity) {
     private val navController by lazy { findNavController(R.id.nav_host) }
 
     private val topLevels = setOf( // Top level destinations
@@ -31,26 +29,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         initView()
     }
 
     private fun initView() {
-        setSupportActionBar(binding.toolbar)
-        binding.toolbar.visibility = View.VISIBLE
+        setSupportActionBar(toolbar)
+        toolbar.visibility = View.VISIBLE
 
         setUpDrawerMenu()
 
         // Checks first item (Home)
-        binding.navView.setCheckedItem(R.id.globalHome)
+        nav_view.setCheckedItem(R.id.globalHome)
     }
 
     private fun setUpDrawerMenu() {
-        val config = AppBarConfiguration(topLevels, binding.drawerLayout)
+        val config = AppBarConfiguration(topLevels, drawer_layout)
 
-        binding.navView.setupWithNavController(navController)
-        binding.toolbar.setupWithNavController(navController, config)
+        nav_view.setupWithNavController(navController)
+        toolbar.setupWithNavController(navController, config)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -67,11 +63,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.close()
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.close()
         } else {
             if (topLevels.contains(navController.currentDestination?.id)) {
-                binding.drawerLayout.open()
+                drawer_layout.open()
             } else {
                 navController.navigateUp()
             }
@@ -79,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        binding.drawerLayout.close()
+        drawer_layout.close()
         super.onDestroy()
     }
 }

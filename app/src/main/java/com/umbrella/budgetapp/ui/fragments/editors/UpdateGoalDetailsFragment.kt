@@ -105,8 +105,8 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
 
             if (type == Type.NEW) {
                 //Set default data
-                dataCardGoalDetailsAmount.currencyText(Memory.lastUsedCountry.symbol!!, BigDecimal.ZERO)
-                dataCardGoalDetailsSaved.currencyText(Memory.lastUsedCountry.symbol!!, BigDecimal.ZERO)
+                dataCardGoalDetailsAmount.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
+                dataCardGoalDetailsSaved.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
                 dataCardGoalDetailsDate.text = DateTimeFormatter().dateFormat(Calendar.getInstance().timeInMillis)
 
                 //Set data of name or prefab.
@@ -120,8 +120,8 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
             } else {
                 //Load all the data from the database. Defaults are in place in case the field was empty.
                 dataCardGoalDetailsName.setText(goal.name)
-                dataCardGoalDetailsAmount.currencyText(Memory.lastUsedCountry.symbol!!, goal.targetAmount ?: BigDecimal.ZERO)
-                dataCardGoalDetailsSaved.currencyText(Memory.lastUsedCountry.symbol!!, goal.savedAmount ?: BigDecimal.ZERO)
+                dataCardGoalDetailsAmount.currencyText(Memory.lastUsedCountry.symbol, goal.targetAmount ?: BigDecimal.ZERO)
+                dataCardGoalDetailsSaved.currencyText(Memory.lastUsedCountry.symbol, goal.savedAmount ?: BigDecimal.ZERO)
                 dataCardGoalDetailsDate.text = DateTimeFormatter().dateFormat(goal.desiredDate ?: Calendar.getInstance().timeInMillis)
                 dataCardGoalDetailsNote.setText(goal.note, EDITABLE)
                 dataCardGoalDetailsIcon.setSelection(goal.icon ?: 0)

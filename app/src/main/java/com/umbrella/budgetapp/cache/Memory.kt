@@ -7,5 +7,5 @@ import com.umbrella.budgetapp.database.defaults.DefaultCountries
 object Memory {
     lateinit var loggedUser: User
 
-    var lastUsedCountry: Country = DefaultCountries.defaultCountry
+    var lastUsedCountry: Country = DefaultCountries().getCountryById(null)
 }

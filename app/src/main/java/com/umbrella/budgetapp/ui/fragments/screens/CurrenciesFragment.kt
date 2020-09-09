@@ -50,7 +50,7 @@ class CurrenciesFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
                     //Checks if the first position is changed and updates this currency as a default.
                     if (oldPosition == 0) {
                         //Get the current first one of the list.
-                        updateFirstCurrency(adapter.currencies.firstOrNull()?.currency?.id!!)
+                        updateFirstCurrency(adapter.currencies.firstOrNull()?.id!!)
                     } else if (newPosition == 0) {
                         //Retrieves this item as it is the new first position item.
                         updateFirstCurrency(itemId)

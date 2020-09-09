@@ -15,10 +15,11 @@ import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Account
 import com.umbrella.budgetapp.database.collections.Category
+import com.umbrella.budgetapp.database.collections.Currency
 import com.umbrella.budgetapp.database.collections.Record
-import com.umbrella.budgetapp.database.collections.subcollections.ExtendedCurrency
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTemplate
 import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
+import com.umbrella.budgetapp.database.defaults.DefaultCountries
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.TemplateViewModel
 import com.umbrella.budgetapp.databinding.DataRecordBasicBinding
@@ -92,7 +93,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             if (receivedTemplate != null) {
                 dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>(receivedTemplate!!.template.type ?: 0).id)
                 dataCardRecordBasicAmount.currencyText("", receivedTemplate!!.template.amount!!)
-                dataCardRecordBasicCurrency.text = receivedTemplate!!.currencyName
+                dataCardRecordBasicCurrency.text = DefaultCountries().getCountryById(receivedTemplate!!.countryRef).name
                 dataCardRecordBasicAccount.text = receivedTemplate!!.accountName
                 dataCardRecordBasicCategory.text = receivedTemplate!!.category.name
 
@@ -142,12 +143,12 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             dataCardRecordBasicCurrency.setOnClickListener {
                 navToDialog(DataLocationType.CURRENCY)
 
-                getNavigationResult<ExtendedCurrency>(R.id.updateRecordBasic, "data") { result ->
+                getNavigationResult<Currency>(R.id.updateRecordBasic, "data") { result ->
                     dataCardRecordBasicCurrency.apply {
-                        text = result.country?.name
-                        tag = result.currency.position
+                        text = DefaultCountries().getCountryById(result.countryRef).name
+                        tag = result.position
                     }
-                        editData.currencyRef = result.currency.id
+                        editData.currencyRef = result.id
                 }
             }
 

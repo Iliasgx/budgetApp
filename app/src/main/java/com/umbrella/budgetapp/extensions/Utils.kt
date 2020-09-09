@@ -19,6 +19,8 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false) 
 @SuppressLint("SetTextI18n")
 fun TextView.currencyText(currency: String, value: BigDecimal) { text = "$currency ${value.toPlainString()}".trim() }
 
+fun <T> T?.orElse(defaultValue: T) : T = this ?: defaultValue
+
 fun EditText.afterTextChangedDelayed(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         var timer: CountDownTimer? = null

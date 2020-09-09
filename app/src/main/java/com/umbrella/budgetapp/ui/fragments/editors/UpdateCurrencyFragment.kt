@@ -12,9 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Currency
-import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
-import com.umbrella.budgetapp.database.collections.subcollections.ExtendedCurrency
-import com.umbrella.budgetapp.database.viewmodels.CountryViewModel
+import com.umbrella.budgetapp.database.defaults.DefaultCountries
 import com.umbrella.budgetapp.database.viewmodels.CurrencyViewModel
 import com.umbrella.budgetapp.databinding.DataCurrencyBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
@@ -38,7 +36,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
 
     private val model by viewModels<CurrencyViewModel>()
 
-    private lateinit var extCurrency: ExtendedCurrency
+    private lateinit var extCurrency: Currency
 
     private lateinit var type: Type
 
@@ -63,7 +61,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
         model.getCurrencyById(args.currencyId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extCurrency = it
-                editData = extCurrency.currency
+                editData = extCurrency
             }
             initData()
         })
@@ -82,7 +80,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
             Spinners.Currencies(this@UpdateCurrencyFragment, dataCardCurrencyName)
 
             if (type == Type.EDIT) {
-                dataCardCurrencyName.setSelection(extCurrency.currency.position!!)
+                dataCardCurrencyName.setSelection(extCurrency.position!!)
 
                 //Only the 'Rate' field can be modified on edit.
                 dataCardCurrencyName.isClickable = false
@@ -112,16 +110,15 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
 
                     val country = when (type) {
                         Type.NEW -> {
-                            val countryModel by viewModels<CountryViewModel>()
-                            countryModel.getCountryById((dataCardCurrencyName.selectedItem as CurrencyAndName).id!!)
+                            DefaultCountries().getCountryById(dataCardCurrencyName.selectedItemId)
                         }
-                        Type.EDIT -> extCurrency.country!!
+                        Type.EDIT -> DefaultCountries().getCountryById(extCurrency.countryRef)
                     }
 
                     if (type == Type.NEW) {
                         dataCardCurrencyRate.setText(decimalFormat.format(country.defaultRate))
                     } else {
-                        dataCardCurrencyRate.setText(decimalFormat.format(extCurrency.currency.usedRate))
+                        dataCardCurrencyRate.setText(decimalFormat.format(extCurrency.usedRate))
                     }
 
                     dataCardCurrencyCode.setText(country.name)
@@ -146,7 +143,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
     override fun saveData() {
         if (type == Type.NEW) {
             model.addCurrency(editData)
-        } else if (hasChanges(extCurrency.currency, editData)) {
+        } else if (hasChanges(extCurrency, editData)) {
             model.updateCurrency(editData)
         }
     }

@@ -11,12 +11,12 @@ import com.umbrella.budgetapp.database.collections.Record
         value = """SELECT records.*, categories.*, 
                 accounts.account_id AS extended_account_id, accounts.name AS extended_account_name, accounts.position AS extended_account_position, 
                 stores.store_id AS extended_store_id, stores.name AS extended_store_name, 
-                currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name , currency_country_cross.symbol AS extended_currency_symbol, currency_country_cross.position AS extended_currency_position 
+                currencies.currency_id AS extended_currency_id, currencies.country_ref AS extended_country_ref, currencies.position AS extended_currency_position 
                 FROM records 
                 INNER JOIN accounts ON records.account_ref = accounts.account_id 
                 INNER JOIN categories ON records.category_ref = categories.category_id 
                 INNER JOIN stores ON records.store_ref = stores.store_id 
-                INNER JOIN currency_country_cross ON records.currency_ref = currency_country_cross.currency_id"""
+                INNER JOIN currencies ON records.currency_ref = currencies.currency_id"""
 )
 data class ExtendedRecord (
         @Embedded
@@ -43,11 +43,8 @@ data class ExtendedRecord (
         @ColumnInfo(name = "extended_currency_id")
         val currencyId: Long?,
 
-        @ColumnInfo(name = "extended_currency_name")
-        val currencyName: String?,
-
-        @ColumnInfo(name = "extended_currency_symbol")
-        val currencySymbol: String?,
+        @ColumnInfo(name = "extended_country_ref")
+        val countryRef: Long?,
 
         @ColumnInfo(name = "extended_currency_position")
         val currencyPosition: Int?

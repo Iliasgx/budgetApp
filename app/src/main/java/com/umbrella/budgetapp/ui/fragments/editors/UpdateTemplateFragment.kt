@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Template
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
+import com.umbrella.budgetapp.database.collections.subcollections.ExtendedStore
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTemplate
 import com.umbrella.budgetapp.database.viewmodels.TemplateViewModel
 import com.umbrella.budgetapp.databinding.DataTemplateBinding
@@ -22,6 +24,8 @@ import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.STORE
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 import java.math.BigDecimal
@@ -119,11 +123,21 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
             }
 
             dataCardTemplateCategory.setOnClickListener {
-                // TODO: 14/08/2020 Category dialogFragment
+                findNavController().navigate(UpdateTemplateFragmentDirections.globalDataListDialog(CATEGORY))
+
+                getNavigationResult<Category>(R.id.updateTemplate, "data") { result ->
+                    editData.categoryRef = result.id
+                    dataCardTemplateCategory.text = result.name
+                }
             }
 
             dataCardTemplateStore.setOnClickListener {
-                // TODO: 14/08/2020 Store dialogFragment
+                findNavController().navigate(UpdateTemplateFragmentDirections.globalDataListDialog(STORE))
+
+                getNavigationResult<ExtendedStore>(R.id.updateTemplate, "data") { result ->
+                    editData.storeRef = result.store.id
+                    dataCardTemplateStore.text = result.store.name
+                }
             }
 
             getNavigationResult<String>(R.id.updateTemplate, "amount") { result ->

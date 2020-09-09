@@ -23,7 +23,7 @@ interface DaoDebt : Base<Debt> {
      * @see DebtType
      */
     @Transaction
-    @Query("SELECT debt_id, name, debt_type, amount, extended_currency_name, timestamp FROM debt_cross WHERE debt_type = :type ORDER BY timestamp ASC")
+    @Query("SELECT debt_id, name, debt_type, amount, extended_country_ref, timestamp FROM debt_cross WHERE debt_type = :type ORDER BY timestamp ASC")
     fun getAllDebts(type: Int) : Flow<List<ExtendedDebt>>
 
     /**

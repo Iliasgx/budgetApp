@@ -11,12 +11,12 @@ import com.umbrella.budgetapp.database.collections.Template
         value = """SELECT templates.*, categories.*, 
                 accounts.account_id AS extended_account_id, accounts.name AS extended_account_name, accounts.position AS extended_account_position, 
                 stores.store_id AS extended_store_id, stores.name AS extended_store_name, 
-                currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name, currency_country_cross.position AS extended_currency_name 
+                currencies.currency_id AS extended_currency_id, currencies.country_ref AS extended_country_ref, currencies.position AS extended_currency_position
                 FROM templates 
                 INNER JOIN categories ON templates.category_ref = categories.category_id 
                 INNER JOIN accounts ON templates.account_ref = accounts.account_id 
                 INNER JOIN stores ON templates.store_ref = stores.store_id 
-                INNER JOIN currency_country_cross ON templates.currency_ref = currency_country_cross.currency_id"""
+                INNER JOIN currencies ON templates.currency_ref = currencies.currency_id"""
 )
 data class ExtendedTemplate (
         @Embedded
@@ -43,8 +43,8 @@ data class ExtendedTemplate (
         @ColumnInfo(name = "extended_currency_id")
         val currencyId: Long?,
 
-        @ColumnInfo(name = "extended_currency_name")
-        val currencyName: String?,
+        @ColumnInfo(name = "extended_country_ref")
+        val countryRef: Long?,
 
         @ColumnInfo(name = "extended_currency_position")
         val currencyPosition: Int?

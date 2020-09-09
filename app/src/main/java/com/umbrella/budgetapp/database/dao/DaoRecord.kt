@@ -20,7 +20,7 @@ interface DaoRecord : Base<Record> {
      * @return The list of records in a Flow.
      */
     @Transaction
-    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_currency_symbol FROM record_cross ORDER BY timestamp DESC")
+    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_country_ref FROM record_cross ORDER BY timestamp DESC")
     fun getAllRecords() : Flow<List<ExtendedRecord>>
 
     /**
@@ -30,7 +30,7 @@ interface DaoRecord : Base<Record> {
      * @return The list of records in a Flow.
      */
     @Transaction
-    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_currency_symbol FROM record_cross WHERE account_ref IN (:accountIds) ORDER BY timestamp DESC")
+    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_country_ref FROM record_cross WHERE account_ref IN (:accountIds) ORDER BY timestamp DESC")
     fun getAllRecordsOfAccounts(vararg accountIds: Long) : Flow<List<ExtendedRecord>>
 
     /**
@@ -43,7 +43,7 @@ interface DaoRecord : Base<Record> {
      * @return The list of records in a Flow.
      */
     @Transaction
-    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_currency_symbol FROM record_cross WHERE account_ref IN (:accountIds) ORDER BY timestamp DESC LIMIT :limit OFFSET :offset")
+    @Query("SELECT record_id, name, icon, color, extended_account_name, type, amount, timestamp, description, extended_country_ref FROM record_cross WHERE account_ref IN (:accountIds) ORDER BY timestamp DESC LIMIT :limit OFFSET :offset")
     fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, offset: Int = 0) : Flow<List<ExtendedRecord>>
 
     /**

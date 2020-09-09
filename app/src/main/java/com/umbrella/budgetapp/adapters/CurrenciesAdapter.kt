@@ -4,16 +4,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.umbrella.budgetapp.R
-import com.umbrella.budgetapp.database.collections.subcollections.ExtendedCurrency
+import com.umbrella.budgetapp.database.collections.Currency
+import com.umbrella.budgetapp.database.defaults.DefaultCountries
 import com.umbrella.budgetapp.extensions.autoNotify
 import com.umbrella.budgetapp.extensions.inflate
 import kotlinx.android.synthetic.main.list_reorderable_view.view.*
 import kotlin.properties.Delegates
 
-class CurrenciesAdapter(val callback: CallBack) : BaseAdapter<ExtendedCurrency>() {
+class CurrenciesAdapter(val callback: CallBack) : BaseAdapter<Currency>() {
 
-    var currencies: List<ExtendedCurrency> by Delegates.observable(emptyList()) {
-        _, oldList, newList -> autoNotify(oldList, newList) { o, n -> o.currency.id == n.currency.id }
+    var currencies: List<Currency> by Delegates.observable(emptyList()) {
+        _, oldList, newList -> autoNotify(oldList, newList) { o, n -> o.id == n.id }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -22,25 +23,27 @@ class CurrenciesAdapter(val callback: CallBack) : BaseAdapter<ExtendedCurrency>(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(currencies[position])
-        holder.itemView.id = currencies[position].currency.id!!.toInt()
+        holder.itemView.id = currencies[position].id!!.toInt()
     }
 
     override fun getItemCount() = currencies.size
 
-    override fun setData(list: List<ExtendedCurrency>) {
+    override fun setData(list: List<Currency>) {
         currencies = list
     }
 
     init {
-        onBind(object: Bind<ExtendedCurrency> {
-            override fun onBinding(item: ExtendedCurrency, itemView: View, adapterPosition: Int) {
+        onBind(object: Bind<Currency> {
+            override fun onBinding(item: Currency, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_ReorderableView_Img.isVisible = false
 
-                    list_ReorderableView_Name.text = item.country?.name
-                    list_ReorderableView_Info.text = item.country?.symbol
+                    val country = DefaultCountries().getCountryById(item.countryRef)
 
-                    setOnClickListener { callback.onItemClick(item.currency.id!!) }
+                    list_ReorderableView_Name.text = country.name
+                    list_ReorderableView_Info.text = country.symbol
+
+                    setOnClickListener { callback.onItemClick(item.id!!) }
                 }
             }
         })

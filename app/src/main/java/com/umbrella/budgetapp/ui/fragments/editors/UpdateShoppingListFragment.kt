@@ -3,12 +3,18 @@ package com.umbrella.budgetapp.ui.fragments.editors
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.ShoppingList
+import com.umbrella.budgetapp.database.collections.subcollections.ExtendedStore
 import com.umbrella.budgetapp.database.viewmodels.ShoppingListViewModel
 import com.umbrella.budgetapp.databinding.DataShoppingListBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.STORE
 import com.umbrella.budgetapp.ui.interfaces.Edit
 
 class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list), Edit {
@@ -46,11 +52,21 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
             dataCardShoppingListName.afterTextChangedDelayed { editData.name = it }
 
             dataCardShoppingListCategory.setOnClickListener {
-                // TODO: 13/08/2020 Add Category DialogFragment
+                findNavController().navigate(UpdateShoppingListFragmentDirections.globalDataListDialog(CATEGORY))
+
+                getNavigationResult<Category>(R.id.updateShoppingList, "data") { result ->
+                    editData.categoryRef = result.id
+                    dataCardShoppingListCategory.text = result.name
+                }
             }
 
             dataCardShoppingListStore.setOnClickListener {
-                // TODO: 13/08/2020 Add Store DialogFragment
+                findNavController().navigate(UpdateShoppingListFragmentDirections.globalDataListDialog(STORE))
+
+                getNavigationResult<ExtendedStore>(R.id.updateShoppingList, "data") { result ->
+                    editData.storeRef = result.currencyId
+                    dataCardShoppingListStore.text = result.store.name
+                }
             }
 
             dataCardShoppingListCreate.setOnClickListener { checkData() }

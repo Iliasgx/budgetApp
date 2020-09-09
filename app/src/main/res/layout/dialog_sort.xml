@@ -1,75 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialog_Sort_Card"
-    style="@style/CardView_Default"
-    android:layout_width="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/dialog_Sort_Title"
+        style="@style/Text_Title"
+        android:text="@string/dialog_Sort_Title"
+        android:layout_marginBottom="15dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+
+    <RadioGroup
+        android:id="@+id/dialog_Sort_RadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_Sort_Title">
+
+        <RadioButton
+            android:id="@+id/dialog_Sort_Item1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Sort_Item1"
+            android:tag="0"/>
+
+        <RadioButton
+            android:id="@+id/dialog_Sort_Item2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Sort_Item2"
+            android:tag="1"/>
+
+        <RadioButton
+            android:id="@+id/dialog_Sort_Item3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Sort_Item3"
+            android:tag="2"/>
+
+        <RadioButton
+            android:id="@+id/dialog_Sort_Item4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_Sort_Item4"
+            android:tag="3"/>
+    </RadioGroup>
+
+    <RelativeLayout
+        android:id="@+id/dialog_Sort_buttonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_Sort_RadioGroup">
 
         <TextView
-            android:id="@+id/dialog_Sort_Title"
-            android:text="@string/dialog_Sort_Title"
-            android:layout_marginBottom="15dp"
-            style="@style/Text_Title"/>
+            android:id="@+id/dialog_Sort_Default"
+            style="@style/Text_Button_More"
+            android:layout_width="wrap_content"
+            android:text="@string/dialog_default"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="30dp"/>
 
-        <RadioGroup
-            android:id="@+id/dialog_Sort_RadioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/dialog_Sort_Item1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_Sort_Item1"
-                android:tag="0"/>
-
-            <RadioButton
-                android:id="@+id/dialog_Sort_Item2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_Sort_Item2"
-                android:tag="1"/>
-
-            <RadioButton
-                android:id="@+id/dialog_Sort_Item3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_Sort_Item3"
-                android:tag="2"/>
-
-            <RadioButton
-                android:id="@+id/dialog_Sort_Item4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_Sort_Item4"
-                android:tag="3"/>
-        </RadioGroup>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/dialog_Sort_Default"
-                style="@style/Text_Button_More"
-                android:layout_width="wrap_content"
-                android:text="@string/dialog_default"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="30dp"/>
-
-            <TextView
-                android:id="@+id/dialog_Sort_Cancel"
-                style="@style/Text_Button_More"
-                android:layout_width="wrap_content"
-                android:text="@android:string/cancel"
-                android:layout_toEndOf="@id/dialog_Sort_Default" />
-
-
-        </RelativeLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/dialog_Sort_Cancel"
+            style="@style/Text_Button_More"
+            android:layout_width="wrap_content"
+            android:text="@android:string/cancel"
+            android:layout_toEndOf="@id/dialog_Sort_Default" />
+    </RelativeLayout>
+</RelativeLayout>

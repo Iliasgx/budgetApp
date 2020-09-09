@@ -11,14 +11,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Store
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedStore
 import com.umbrella.budgetapp.database.viewmodels.StoreViewModel
 import com.umbrella.budgetapp.databinding.DataStoreBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
+import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 
@@ -97,7 +100,12 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
             dataCardStoreNote.afterTextChangedDelayed { editData.note = it }
 
             dataCardStoreCategory.setOnClickListener {
-                // TODO: 14/08/2020 Category DialogFragment
+                findNavController().navigate(UpdateStoreFragmentDirections.globalDataListDialog(CATEGORY))
+
+                getNavigationResult<Category>(R.id.updateStore, "data") { result ->
+                    editData.categoryRef = result.id
+                    dataCardStoreCategory.text = result.name
+                }
             }
         }
     }

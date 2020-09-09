@@ -33,7 +33,7 @@ class ShoppingListAdapter(val callback: CallBack) : BaseAdapter<ShoppingList>() 
     }
 
     interface CallBack : BaseAdapter.CallBack {
-        fun onAddItemClick(itemId: Long)
+        fun onAddItemClick(shoppingList: ShoppingList)
     }
 
     init {
@@ -42,9 +42,9 @@ class ShoppingListAdapter(val callback: CallBack) : BaseAdapter<ShoppingList>() 
                 with(itemView) {
                     list_ShoppingList_Name.text = item.name
                     list_ShoppingList_NbItems.text = context.getString(R.string.shoppingLists_nrOfItems, item.items?.size)
-                    list_ShoppingList_Amount.currencyText(Memory.lastUsedCountry.symbol!!, sumAmount(item.items))
+                    list_ShoppingList_Amount.currencyText(Memory.lastUsedCountry.symbol, sumAmount(item.items))
 
-                    list_ShoppingList_Add.setOnClickListener { callback.onAddItemClick(item.id!!) }
+                    list_ShoppingList_Add.setOnClickListener { callback.onAddItemClick(item) }
                     this.setOnClickListener { callback.onItemClick(item.id!!) }
                 }
             }

@@ -7,6 +7,7 @@ package com.umbrella.budgetapp.adapters
  import androidx.core.text.italic
  import com.umbrella.budgetapp.R
  import com.umbrella.budgetapp.database.collections.subcollections.ExtendedRecord
+ import com.umbrella.budgetapp.database.defaults.DefaultCountries
  import com.umbrella.budgetapp.extensions.DateTimeFormatter
  import com.umbrella.budgetapp.extensions.autoNotify
  import com.umbrella.budgetapp.extensions.currencyText
@@ -47,7 +48,7 @@ class RecordsAdapter(val callBack: CallBack) : BaseAdapter<ExtendedRecord>() {
                     list_Records_Account.text = item.accountName
 
                     list_Records_Amount.apply {
-                        currencyText(item.currencySymbol!!, item.record.amount!!)
+                        currencyText(DefaultCountries().getCountryById(item.countryRef).symbol, item.record.amount!!)
 
                         if (item.record.type == 1) { // Expense
                             text = context.getString(R.string.negate, text)

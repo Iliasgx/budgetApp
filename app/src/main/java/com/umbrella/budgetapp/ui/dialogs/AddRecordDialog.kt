@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Record
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
@@ -20,6 +21,7 @@ import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.extensions.setNavigationResult
 import com.umbrella.budgetapp.ui.customs.Spinners
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
 import kotlinx.android.synthetic.main.dialog_record.*
 import java.math.BigDecimal
 import java.time.Instant
@@ -52,13 +54,25 @@ class AddRecordDialog : DialogFragment() {
         dialog_Record_Account.setSelection(acc.getPosition(args.accountRef))
         dialog_Record_Currency.setSelection(curr.getPosition(args.currencyRef))
 
-        // TODO: 08/09/2020 Category Dialog
+        // TODO: 08/09/2020 Add first default category
 
         dialog_Record_Amount.currencyText("", BigDecimal(args.amount))
         dialog_Record_Note.setText(args.note, EDITABLE)
 
+        dialog_Record_Category.setOnClickListener {
+            findNavController().navigate(AddRecordDialogDirections.globalDataListDialog(CATEGORY))
+        }
+
         dialog_Record_Amount.setOnClickListener {
             findNavController().navigate(AddRecordDialogDirections.globalDialogAmount((it as TextView).text.toString(), MIN_AMOUNT))
+        }
+
+        getNavigationResult<Category>(R.id.addRecordDialog, "data") { result ->
+            dialog_Record_Category.apply {
+                text = result.name
+                tag = result.id
+            }
+
         }
 
         getNavigationResult<String>(R.id.addRecordDialog, "amount") { result ->

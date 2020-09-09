@@ -6,7 +6,6 @@ import androidx.room.RoomWarnings
 import androidx.room.Transaction
 import com.umbrella.budgetapp.database.collections.Currency
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
-import com.umbrella.budgetapp.database.collections.subcollections.ExtendedCurrency
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,8 +18,8 @@ interface DaoCurrency : Base<Currency> {
      * @return The list of currencies in a Flow.
      */
     @Transaction
-    @Query("SELECT * FROM currency_country_cross ORDER BY position ASC")
-    fun getAllCurrencies() : Flow<List<ExtendedCurrency>>
+    @Query("SELECT * FROM currencies ORDER BY position ASC")
+    fun getAllCurrencies() : Flow<List<Currency>>
 
     /**
      * Retrieves name and ID of currencies with a crossReference with a Country.
@@ -38,8 +37,8 @@ interface DaoCurrency : Base<Currency> {
      * @return A crossReference of the currency with the attached Country.
      */
     @Transaction
-    @Query("SELECT * FROM currency_country_cross WHERE currency_id =:id")
-    fun getCurrencyById(id: Long) : Flow<ExtendedCurrency>
+    @Query("SELECT * FROM currencies WHERE currency_id =:id")
+    fun getCurrencyById(id: Long) : Flow<Currency>
 
     /**
      * Change the position of a single Currency.

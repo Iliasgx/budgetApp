@@ -10,11 +10,11 @@ import com.umbrella.budgetapp.database.collections.Debt
         viewName = "debt_cross",
         value = """SELECT debts.*, categories.*,
                 accounts.account_id AS extended_account_id, accounts.name AS extended_account_name, accounts.position AS extended_account_position, 
-                currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name, currency_country_cross.position AS extended_currency_position 
+                currencies.currency_id AS extended_currency_id, currencies.country_ref AS extended_country_ref, currencies.position AS extended_currency_position 
                 FROM debts 
                 INNER JOIN categories ON debts.category_ref = categories.category_id 
                 INNER JOIN accounts ON debts.account_ref = accounts.account_id 
-                INNER JOIN currency_country_cross ON debts.currency_ref = currency_country_cross.currency_id"""
+                INNER JOIN currencies ON debts.currency_ref = currencies.currency_id"""
 )
 data class ExtendedDebt (
         @Embedded
@@ -35,8 +35,8 @@ data class ExtendedDebt (
         @ColumnInfo(name = "extended_currency_id")
         val currencyId: Long?,
 
-        @ColumnInfo(name = "extended_currency_name")
-        val currencyName: String?,
+        @ColumnInfo(name = "extended_country_ref")
+        val countryRef: Long?,
 
         @ColumnInfo(name = "extended_currency_position")
         val currencyPosition: Int?

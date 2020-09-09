@@ -21,5 +21,8 @@
         android:layout_margin="16dp"
         app:fabSize="normal"
         android:src="@drawable/add"
-        android:visibility="gone"/>
+        android:backgroundTint="@color/colorPrimary"
+        app:borderWidth="0dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Debt
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedDebt
@@ -23,6 +24,7 @@ import com.umbrella.budgetapp.enums.DebtType
 import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 import java.math.BigDecimal
@@ -97,7 +99,7 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
             Spinners.Currencies(this@UpdateDebtFragment, dataCardDebtCurrency)
 
             if (type == Type.NEW) {
-                dataCardDebtAmount.currencyText(Memory.lastUsedCountry.symbol!!, BigDecimal.ZERO)
+                dataCardDebtAmount.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
                 dataCardDebtDate.text = DateTimeFormatter().dateTimeFormat(Calendar.getInstance().timeInMillis)
             } else {
                 dataCardDebtName.setText(extDebt.debt.name, EDITABLE)
@@ -123,7 +125,12 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
             dataCardDebtDescription.afterTextChangedDelayed { editData.description = it }
 
             dataCardDebtCategory.setOnClickListener {
-                // TODO: 13/08/2020 Category DialogFragment popUp
+                findNavController().navigate(UpdateDebtFragmentDirections.globalDataListDialog(CATEGORY))
+
+                getNavigationResult<Category>(R.id.updateDebt, "data") { result ->
+                    editData.categoryRef = result.id
+                    dataCardDebtCategory.text = result.name
+                }
             }
 
             dataCardDebtAmount.setOnClickListener {

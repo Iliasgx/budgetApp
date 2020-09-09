@@ -10,11 +10,11 @@ import com.umbrella.budgetapp.database.collections.PlannedPayment
         value = """SELECT planned_payments.*, 
                 accounts.account_id AS extended_account_id, accounts.name AS extended_account_name, accounts.position AS extended_account_position, 
                 categories.category_id AS extended_category_id, categories.name AS extended_category_name, 
-                currency_country_cross.currency_id AS extended_currency_id, currency_country_cross.name AS extended_currency_name, currency_country_cross.position AS extended_currency_position 
+                currencies.currency_id AS extended_currency_id, currencies.country_ref AS extended_country_ref, currencies.position AS extended_currency_position 
                 FROM planned_payments 
                 INNER JOIN accounts ON planned_payments.account_ref = accounts.account_id 
                 INNER JOIN categories ON planned_payments.category_ref = categories.category_id 
-                INNER JOIN currency_country_cross ON planned_payments.currency_ref = currency_country_cross.currency_id"""
+                INNER JOIN currencies ON planned_payments.currency_ref = currencies.currency_id"""
 )
 data class ExtendedPlannedPayment (
         @Embedded
@@ -38,8 +38,8 @@ data class ExtendedPlannedPayment (
         @ColumnInfo(name = "extended_currency_id")
         val currencyId: Long?,
 
-        @ColumnInfo(name = "extended_currency_name")
-        val currencyName: String?,
+        @ColumnInfo(name = "extended_country_ref")
+        val countryRef: Long?,
 
         @ColumnInfo(name = "extended_currency_position")
         val currencyPosition: Int?

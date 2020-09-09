@@ -12,15 +12,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Account
+import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Record
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedRecord
+import com.umbrella.budgetapp.database.collections.subcollections.ExtendedStore
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.StoreViewModel
 import com.umbrella.budgetapp.databinding.DataRecordDetailsBinding
 import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.customs.Spinners
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.CATEGORY
+import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType.STORE
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 import java.math.BigDecimal
@@ -143,11 +147,21 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
             dataCardRecordDetailsPayee.afterTextChangedDelayed { editData.payee = it }
 
             dataCardRecordDetailsCategory.setOnClickListener {
-                // TODO: 15/08/2020 Category Dialog
+                findNavController().navigate(UpdateRecordDetailsFragmentDirections.globalDataListDialog(CATEGORY))
+
+                getNavigationResult<Category>(R.id.updateRecordDetails, "data") { result ->
+                    editData.categoryRef = result.id
+                    dataCardRecordDetailsCategory.text = result.name
+                }
             }
 
             dataCardRecordDetailsStore.setOnClickListener {
-                // TODO: 15/08/2020 Store Dialog
+                findNavController().navigate(UpdateRecordDetailsFragmentDirections.globalDataListDialog(STORE))
+
+                getNavigationResult<ExtendedStore>(R.id.updateRecordDetails, "data") { result ->
+                    editData.storeRef = result.store.id
+                    dataCardRecordDetailsStore.text = result.store.name
+                }
             }
 
             dataCardRecordDetailsAmount.setOnClickListener {

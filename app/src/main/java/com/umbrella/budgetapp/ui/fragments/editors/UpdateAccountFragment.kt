@@ -15,6 +15,7 @@ import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Account
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedAccount
+import com.umbrella.budgetapp.database.defaults.DefaultCountries
 import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.databinding.DataAccountBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
@@ -87,12 +88,12 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
             Spinners.Colors(this@UpdateAccountFragment, dataCardAccountColor, Spinners.Colors.Size.LARGE)
 
             if (type == Type.NEW) {
-                dataCardAccountCurrValue.currencyText(Memory.lastUsedCountry.symbol!!, BigDecimal.ZERO)
+                dataCardAccountCurrValue.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
                 dataCardAccountExcludeStats.isChecked = false
             } else {
                 dataCardAccountName.setText(extAccount.account.name, EDITABLE)
                 dataCardAccountType.setSelection(extAccount.account.type!!)
-                dataCardAccountCurrValue.currencyText(extAccount.currencySymbol!!, extAccount.account.currentValue!!)
+                dataCardAccountCurrValue.currencyText(DefaultCountries().getCountryById(extAccount.countryRef).symbol, extAccount.account.currentValue!!)
                 dataCardAccountCurrency.setSelection(extAccount.currencyPosition!!)
                 dataCardAccountColor.setSelection(extAccount.account.color!!)
                 dataCardAccountExcludeStats.isEnabled = extAccount.account.excludeStats!!
