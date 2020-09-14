@@ -32,15 +32,6 @@
 
     <color name="secondaryProgressColor">#8cf9eb</color>
 
-    <color name="goal_item1">@color/JJ</color>
-    <color name="goal_item2">@color/QQ</color>
-    <color name="goal_item3">@color/NN</color>
-    <color name="goal_item4">@color/KK</color>
-    <color name="goal_item5">@color/OO</color>
-    <color name="goal_item6">@color/DD</color>
-    <color name="goal_item7">@color/PP</color>
-    <color name="goal_item8">@color/BB</color>
-
     <!-- Attribute colors -->
     <color name="accountBackgroundColor">#aaa</color> <!--#32792A-->
     <color name="stampPlannedPayments">#428FD8</color>

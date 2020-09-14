@@ -44,7 +44,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
 
     private val model by viewModels<RecordViewModel>()
 
-    private var editData = Record(id = 0L)
+    private var editData = Record()
 
     // Used when user navigated to creating a record from a template. Not used for the Template Dialog in this screen.
     private var receivedTemplate : ExtendedTemplate? = null
@@ -87,13 +87,17 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      */
     override fun initData() {
         with(binding) {
-            dataCardRecordBasicCurrency.text = Memory.lastUsedCountry.name
+            dataCardRecordBasicCurrency.apply {
+                text = Memory.lastUsedCountry.name
+                tag = 0L
+            }
 
             // Add details of template when a record is created from a template.
             if (receivedTemplate != null) {
                 dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>(receivedTemplate!!.template.type ?: 0).id)
                 dataCardRecordBasicAmount.currencyText("", receivedTemplate!!.template.amount!!)
                 dataCardRecordBasicCurrency.text = DefaultCountries().getCountryById(receivedTemplate!!.countryRef).name
+                dataCardRecordBasicCurrency.tag = receivedTemplate!!.currencyPosition ?: 0L
                 dataCardRecordBasicAccount.text = receivedTemplate!!.accountName
                 dataCardRecordBasicCategory.text = receivedTemplate!!.category.name
 
@@ -126,7 +130,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
         with(binding) {
             // Update mark when type is changed.
             dataCardRecordBasicTitleGroup.setOnCheckedChangeListener { _, checkedId ->
-                val value = requireActivity().findViewById<RadioButton>(checkedId).tag as Int
+                val value = (requireActivity().findViewById<RadioButton>(checkedId).tag as String).toInt()
 
                 dataCardRecordBasicMark.text = when(value) {
                     0 -> "+"
@@ -143,7 +147,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             dataCardRecordBasicCurrency.setOnClickListener {
                 navToDialog(DataLocationType.CURRENCY)
 
-                getNavigationResult<Currency>(R.id.updateRecordBasic, "data") { result ->
+                getNavigationResult<Currency>(R.id.updateRecordBasic, "currency_data") { result ->
                     dataCardRecordBasicCurrency.apply {
                         text = DefaultCountries().getCountryById(result.countryRef).name
                         tag = result.position
@@ -155,7 +159,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             dataCardRecordBasicAccount.setOnClickListener {
                 navToDialog(DataLocationType.ACCOUNT)
 
-                getNavigationResult<Account>(R.id.updateRecordBasic, "data") { result ->
+                getNavigationResult<Account>(R.id.updateRecordBasic, "account_data") { result ->
                     dataCardRecordBasicAccount.apply {
                         text = result.name
                         tag = result.position
@@ -168,7 +172,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             dataCardRecordBasicCategory.setOnClickListener {
                 navToDialog(DataLocationType.CATEGORY)
 
-                getNavigationResult<Category>(R.id.updateRecordBasic, "data") { result ->
+                getNavigationResult<Category>(R.id.updateRecordBasic, "category_data") { result ->
                     dataCardRecordBasicCategory.text = result.name
 
                     editData.categoryRef = result.id
@@ -209,7 +213,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      */
     override fun checkData() {
         if (editData.amount!!.toFloat() < MIN_AMOUNT) {
-            Toast.makeText(requireContext(), getString(R.string.data_Record_errorMsg_amount, MIN_AMOUNT), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.data_Record_errorMsg_amount, MIN_AMOUNT.toDouble()), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -223,6 +227,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      */
     override fun saveData() {
         model.addRecord(editData)
+        navigateUp()
     }
 
     private fun exportToDetails() {
@@ -257,10 +262,9 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 
     private fun calculatorListeners() {

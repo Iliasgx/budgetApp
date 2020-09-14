@@ -2,22 +2,22 @@ package com.umbrella.budgetapp.adapters
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView.BufferType.EDITABLE
 import androidx.core.widget.doAfterTextChanged
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.ShoppingListItem
-import com.umbrella.budgetapp.extensions.autoNotify
 import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.extensions.inflate
 import kotlinx.android.synthetic.main.list_shoppinglist_items.view.*
-import kotlin.properties.Delegates
 
 class ShoppingListItemsAdapter(val callBack: CallBack) : BaseAdapter<ShoppingListItem>() {
 
-    var items: List<ShoppingListItem> by Delegates.observable(emptyList()) {
-        _, oldList, newList -> autoNotify(oldList, newList) { o, n -> o.position == n.position }
-    }
+    /*var items: List<ShoppingListItem> by Delegates.observable(emptyList()) {
+        _, oldList, newList -> autoNotify(oldList, newList) { o, n -> o.name == n.name }
+    }*/
+
+    var items: List<ShoppingListItem> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return BaseViewHolder(parent.inflate(R.layout.list_shoppinglist_items))
@@ -30,7 +30,10 @@ class ShoppingListItemsAdapter(val callBack: CallBack) : BaseAdapter<ShoppingLis
     override fun getItemCount() = items.size
 
     override fun setData(list: List<ShoppingListItem>) {
-        items = list
+        if (list != items) {
+            items = list
+            notifyDataSetChanged()
+        }
     }
 
     interface CallBack {
@@ -44,21 +47,19 @@ class ShoppingListItemsAdapter(val callBack: CallBack) : BaseAdapter<ShoppingLis
             override fun onBinding(item: ShoppingListItem, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_ShoppingListItems_Item.apply {
-                        check(item.checked)
+                        isChecked = item.checked
                         text = item.name
                     }
 
-                    list_ShoppingListItems_Number.setText(item.number, EDITABLE)
-                    list_ShoppingListItems_Amount.currencyText("", item.amount)
+                    list_ShoppingListItems_Number.setText(item.number.toString(), EDITABLE)
+                    list_ShoppingListItems_Amount.currencyText(Memory.lastUsedCountry.symbol, item.amount)
 
-                    list_ShoppingListItems_Item.setOnClickListener {
-                        (it as CheckBox).apply {
-                            callBack.onItemCheck(item.position, !isChecked)
-                        }
+                    list_ShoppingListItems_Item.setOnCheckedChangeListener { _, isChecked ->
+                        callBack.onItemCheck(item.position, isChecked)
                     }
 
-                    list_ShoppingListItems_Amount.doAfterTextChanged { text ->
-                        if (text != null && !text.isBlank()) {
+                    list_ShoppingListItems_Number.doAfterTextChanged { text ->
+                        if (!text.isNullOrBlank()) {
                             callBack.updateNumber(item.position, Integer.valueOf(text.toString()))
                         }
                     }

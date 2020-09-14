@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView.BufferType.EDITABLE
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -32,7 +34,7 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
 
     private lateinit var adapter: ShoppingListItemsAdapter
 
-    private lateinit var shoppingList: ShoppingList
+    private var shoppingList = ShoppingList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,7 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
         setUpRecyclerView()
 
         model.getShoppingListById(args.shoppingListId).observe(viewLifecycleOwner, Observer {
-            if (shoppingList != it ) setTitle(it.name!!)
+            setTitle(it.name!!)
 
             shoppingList = it
 
@@ -54,7 +56,10 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
             }
         })
 
-        binding.fragmentFloatingActionButton.setOnClickListener { addItem() }
+        binding.fragmentFloatingActionButton.apply {
+            isVisible = true
+            setOnClickListener { addItem() }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -92,7 +97,12 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
                 shoppingList.name!!
         ))
 
-        getNavigationResult<Boolean>(R.id.shoppingListItems, "dialog") { findNavController().navigateUp() }
+        getNavigationResult<Boolean>(R.id.shoppingListItems, "record") {
+            //Record is created for selected items, deselect all for next time.
+            shoppingList.items!!.forEach { item -> item.checked = false }
+            model.updateShoppingList(shoppingList)
+            navigateUp()
+        }
 
         return true
     }
@@ -108,10 +118,8 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
         val editTextPrice = viewInflated.findViewById<TextInputEditText>(R.id.dialog_newItem_price)
 
         // Inner function for checking the values.
-        fun innerCheck(key: Int, event: KeyEvent) : Boolean {
-            // If enter button was clicked.
-            if (event.action == KeyEvent.ACTION_DOWN && key == KeyEvent.KEYCODE_ENTER) {
-
+        fun innerCheck(action: Int) : Boolean {
+            if (action == EditorInfo.IME_ACTION_DONE) {
                 val mName = editTextName.text?.trim()
 
                 // Name is required for the Items, price not.
@@ -137,18 +145,19 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
             return false // Wrong key
         }
 
+
         dg = AlertDialog.Builder(context).apply {
             setView(viewInflated)
 
             // When updating, fill already defined values in.
             if (item != null) {
                 editTextName.setText(item.name, EDITABLE)
-                editTextPrice.setText(item.amount.toEngineeringString(), EDITABLE)
+                editTextPrice.setText(String.format("%.2f", item.amount), EDITABLE)
             }
 
-            // Returns if pressed key is the correct one.
-            editTextName.setOnKeyListener { _, key, event -> return@setOnKeyListener innerCheck(key, event) }
-            editTextPrice.setOnKeyListener { _, key, event -> return@setOnKeyListener innerCheck(key, event) }
+            // Returns true if pressed key is the correct one.
+            editTextPrice.setOnEditorActionListener { _, actionId, _ -> innerCheck(actionId)}
+            editTextName.setOnEditorActionListener { _, actionId, _ -> innerCheck(actionId) }
         }.show()
     }
 
@@ -189,8 +198,9 @@ class ShoppingListItemsFragment : ExtendedFragment(R.layout.fragment_recycler_vi
             R.id.menuLayout_ReminderOptions_Rename -> { renameList() }
             R.id.menuLayout_ReminderOptions_CreateRecord -> { createRecord() }
             R.id.menuLayout_ReminderOptions_DeleteList -> {
+                model.getShoppingListById(shoppingList.id!!).removeObservers(viewLifecycleOwner)
                 model.removeShoppingList(shoppingList)
-                findNavController().navigateUp()
+                navigateUp()
             }
             else -> false
         }

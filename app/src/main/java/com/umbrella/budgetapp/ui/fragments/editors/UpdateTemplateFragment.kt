@@ -46,7 +46,7 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
 
     private lateinit var type: Type
 
-    private var editData = Template(id = 0L)
+    private var editData = Template()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
         model.getTemplateById(args.templateId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extTemplate = it
-                editData = extTemplate.template
+                editData = extTemplate.template.copy()
             }
             initData()
         })
@@ -125,7 +125,7 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
             dataCardTemplateCategory.setOnClickListener {
                 findNavController().navigate(UpdateTemplateFragmentDirections.globalDataListDialog(CATEGORY))
 
-                getNavigationResult<Category>(R.id.updateTemplate, "data") { result ->
+                getNavigationResult<Category>(R.id.updateTemplate, "category_data") { result ->
                     editData.categoryRef = result.id
                     dataCardTemplateCategory.text = result.name
                 }
@@ -134,7 +134,7 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
             dataCardTemplateStore.setOnClickListener {
                 findNavController().navigate(UpdateTemplateFragmentDirections.globalDataListDialog(STORE))
 
-                getNavigationResult<ExtendedStore>(R.id.updateTemplate, "data") { result ->
+                getNavigationResult<ExtendedStore>(R.id.updateTemplate, "store_data") { result ->
                     editData.storeRef = result.store.id
                     dataCardTemplateStore.text = result.store.name
                 }
@@ -188,14 +188,14 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
         } else if (hasChanges(extTemplate.template, editData)) {
             model.updateTemplate(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

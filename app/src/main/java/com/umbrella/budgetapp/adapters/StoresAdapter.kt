@@ -38,17 +38,14 @@ class StoresAdapter(val callback: CallBack) : BaseAdapter<ExtendedStore>() {
             override fun onBinding(item: ExtendedStore, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_Stores_Img.apply {
-                        setBackgroundColor(context.getColor(item.category.color!!))
-                        setImageDrawable(ContextCompat.getDrawable(context, item.category.icon!!))
+                        this.setBackgroundColor(resources.getIntArray(R.array.colors)[item.category?.color!!])
+                        this.setImageDrawable(ContextCompat.getDrawable(context, item.category.icon!!))
                     }
 
                     list_Stores_Name.text = item.store.name
-                    list_Stores_Category.text = item.category.name
+                    list_Stores_Category.text = item.category?.name
 
-                    val country = DefaultCountries().getCountryById(item.countryRef)
-
-                    list_Stores_Currency.text = country.symbol
-                    list_Stores_Country.text = country.name
+                    list_Stores_Country.text = DefaultCountries().getCountryById(item.countryRef).name
 
                     setOnClickListener {
                         if (adapterPosition != RecyclerView.NO_POSITION) callback.onItemClick(item.store.id!!)

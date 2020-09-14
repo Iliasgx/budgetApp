@@ -9,20 +9,20 @@ import com.umbrella.budgetapp.database.collections.Template
 @DatabaseView(
         viewName = "template_cross",
         value = """SELECT templates.*, categories.*, 
-                accounts.account_id AS extended_account_id, accounts.name AS extended_account_name, accounts.position AS extended_account_position, 
-                stores.store_id AS extended_store_id, stores.name AS extended_store_name, 
-                currencies.currency_id AS extended_currency_id, currencies.country_ref AS extended_country_ref, currencies.position AS extended_currency_position
+                accounts.account_id AS extended_account_id, accounts.account_name AS extended_account_name, accounts.account_position AS extended_account_position, 
+                stores.store_id AS extended_store_id, stores.store_name AS extended_store_name, 
+                currencies.currency_id AS extended_currency_id, currencies.currency_country_ref AS extended_country_ref, currencies.currency_position AS extended_currency_position
                 FROM templates 
-                INNER JOIN categories ON templates.category_ref = categories.category_id 
-                INNER JOIN accounts ON templates.account_ref = accounts.account_id 
-                INNER JOIN stores ON templates.store_ref = stores.store_id 
-                INNER JOIN currencies ON templates.currency_ref = currencies.currency_id"""
+                INNER JOIN categories ON templates.template_category_ref = categories.category_id 
+                INNER JOIN accounts ON templates.template_account_ref = accounts.account_id 
+                INNER JOIN stores ON templates.template_store_ref = stores.store_id 
+                INNER JOIN currencies ON templates.template_currency_ref = currencies.currency_id"""
 )
 data class ExtendedTemplate (
         @Embedded
         val template: Template,
 
-        @Embedded(prefix = "cat_")
+        @Embedded
         val category: Category,
 
         @ColumnInfo(name = "extended_account_id")

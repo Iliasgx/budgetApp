@@ -18,7 +18,7 @@ interface DaoStore : Base<Store> {
      * @return The list of stores in a Flow.
      */
     @Transaction
-    @Query("SELECT * FROM stores ORDER BY name")
+    @Query("SELECT * FROM store_cross ORDER BY store_name")
     fun getAllStores() : Flow<List<ExtendedStore>>
 
     /**
@@ -28,6 +28,6 @@ interface DaoStore : Base<Store> {
      * @return The Store represented by the ID.
      */
     @Transaction
-    @Query("SELECT * FROM stores WHERE store_id = :id")
+    @Query("SELECT * FROM store_cross WHERE store_id = :id")
     fun getStoreById(id: Long) : Flow<ExtendedStore>
 }

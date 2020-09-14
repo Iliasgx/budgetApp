@@ -2,7 +2,6 @@ package com.umbrella.budgetapp.database.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.umbrella.budgetapp.database.collections.ShoppingList
@@ -18,7 +17,7 @@ class ShoppingListViewModel(application: Application) : AndroidViewModel(applica
 
     fun getExtendedShoppingListById(id: Long) = repos.getExtendedShoppingListById(id)
 
-    fun getAllShoppingLists() : LiveData<List<ShoppingList>> = repos.getAllShoppingLists().asLiveData()
+    fun getAllShoppingLists() = repos.getAllShoppingLists().asLiveData()
 
     fun addShoppingList(shoppingList: ShoppingList) = viewModelScope.launch(Dispatchers.IO) { repos.addShoppingList(shoppingList) }
 

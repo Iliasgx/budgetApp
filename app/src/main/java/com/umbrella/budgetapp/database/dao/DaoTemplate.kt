@@ -19,7 +19,7 @@ interface DaoTemplate : Base<Template> {
      * @return The list of templates in a Flow.
      */
     @Transaction
-    @Query("SELECT * FROM template_cross_category ORDER BY position ASC")
+    @Query("SELECT * FROM template_cross_category ORDER BY template_position ASC")
     fun getAllTemplates() : Flow<List<TemplateAndCategory>>
 
     /**
@@ -38,7 +38,7 @@ interface DaoTemplate : Base<Template> {
      * @param id: The id corresponding with the Template.
      * @param position: The position to where it moved.
      */
-    @Query("UPDATE templates SET position = :position WHERE template_id = :id")
+    @Query("UPDATE templates SET template_position = :position WHERE template_id = :id")
     fun changePosition(id: Long, position: Int)
 
     /**
@@ -47,7 +47,7 @@ interface DaoTemplate : Base<Template> {
      *
      * @param ids: An array of ID's of templates that have to be updated.
      */
-    @Query("UPDATE templates SET position = position + 1 WHERE template_id IN (:ids)")
+    @Query("UPDATE templates SET template_position = template_position + 1 WHERE template_id IN (:ids)")
     suspend fun increasePositionOfIds(vararg ids: Long)
 
     /**
@@ -56,12 +56,12 @@ interface DaoTemplate : Base<Template> {
      *
      * @param ids: An array of ID's of templates that have to be updated.
      */
-    @Query("UPDATE templates SET position = position - 1 WHERE template_id IN (:ids)")
+    @Query("UPDATE templates SET template_position = template_position - 1 WHERE template_id IN (:ids)")
     suspend fun decreasePositionOfIds(vararg ids: Long)
 
-    @Query("UPDATE templates SET position = position + 1 WHERE position > :startPos AND position < :endPos")
+    @Query("UPDATE templates SET template_position = template_position + 1 WHERE template_position > :startPos AND template_position < :endPos")
     suspend fun increasePositions(startPos: Int, endPos: Int)
 
-    @Query("UPDATE templates SET position = position - 1 WHERE position > :startPos AND position < :endPos")
+    @Query("UPDATE templates SET template_position = template_position - 1 WHERE template_position > :startPos AND template_position < :endPos")
     suspend fun decreasePositions(startPos: Int, endPos: Int)
 }

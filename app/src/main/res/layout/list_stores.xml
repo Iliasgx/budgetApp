@@ -2,75 +2,47 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/CardView_Default">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/list_Stores_Img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/round_image"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:padding="7dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/defaultText"
+            android:src="@drawable/account" />
+
+        <TextView
+            android:id="@+id/list_Stores_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_toEndOf="@id/list_Stores_Img"
+            android:layout_alignParentTop="true"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:text="@string/defaultText" />
 
-            <ImageView
-                android:id="@+id/list_Stores_Img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/round_image"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:padding="7dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="@string/defaultText"
-                android:src="@drawable/account" />
+        <TextView
+            android:id="@+id/list_Stores_Category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/list_Stores_Img"
+            android:layout_toStartOf="@id/list_Stores_Country"
+            android:layout_below="@id/list_Stores_Name"
+            android:text="@string/defaultText" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/list_Stores_Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:text="@string/defaultText" />
-
-                <TextView
-                    android:id="@+id/list_Stores_Category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start|center_vertical"
-                    android:text="@string/defaultText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/list_Stores_Currency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end|center_vertical"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:text="@string/defaultText" />
-
-                <TextView
-                    android:id="@+id/list_Stores_Country"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end|center_vertical"
-                    android:text="@string/defaultText" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/list_Stores_Country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/list_Stores_Name"
+            android:text="@string/defaultText" />
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

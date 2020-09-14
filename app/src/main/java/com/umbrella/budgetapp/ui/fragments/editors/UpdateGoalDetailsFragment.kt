@@ -27,7 +27,6 @@ import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.customs.Spinners.Colors.Size.SMALL
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
-import kotlinx.android.synthetic.main._activity.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -47,13 +46,15 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
 
     private lateinit var type: Type
 
+    private lateinit var menu: Menu
+
     // The name of the current goal. Only set when the user is creating a new goal and chose to set a name.
     private var name : String? = null
 
     // A prefab of the chosen goal when the user created the goal. Only set when user is creating a new goal.
     private lateinit var goalPrefab : GoalPrefabs
 
-    private var editData : Goal = Goal(id = 0L)
+    private var editData : Goal = Goal()
 
     // Identifier for the result callback from the AmountDialog
     // True - TargetAmount
@@ -82,7 +83,7 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
         model.getGoalById(args.goalId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 goal = it
-                editData = goal
+                editData = goal.copy()
             }
             updateMenu()
             initData()
@@ -92,6 +93,7 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.goal_more_options, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        this.menu = menu
     }
 
     /**
@@ -114,8 +116,8 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
                     dataCardGoalDetailsName.setText(name, EDITABLE)
                 } else {
                     dataCardGoalDetailsName.setText(name ?: resources.getStringArray(R.array.goalPrefab_names)[goalPrefab.ordinal])
-                    dataCardGoalDetailsIcon.setSelection(goalPrefab.ordinal)
-                    dataCardGoalDetailsColor.setSelection(goalPrefab.ordinal)
+                    dataCardGoalDetailsIcon.setSelection(goalPrefab.iconIndex)
+                    dataCardGoalDetailsColor.setSelection(goalPrefab.colorIndex)
                 }
             } else {
                 //Load all the data from the database. Defaults are in place in case the field was empty.
@@ -134,14 +136,14 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
     }
 
     private fun updateMenu() {
-        toolbar?.menu?.apply {
+        menu.apply {
             if (type == Type.EDIT) {
                 val isActive = editData.status == GoalStatus.ACTIVE
 
                 findItem(R.id.menuLayout_GoalMoreOptions_pause).isVisible = isActive
                 findItem(R.id.menuLayout_GoalMoreOptions_start).isVisible = !isActive
             } else {
-                findItem(R.id.menuLayout_GoalMoreOptions_Edit).isVisible = true
+                findItem(R.id.menuLayout_GoalMoreOptions_Save).isVisible = true
             }
         }
     }
@@ -233,26 +235,31 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
         } else if (hasChanges(goal, editData)) {
             model.updateGoal(editData)
         }
+        findNavController().navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+         when (item.itemId) {
             R.id.menuLayout_GoalMoreOptions_Save -> {
                 checkData()
+                return true
             }
             R.id.menuLayout_GoalMoreOptions_Delete -> {
                 model.removeGoal(goal)
-                findNavController().navigateUp()
+                navigateUp()
+                return true
             }
             R.id.menuLayout_GoalMoreOptions_start -> {
                 editData.status = GoalStatus.ACTIVE
                 updateMenu()
+                return true
             }
             R.id.menuLayout_GoalMoreOptions_pause -> {
                 editData.status = GoalStatus.PAUSED
                 updateMenu()
+                return true
             }
         }
-        return true
+        return false
     }
 }

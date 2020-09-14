@@ -8,11 +8,11 @@ import com.umbrella.budgetapp.database.collections.ShoppingList
 @DatabaseView(
         viewName = "shopping_list_cross",
         value = """SELECT shopping_lists.*, 
-                categories.category_id AS extended_category_id, categories.name AS extended_category_name, 
-                stores.store_id AS extended_store_id, stores.name AS extended_store_name 
+                categories.category_id AS extended_category_id, categories.category_name AS extended_category_name, 
+                stores.store_id AS extended_store_id, stores.store_name AS extended_store_name 
                 FROM shopping_lists 
-                INNER JOIN categories ON shopping_lists.category_ref = categories.category_id 
-                INNER JOIN stores ON shopping_lists.store_ref = stores.store_id"""
+                INNER JOIN categories ON shopping_lists.shopping_list_category_ref = categories.category_id 
+                INNER JOIN stores ON shopping_lists.shopping_list_store_ref = stores.store_id"""
 )
 data class ExtendedShoppingList (
         @Embedded

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="logged_user">loggedUser</string>
+
     <string name="preferences_Key_Screen_Default">settingView</string>
     <string name="preferences_Key_Screen_Lists">settingsLists</string>
     <string name="preferences_Key_Screen_Notifications">settingsNotifications</string>

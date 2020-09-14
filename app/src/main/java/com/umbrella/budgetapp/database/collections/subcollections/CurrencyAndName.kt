@@ -4,7 +4,7 @@ import androidx.room.DatabaseView
 
 @DatabaseView(
         viewName = "currency_name",
-        value = "SELECT currency_id AS id, country_ref as countryRef FROM currencies"
+        value = "SELECT currency_id AS id, currency_country_ref as countryRef FROM currencies"
 )
 data class CurrencyAndName (
         val id: Long,

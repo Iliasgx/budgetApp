@@ -1,6 +1,7 @@
 package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,12 +27,14 @@ class GoalsListFragment(private val status: GoalStatus) : ExtendedFragment(R.lay
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when (status) {
-            REACHED -> model.getAllGoalsReached().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-            else -> model.getAllGoalsUnreached(status.ordinal).observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-        }
+        Log.d("_Test", "Status is: ${status.name}");
 
         setUpRecyclerView()
+
+        when (status) {
+            REACHED -> model.getAllGoalsReached().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
+            else -> model.getAllGoalsUnreached(status).observe(viewLifecycleOwner, Observer { adapter.setData(it) })
+        }
     }
 
     private fun setUpRecyclerView() {

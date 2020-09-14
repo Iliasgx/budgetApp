@@ -339,7 +339,6 @@
     <fragment
         android:id="@+id/debtListFragment"
         android:name="com.umbrella.budgetapp.ui.fragments.screens.DebtListFragment"
-        android:label="DebtListFragment"
         tools:layout="@layout/fragment_recycler_view" />
     <fragment
         android:id="@+id/updateDebt"

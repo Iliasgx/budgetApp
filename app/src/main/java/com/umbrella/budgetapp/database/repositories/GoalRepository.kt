@@ -4,6 +4,7 @@ import com.umbrella.budgetapp.cache.App
 import com.umbrella.budgetapp.database.BudgetDatabase
 import com.umbrella.budgetapp.database.collections.Goal
 import com.umbrella.budgetapp.database.dao.DaoGoal
+import com.umbrella.budgetapp.enums.GoalStatus
 
 class GoalRepository {
 
@@ -14,7 +15,7 @@ class GoalRepository {
         daoGoal = db.daoGoal()
     }
 
-    fun getAllGoalsUnreached(status: Int) = daoGoal.getAllGoalsUnreached(status)
+    fun getAllGoalsUnreached(status: GoalStatus) = daoGoal.getAllGoalsUnreached(status)
 
     fun getAllGoalsReached() = daoGoal.getAllGoalsReached()
 

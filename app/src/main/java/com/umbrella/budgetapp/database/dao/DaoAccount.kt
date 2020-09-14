@@ -18,7 +18,7 @@ interface DaoAccount : Base<Account> {
      *
      * @return The list of accounts in a Flow.
      */
-    @Query("SELECT account_id, name from accounts ORDER BY position ASC")
+    @Query("SELECT account_id, account_name from accounts ORDER BY account_position ASC")
     fun getAccountBasics() : Flow<List<Account>>
 
     /**
@@ -28,7 +28,7 @@ interface DaoAccount : Base<Account> {
      * @return The list of accounts in a Flow.
      */
     @Transaction
-    @Query("SELECT account_id, name, color, current_value, position, exclude_stats, extended_country_ref FROM account_cross ORDER BY position ASC LIMIT :limit")
+    @Query("SELECT account_id, account_name, account_color, account_current_value, account_position, account_exclude_stats, extended_country_ref FROM account_cross ORDER BY account_position ASC LIMIT :limit")
     fun getAllAccountsSmall(@IntRange(from = 1) limit: Int) : Flow<List<ExtendedAccount>>
 
     /**
@@ -37,7 +37,7 @@ interface DaoAccount : Base<Account> {
      * @return The list of accounts in a Flow.
      */
     @Transaction
-    @Query("SELECT account_id, name, position, color, type, exclude_stats FROM accounts ORDER BY position ASC")
+    @Query("SELECT account_id, account_name, account_position, account_color, account_type, account_exclude_stats FROM accounts ORDER BY account_position ASC")
     fun getAllAccounts() : Flow<List<Account>>
 
     /**
@@ -56,7 +56,7 @@ interface DaoAccount : Base<Account> {
      * @param id: The id corresponding with the Account.
      * @param position: The position to where it moved.
      */
-    @Query("UPDATE accounts SET position = :position WHERE account_id = :id")
+    @Query("UPDATE accounts SET account_position = :position WHERE account_id = :id")
     fun changePosition(id: Long, position: Int)
 
     /**
@@ -65,7 +65,7 @@ interface DaoAccount : Base<Account> {
      *
      * @param ids: An array of ID's of accounts that have to be updated.
      */
-    @Query("UPDATE accounts SET position = position + 1 WHERE account_id IN (:ids)")
+    @Query("UPDATE accounts SET account_position = account_position + 1 WHERE account_id IN (:ids)")
     suspend fun increasePositionOfIds(vararg ids: Long)
 
     /**
@@ -74,12 +74,12 @@ interface DaoAccount : Base<Account> {
      *
      * @param ids: An array of ID's of accounts that have to be updated.
      */
-    @Query("UPDATE accounts SET position = position - 1 WHERE account_id IN (:ids)")
+    @Query("UPDATE accounts SET account_position = account_position - 1 WHERE account_id IN (:ids)")
     suspend fun decreasePositionOfIds(vararg ids: Long)
 
-    @Query("UPDATE accounts SET position = position + 1 WHERE position > :startPos AND position < :endPos")
+    @Query("UPDATE accounts SET account_position = account_position + 1 WHERE account_position > :startPos AND account_position < :endPos")
     suspend fun increasePositions(startPos: Int, endPos: Int)
 
-    @Query("UPDATE accounts SET position = position - 1 WHERE position > :startPos AND position < :endPos")
+    @Query("UPDATE accounts SET account_position = account_position - 1 WHERE account_position > :startPos AND account_position < :endPos")
     suspend fun decreasePositions(startPos: Int, endPos: Int)
 }

@@ -42,7 +42,7 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
 
     private lateinit var type: Type
 
-    private var editData = Account(id = 0L)
+    private var editData = Account()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,7 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
         model.getAccountById(args.accountId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extAccount = it
-                editData = extAccount.account
+                editData = extAccount.account.copy()
             }
             initData()
         })
@@ -144,7 +144,7 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
         with(binding) {
             editData.apply {
                 type = dataCardAccountType.selectedItemPosition
-                currencyRef = (dataCardAccountCurrency.selectedItem as CurrencyAndName).id
+                currencyRef = (dataCardAccountCurrency.tag as CurrencyAndName).id
                 color = dataCardAccountColor.selectedItemPosition
                 excludeStats = dataCardAccountExcludeStats.isChecked
             }
@@ -163,15 +163,18 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
         } else if (hasChanges(extAccount.account, editData)) {
             model.updateAccount(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly || item.itemId == R.id.menuLayout_SaveDelete_Save) {
             checkData()
-        } else {
-            if (item.itemId == R.id.menuLayout_SaveDelete_Delete) model.removeAccount(extAccount.account)
-            findNavController().navigateUp()
+            return true
+        } else if (item.itemId == R.id.menuLayout_SaveDelete_Delete) {
+            model.removeAccount(extAccount.account)
+            navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

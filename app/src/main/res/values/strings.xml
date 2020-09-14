@@ -424,6 +424,9 @@
     <string name="dialog_rename_hint">Shopping list name</string>
     <string name="dialog_rename_error_name">Name must at least have %1$d characters.</string>
 
+    <!-- |||||||||||||||| Dialog RecyclerView |||||||||||||||| -->
+    <string name="dialog_recyclerView_title">Make your selection</string>
+
     <!-- |||||||||||||||| Programmatically objects |||||||||||||||| -->
     <string name="customObject_shoppingListItems">Programmatically</string>
     <string name="customObject_renameBoxTitle">Rename list</string>

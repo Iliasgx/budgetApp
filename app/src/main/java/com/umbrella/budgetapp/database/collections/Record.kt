@@ -9,35 +9,35 @@ import java.math.BigDecimal
 data class Record(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "record_id")
-        val id: Long?,
+        val id: Long? = null,
 
-        @ColumnInfo(name = "description")
+        @ColumnInfo(name = "record_description")
         var description: String? = "",
 
-        @ColumnInfo(name = "payee")
+        @ColumnInfo(name = "record_payee")
         var payee: String? = "",
 
-        @ColumnInfo(name = "category_ref")
+        @ColumnInfo(name = "record_category_ref")
         var categoryRef: Long? = 0,
 
-        @ColumnInfo(name = "account_ref")
+        @ColumnInfo(name = "record_account_ref")
         var accountRef: Long? = 0,
 
-        @ColumnInfo(name = "store_ref")
+        @ColumnInfo(name = "record_store_ref")
         var storeRef: Long? = 0,
 
-        @ColumnInfo(name = "currency_ref")
+        @ColumnInfo(name = "record_currency_ref")
         var currencyRef: Long? = 0,
 
-        @ColumnInfo(name = "type")
+        @ColumnInfo(name = "record_type")
         var type: Int? = 0,
 
-        @ColumnInfo(name = "payment_type")
+        @ColumnInfo(name = "record_payment_type")
         var paymentType: Int? = 0,
 
-        @ColumnInfo(name = "amount")
+        @ColumnInfo(name = "record_amount")
         var amount: BigDecimal? = BigDecimal.ZERO,
 
-        @ColumnInfo(name = "timestamp")
+        @ColumnInfo(name = "record_timestamp")
         var timestamp: Long? = 0
 )

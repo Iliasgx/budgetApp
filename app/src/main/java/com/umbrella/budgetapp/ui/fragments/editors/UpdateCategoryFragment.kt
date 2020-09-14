@@ -10,7 +10,6 @@ import android.widget.TextView.BufferType.EDITABLE
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Category
@@ -38,7 +37,7 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
 
     private lateinit var type: Type
 
-    private var editData = Category(id = 0L)
+    private var editData = Category()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +58,7 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
         model.getCategoryById(args.categoryId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 category = it
-                editData = category
+                editData = category.copy()
             }
             initData()
         })
@@ -153,14 +152,14 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
         } else if (hasChanges(category, editData)) {
             model.updateCategory(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

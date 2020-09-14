@@ -10,6 +10,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -55,6 +56,11 @@ open class ExtendedFragment(@LayoutRes layout: Int): Fragment(layout) {
     fun setTitle(title: String) {
         requireActivity().findViewById<Toolbar>(R.id.toolbar)?.title = title
     }
+
+    /**
+     * Shortcut for navigating to the previous fragment.
+     */
+    fun navigateUp() = findNavController().navigateUp()
 
     /*
      * Class to automate the initializer of ViewBinding the class with the Layout.

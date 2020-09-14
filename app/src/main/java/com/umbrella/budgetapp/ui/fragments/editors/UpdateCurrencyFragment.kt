@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Currency
@@ -40,7 +39,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
 
     private lateinit var type: Type
 
-    private var editData = Currency(id = 0L)
+    private var editData = Currency()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +60,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
         model.getCurrencyById(args.currencyId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extCurrency = it
-                editData = extCurrency
+                editData = extCurrency.copy()
             }
             initData()
         })
@@ -146,14 +145,14 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
         } else if (hasChanges(extCurrency, editData)) {
             model.updateCurrency(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

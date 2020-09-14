@@ -19,15 +19,15 @@ interface DaoGoal : Base<Goal> {
      *
      * @see GoalStatus
      */
-    @Query("SELECT goal_id, name, status, color, icon, target_amount, saved_amount FROM goals WHERE status = :status ORDER BY desired_date ASC")
-    fun getAllGoalsUnreached(status: Int) : Flow<List<Goal>>
+    @Query("SELECT goal_id, goal_name, goal_status, goal_color, goal_icon, goal_target_amount, goal_saved_amount FROM goals WHERE goal_status = :status ORDER BY goal_desired_date ASC")
+    fun getAllGoalsUnreached(status: GoalStatus) : Flow<List<Goal>>
 
     /**
      * Retrieves all goals. {Reached}
      *
      * @return The list of reached goals in a Flow.
      */
-    @Query("SELECT goal_id, name, color, icon, saved_amount, desired_date FROM goals ORDER BY desired_date ASC")
+    @Query("SELECT goal_id, goal_name, goal_color, goal_icon, goal_saved_amount, goal_desired_date FROM goals ORDER BY goal_desired_date ASC")
     fun getAllGoalsReached() : Flow<List<Goal>>
 
     /**

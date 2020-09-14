@@ -17,7 +17,7 @@ import java.math.BigDecimal
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false) : View { return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot) }
 
 @SuppressLint("SetTextI18n")
-fun TextView.currencyText(currency: String, value: BigDecimal) { text = "$currency ${value.toPlainString()}".trim() }
+fun TextView.currencyText(currency: String, value: BigDecimal) { text = "$currency ${String.format("%.2f", value)}".trim() }
 
 fun <T> T?.orElse(defaultValue: T) : T = this ?: defaultValue
 
@@ -42,6 +42,7 @@ fun EditText.afterTextChangedDelayed(afterTextChanged: (String) -> Unit) {
 }
 
 fun <T> RecyclerView.Adapter<*>.autoNotify(oldList: List<T>, newList: List<T>, compare: (T, T) -> Boolean) {
+
     val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

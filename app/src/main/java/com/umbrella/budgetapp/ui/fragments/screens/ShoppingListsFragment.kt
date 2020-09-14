@@ -2,10 +2,10 @@ package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -33,9 +33,9 @@ class ShoppingListsFragment : ExtendedFragment(R.layout.fragment_recycler_view) 
 
         binding.fragmentFloatingActionButton.isVisible = true
 
-        model.getAllShoppingLists().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-
         setUpRecyclerView()
+
+        model.getAllShoppingLists().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
 
         binding.fragmentFloatingActionButton.setOnClickListener {
             findNavController().navigate(ShoppingListsFragmentDirections.shoppingListsToUpdateShoppingList())
@@ -64,9 +64,8 @@ class ShoppingListsFragment : ExtendedFragment(R.layout.fragment_recycler_view) 
         val editTextPrice = viewInflated.findViewById<TextInputEditText>(R.id.dialog_newItem_price)
 
         // Inner function for checking the values.
-        fun innerCheck(key: Int, event: KeyEvent) : Boolean {
-            // If enter button was clicked.
-            if (event.action == KeyEvent.ACTION_DOWN && key == KeyEvent.KEYCODE_ENTER) {
+        fun innerCheck(action: Int) : Boolean {
+            if (action == EditorInfo.IME_ACTION_DONE) {
 
                 val mName = editTextName.text?.trim()
 
@@ -90,9 +89,9 @@ class ShoppingListsFragment : ExtendedFragment(R.layout.fragment_recycler_view) 
         dg = AlertDialog.Builder(context).apply {
             setView(viewInflated)
 
-            // Returns if pressed key is the correct one.
-            editTextName.setOnKeyListener { _, key, event -> return@setOnKeyListener innerCheck(key, event) }
-            editTextPrice.setOnKeyListener { _, key, event -> return@setOnKeyListener innerCheck(key, event) }
+            // Returns true if pressed key is the correct one.
+            editTextName.setOnEditorActionListener { _, actionId, _ -> innerCheck(actionId) }
+            editTextPrice.setOnEditorActionListener { _, actionId, _ -> innerCheck(actionId) }
         }.show()
     }
 }

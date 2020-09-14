@@ -16,6 +16,8 @@ class UserRepository {
 
     fun getUserById(id: Long) = daoUser.getUserById(id)
 
+    fun getFirstUserOrNull() = daoUser.getFirstUserOrNull()
+
     suspend fun addUser(user: User) = daoUser.add(user)
 
     suspend fun updateUser(user: User) = daoUser.update(user)

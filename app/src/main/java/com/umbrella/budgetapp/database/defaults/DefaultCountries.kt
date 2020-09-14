@@ -6,9 +6,9 @@ import java.math.BigDecimal
 
 class DefaultCountries {
     private val countries = listOf(
-            Country(0L, "USD","$",   BigDecimal(1.1388)),
-            Country(1L, "JPY","¥",   BigDecimal(121.97)),
-            Country(2L, "EUR","€",   BigDecimal(1)),
+            Country(0L, "EUR","€",   BigDecimal(1)),
+            Country(1L, "USD","$",   BigDecimal(1.1388)),
+            Country(2L, "JPY","¥",   BigDecimal(121.97)),
             Country(3L, "BGN","Lv",  BigDecimal(1.9558)),
             Country(4L, "CZK","Kč",  BigDecimal(25.557)),
             Country(5L, "DKK","kr",  BigDecimal(7.4654)),

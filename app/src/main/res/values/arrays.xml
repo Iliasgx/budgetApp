@@ -133,7 +133,7 @@
         <item>@color/TT</item>
     </integer-array>
 
-    <!-- |||||||||||||||| Icons (28) |||||||||||||||| -->
+    <!-- |||||||||||||||| Icons (39) |||||||||||||||| -->
     <integer-array name="icons">
         <item>@drawable/groceries</item>
         <item>@drawable/restaurant</item>
@@ -166,15 +166,49 @@
         <item>@drawable/investment</item>
         <item>@drawable/gambling</item>
         <item>@drawable/taxes</item>
-        <item>@drawable/goal_item1</item>
-        <item>@drawable/goal_item2</item>
-        <item>@drawable/goal_item3</item>
-        <item>@drawable/goal_item4</item>
-        <item>@drawable/goal_item5</item>
-        <item>@drawable/goal_item6</item>
-        <item>@drawable/goal_item7</item>
-        <item>@drawable/goal_item8</item>
+        <item>@drawable/car</item>
+        <item>@drawable/house</item>
+        <item>@drawable/umbrella</item>
+        <item>@drawable/diploma</item>
+        <item>@drawable/ehbo</item>
+        <item>@drawable/pill</item>
+        <item>@drawable/cocktail</item>
+        <item>@drawable/care</item>
     </integer-array>
+
+    <string-array name="default_category_names">
+        <item>Groceries</item>
+        <item>Restaurant</item>
+        <item>Bar, cafe</item>
+        <item>Campus card</item>
+        <item>Health &amp; beauty</item>
+        <item>Health care, doctor</item>
+        <item>Mortgage</item>
+        <item>Insurance</item>
+        <item>Housing repairs</item>
+        <item>Transportation</item>
+        <item>Fuel</item>
+        <item>Vehicle maintenance</item>
+        <item>Active sport</item>
+        <item>Education</item>
+        <item>Hobbies</item>
+        <item>TV, streaming</item>
+        <item>Culture</item>
+        <item>Holiday, trips, hotels</item>
+        <item>Software, apps, games</item>
+        <item>Pets, animals</item>
+        <item>Loan</item>
+        <item>Savings</item>
+        <item>Pocket money</item>
+        <item>Interests, dividends</item>
+        <item>Lending</item>
+        <item>Clothes &amp; shoes</item>
+        <item>Life events</item>
+        <item>Gifts</item>
+        <item>Investments</item>
+        <item>Lottery, gambling</item>
+        <item>Taxes</item>
+    </string-array>
 
     <!-- |||||||||||||||| Countries |||||||||||||||| -->
     <string-array name="countries">
@@ -225,14 +259,14 @@
     </string-array>
 
     <integer-array name="goalPrefab_colors">
-        <item>@color/goal_item1</item>
-        <item>@color/goal_item2</item>
-        <item>@color/goal_item3</item>
-        <item>@color/goal_item4</item>
-        <item>@color/goal_item5</item>
-        <item>@color/goal_item6</item>
-        <item>@color/goal_item7</item>
-        <item>@color/goal_item8</item>
+        <item>@color/JJ</item>
+        <item>@color/QQ</item>
+        <item>@color/NN</item>
+        <item>@color/KK</item>
+        <item>@color/OO</item>
+        <item>@color/DD</item>
+        <item>@color/PP</item>
+        <item>@color/BB</item>
     </integer-array>
 
     <integer-array name="goalPrefab_icons">

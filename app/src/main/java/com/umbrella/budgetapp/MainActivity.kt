@@ -3,12 +3,16 @@ package com.umbrella.budgetapp
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.umbrella.budgetapp.cache.Memory
+import com.umbrella.budgetapp.database.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main._activity.*
 
 class MainActivity : AppCompatActivity(R.layout._activity) {
@@ -30,6 +34,9 @@ class MainActivity : AppCompatActivity(R.layout._activity) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
+        //Function only used in testing period.
+        getPreferences(MODE_PRIVATE).edit().clear().apply()
+        getLoggedUser()
     }
 
     private fun initView() {
@@ -56,6 +63,29 @@ class MainActivity : AppCompatActivity(R.layout._activity) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+    private fun getLoggedUser() {
+        val user = getPreferences(MODE_PRIVATE).getLong(getString(R.string.logged_user), 0L)
+
+        val model by viewModels<UserViewModel>()
+
+        if (user == 0L) {
+            model.getFirstUserOrNull().observe(this, Observer {
+                if (it == null) {
+                    // TODO: 14/09/2020 create new user (screen)
+                } else {
+                    getPreferences(MODE_PRIVATE).edit().putLong(getString(R.string.logged_user), it.id!!).apply()
+                    Memory.loggedUser = it
+                    model.getFirstUserOrNull().removeObservers(this)
+                }
+            })
+        } else {
+            model.getUserById(user).observe(this@MainActivity, Observer {
+                Memory.loggedUser = it.copy()
+                model.getUserById(user).removeObservers(this@MainActivity)
+            })
+        }
     }
 
     fun logUserOut() {

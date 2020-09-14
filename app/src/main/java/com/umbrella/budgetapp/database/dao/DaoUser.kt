@@ -18,4 +18,12 @@ interface DaoUser : Base<User> {
      */
     @Query("SELECT * FROM users WHERE user_id = :id")
     fun getUserById(id: Long) : Flow<User>
+
+    /**
+     * Get the top most user.
+     *
+     * Used to identify if a user profile is already present or the User should create a new one.
+     */
+    @Query("SELECT * FROM users ORDER BY user_id ASC LIMIT 1")
+    fun getFirstUserOrNull() : Flow<User>
 }

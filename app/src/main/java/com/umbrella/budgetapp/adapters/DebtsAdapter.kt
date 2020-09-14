@@ -53,7 +53,7 @@ class DebtsAdapter(private val type : DebtType, val callBack: CallBack) : BaseAd
                                     if (item.debt.name.isNullOrEmpty()) resources.getString(R.string.title_add_debt_lent) else resources.getString(R.string.title_add_debt_lent_extend, item.debt.name)
                                 }
 
-                        list_Debts_Img.setImageResource(item.category.icon!!)
+                        list_Debts_Img.setImageResource(item.category?.icon!!)
                         list_Debts_Img.setBackgroundColor(item.category.color!!)
                         list_Debts_Name.text = item.debt.name
                         list_Debts_Information.text = item.debt.description

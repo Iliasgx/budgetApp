@@ -1,13 +1,9 @@
 package com.umbrella.budgetapp.ui.customs
 
 import android.content.res.TypedArray
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Spinner
+import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Account
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
+import com.umbrella.budgetapp.database.defaults.DefaultCountries
 import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.database.viewmodels.CurrencyViewModel
 import com.umbrella.budgetapp.extensions.inflate
@@ -71,11 +68,10 @@ sealed class Spinners {
     class Icons(fragment: Fragment, spinner: Spinner) : Spinners() {
 
         init {
-            bindSpinner(spinner, IconAdapter(fragment))
+            bindSpinner(spinner, IconAdapter(fragment, fragment.resources.obtainTypedArray(R.array.icons), (0..fragment.resources.getIntArray(R.array.icons).count()).toList().dropLast(1)))
         }
 
-        private class IconAdapter(private val fragment: Fragment) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_icons) {
-            private val array: TypedArray = fragment.resources.obtainTypedArray(R.array.icons)
+        private class IconAdapter(private val fragment: Fragment, private val array: TypedArray, indices: List<Int>) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_icons, 0, indices) {
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 return createItemView(position, parent)
@@ -86,10 +82,11 @@ sealed class Spinners {
             }
 
             private fun createItemView(position: Int, parent: ViewGroup): View {
-                val view = LayoutInflater.from(fragment.context).inflate(R.layout.custom_spinner_icons, parent, false)
+                val view = parent.inflate(R.layout.custom_spinner_icons, false)
                 (view.findViewById<View>(R.id.spinner_icon) as ImageView).setImageResource(array.getResourceId(position, 0))
                 return view
             }
+
 
         }
     }
@@ -127,17 +124,29 @@ sealed class Spinners {
         init {
             val model by fragment.viewModels<CurrencyViewModel>()
 
-            val adapter = initRoom<CurrencyAndName>(fragment, spinner)
+            val adapter = initRoom<String>(fragment, spinner)
 
             model.getBasicCurrencies().observe(fragment.viewLifecycleOwner, Observer { items ->
                 list = items.toMutableList()
 
+                val defC = DefaultCountries()
+                val listOfNames = mutableListOf<String>()
+                items.forEach { item -> listOfNames.add(defC.getCountryById(item.countryRef).name) }
+
                 adapter.apply {
                     clear()
-                    addAll(items)
+                    addAll(listOfNames)
                     notifyDataSetChanged()
                 }
             })
+
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    spinner.tag = list[position]
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
         }
 
         fun getPosition(currencyId: Long) : Int {
@@ -155,15 +164,26 @@ sealed class Spinners {
         init {
             val model by fragment.viewModels<AccountViewModel>()
 
-            val adapter = initRoom<Account>(fragment, spinner)
+            val adapter = initRoom<String>(fragment, spinner)
 
             model.getAccountBasics().observe(fragment.viewLifecycleOwner, Observer { items ->
                 list = items.toMutableList()
 
+                val listOfNames = mutableListOf<String>()
+                items.forEach { item -> listOfNames.add(item.name!!) }
+
                 adapter.apply {
                     clear()
-                    addAll(items)
+                    addAll(listOfNames)
                     notifyDataSetChanged()
+                }
+
+                spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        spinner.tag = list[position]
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
             })
         }

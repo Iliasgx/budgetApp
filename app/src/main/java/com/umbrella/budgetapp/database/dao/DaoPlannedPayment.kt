@@ -39,6 +39,6 @@ interface DaoPlannedPayment : Base<PlannedPayment> {
      * @return The Store represented by the ID with crossReferences.
      */
     @Transaction
-    @Query("SELECT * FROM planned_payment_cross WHERE planned_payments_id = :id")
+    @Query("SELECT * FROM planned_payment_cross WHERE planned_payment_id = :id")
     fun getPlannedPaymentById(id: Long) : Flow<ExtendedPlannedPayment>
 }

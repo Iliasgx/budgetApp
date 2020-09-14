@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.umbrella.budgetapp.database.collections.Goal
 import com.umbrella.budgetapp.database.repositories.GoalRepository
+import com.umbrella.budgetapp.enums.GoalStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,7 @@ class GoalViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getGoalById(id: Long) = repos.getGoalById(id).asLiveData()
 
-    fun getAllGoalsUnreached(status: Int) : LiveData<List<Goal>> = repos.getAllGoalsUnreached(status).asLiveData()
+    fun getAllGoalsUnreached(status: GoalStatus) = repos.getAllGoalsUnreached(status).asLiveData()
 
     fun getAllGoalsReached() : LiveData<List<Goal>> = repos.getAllGoalsReached().asLiveData()
 

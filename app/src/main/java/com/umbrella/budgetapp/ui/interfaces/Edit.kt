@@ -27,7 +27,7 @@ interface Edit {
      *
      * @return If editItem is edited and no longer the same as baseItem.
      */
-    fun hasChanges(baseItem: Any, editItem: Any) : Boolean { return editItem !==  baseItem }
+    fun hasChanges(baseItem: Any, editItem: Any) : Boolean { return editItem !=  baseItem }
 
     /**
      * Populate necessary views and implement the default data.

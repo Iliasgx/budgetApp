@@ -37,6 +37,7 @@ class AmountDialog : DialogFragment() {
                 Toast.makeText(context, getString(R.string.dialog_Amount_error_max, args.maxValue), Toast.LENGTH_SHORT).show()
             } else {
                 setNavigationResult("amount", amount)
+                dismiss()
             }
         }
     }

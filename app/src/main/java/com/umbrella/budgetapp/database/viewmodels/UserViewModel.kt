@@ -15,6 +15,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getUserById(id: Long) = repos.getUserById(id).asLiveData()
 
+    fun getFirstUserOrNull() = repos.getFirstUserOrNull().asLiveData()
+
     fun addUser(user: User) = viewModelScope.launch(Dispatchers.IO) { repos.addUser(user) }
 
     fun updateUser(user: User) = viewModelScope.launch(Dispatchers.IO) { repos.updateUser(user) }

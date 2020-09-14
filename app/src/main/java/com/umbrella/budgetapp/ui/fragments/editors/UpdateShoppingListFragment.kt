@@ -22,7 +22,7 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
 
     private val model by viewModels<ShoppingListViewModel>()
 
-    private var editData = ShoppingList(id = 0L)
+    private var editData = ShoppingList()
 
     companion object {
         const val MIN_NAME_LENGTH = 4
@@ -54,7 +54,7 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
             dataCardShoppingListCategory.setOnClickListener {
                 findNavController().navigate(UpdateShoppingListFragmentDirections.globalDataListDialog(CATEGORY))
 
-                getNavigationResult<Category>(R.id.updateShoppingList, "data") { result ->
+                getNavigationResult<Category>(R.id.updateShoppingList, "category_data") { result ->
                     editData.categoryRef = result.id
                     dataCardShoppingListCategory.text = result.name
                 }
@@ -63,7 +63,7 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
             dataCardShoppingListStore.setOnClickListener {
                 findNavController().navigate(UpdateShoppingListFragmentDirections.globalDataListDialog(STORE))
 
-                getNavigationResult<ExtendedStore>(R.id.updateShoppingList, "data") { result ->
+                getNavigationResult<ExtendedStore>(R.id.updateShoppingList, "store_data") { result ->
                     editData.storeRef = result.currencyId
                     dataCardShoppingListStore.text = result.store.name
                 }
@@ -100,5 +100,6 @@ class UpdateShoppingListFragment : ExtendedFragment(R.layout.data_shopping_list)
      */
     override fun saveData() {
         model.addShoppingList(editData)
+        navigateUp()
     }
 }

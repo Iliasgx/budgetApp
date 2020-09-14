@@ -39,31 +39,36 @@ class DataListDialog : DialogFragment() {
         when (args.type) {
             DataLocationType.CURRENCY -> {
                 val model by viewModels<CurrencyViewModel>()
-                initAdapter(model.getAllCurrencies())
+                initAdapter(model.getAllCurrencies(), "currency_data")
             }
             DataLocationType.CATEGORY -> {
                 val model by viewModels<CategoryViewModel>()
-                initAdapter(model.getAllCategories())
+                initAdapter(model.getAllCategories(), "category_data")
             }
             DataLocationType.ACCOUNT -> {
                 val model by viewModels<AccountViewModel>()
-                initAdapter(model.getAllAccounts())
+                initAdapter(model.getAllAccounts(), "account_data")
             }
             DataLocationType.TEMPLATE -> {
                 val model by viewModels<TemplateViewModel>()
-                initAdapter(model.getAllTemplates())
+                initAdapter(model.getAllTemplates(), "template_data")
             }
             DataLocationType.STORE -> {
                 val model by viewModels<StoreViewModel>()
-                initAdapter(model.getAllStores())
+                initAdapter(model.getAllStores(), "store_data")
             }
         }
     }
 
-    private fun <T> initAdapter(data: LiveData<List<T>>) {
-        val adapter = DataListAdapter<T>(object : DataCallBack<T> {
+    /**
+     * Note:
+     *
+     * Always make sure a class is Parcelable when using getNavigationResult for a DataListDialog result.
+     */
+    private fun <T> initAdapter(data: LiveData<List<T>>, key: String) {
+        val adapter = DataListAdapter(object : DataCallBack<T> {
             override fun onItemSelected(item: T) {
-                setNavigationResult("data", item)
+                setNavigationResult(key, item)
                 dismiss()
             }
         })
@@ -73,6 +78,6 @@ class DataListDialog : DialogFragment() {
             adapter.notifyDataSetChanged()
         })
 
-        dialog_recyclerView.fix(adapter)
+        dialog_recyclerView_rv.fix(adapter)
     }
 }

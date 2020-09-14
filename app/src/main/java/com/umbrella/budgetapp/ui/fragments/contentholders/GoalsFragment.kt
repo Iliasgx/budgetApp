@@ -24,7 +24,7 @@ class GoalsFragment: ExtendedFragment(R.layout.content_goals) {
     }
 
     private fun setUpAdapter() {
-        val adapter = HomeViewPagerAdapter(this)
+        val adapter = GoalViewPagerAdapter(this)
         binding.goalsViewPager.adapter = adapter
         binding.goalsViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
@@ -37,7 +37,7 @@ class GoalsFragment: ExtendedFragment(R.layout.content_goals) {
         }.attach()
     }
 
-    inner class HomeViewPagerAdapter(fragment: ExtendedFragment) : FragmentStateAdapter(fragment) {
+    inner class GoalViewPagerAdapter(fragment: ExtendedFragment) : FragmentStateAdapter(fragment) {
 
         override fun createFragment(position: Int) = GoalsListFragment(GoalStatus.values()[position])
 

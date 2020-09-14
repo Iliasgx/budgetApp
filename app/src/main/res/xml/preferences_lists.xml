@@ -6,31 +6,25 @@
     <Preference
         android:key="@string/preferences_Key_Group_Lists_Accounts"
         android:title="@string/preferences_Title_ManageLists_Accounts"
-        android:summary="@string/preferences_Summary_ManageLists_Accounts"
-        android:fragment="com.umbrella.budgetapp.ui.fragments.screens.AccountsFragment"/>
+        android:summary="@string/preferences_Summary_ManageLists_Accounts"/>
 
     <Preference
         android:key="@string/preferences_Key_Group_Lists_Categories"
         android:title="@string/preferences_Title_ManageLists_Categories"
-        android:summary="@string/preferences_Summary_ManageLists_Categories"
-        android:fragment="com.umbrella.budgetapp.ui.fragments.screens.CategoriesFragment"/>
+        android:summary="@string/preferences_Summary_ManageLists_Categories"/>
 
     <Preference
         android:key="@string/preferences_Key_Group_Lists_Currencies"
         android:title="@string/preferences_Title_ManageLists_Currencies"
-        android:summary="@string/preferences_Summary_ManageLists_Currencies"
-        android:fragment="com.umbrella.budgetapp.ui.fragments.screens.CurrenciesFragment"/>
+        android:summary="@string/preferences_Summary_ManageLists_Currencies"/>
 
     <Preference
         android:key="@string/preferences_Key_Group_Lists_Templates"
         android:title="@string/preferences_Title_ManageLists_Templates"
-        android:summary="@string/preferences_Summary_ManageLists_Templates"
-        android:fragment="com.umbrella.budgetapp.ui.fragments.screens.TemplatesFragment"/>
+        android:summary="@string/preferences_Summary_ManageLists_Templates"/>
 
     <Preference
         android:key="@string/preferences_Key_Group_Lists_Stores"
         android:title="@string/preferences_Title_ManageLists_Stores"
-        android:summary="@string/preferences_Summary_ManageLists_Stores"
-        android:fragment="com.umbrella.budgetapp.ui.fragments.screens.StoresFragment"/>
-
+        android:summary="@string/preferences_Summary_ManageLists_Stores"/>
 </PreferenceScreen>

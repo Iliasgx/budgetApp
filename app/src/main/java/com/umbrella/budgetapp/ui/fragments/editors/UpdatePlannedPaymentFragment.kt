@@ -47,7 +47,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
 
     private lateinit var initPayType: PayType
 
-    private var editData = PlannedPayment(id = 0L)
+    private var editData = PlannedPayment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +70,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
         model.getPlannedPaymentById(args.plannedPaymentId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extPlannedPayment = it
-                editData = extPlannedPayment.plannedPayment
+                editData = extPlannedPayment.plannedPayment.copy()
             }
             initData()
         })
@@ -94,7 +94,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
             Spinners.SimpleSpinner(this@UpdatePlannedPaymentFragment, dataCardPlannedPaymentReminder, R.array.reminderOptions)
 
             if (type == Type.NEW) {
-                dataCardPlannedPaymentAmount.currencyText(Memory.lastUsedCountry.symbol!!, BigDecimal.ZERO)
+                dataCardPlannedPaymentAmount.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
                 dataCardPlannedPaymentFrom.text = DateTimeFormatter().dateFormat(Calendar.getInstance().timeInMillis)
                 dataCardPlannedPaymentType.setSelection(initPayType.ordinal)
             } else {
@@ -149,7 +149,7 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
             dataCardPlannedPaymentCategory.setOnClickListener {
                 findNavController().navigate(UpdatePlannedPaymentFragmentDirections.globalDataListDialog(CATEGORY))
 
-                getNavigationResult<Category>(R.id.updatePlannedPayment, "data") { result ->
+                getNavigationResult<Category>(R.id.updatePlannedPayment, "category_data") { result ->
                     editData.categoryRef = result.id
                     dataCardPlannedPaymentCategory.text = result.name
                 }
@@ -185,8 +185,8 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
         with(binding) {
             editData.apply {
                 reminderOptions = dataCardPlannedPaymentReminder.selectedItemPosition
-                currencyRef = (dataCardPlannedPaymentCurrency.selectedItem as CurrencyAndName).id
-                accountRef = (dataCardPlannedPaymentAccount.selectedItem as Account).id
+                currencyRef = (dataCardPlannedPaymentCurrency.tag as CurrencyAndName).id
+                accountRef = (dataCardPlannedPaymentAccount.tag as Account).id
                 type = PayType.values()[dataCardPlannedPaymentType.selectedItemPosition]
                 paymentType = dataCardPlannedPaymentPayType.selectedItemPosition
             }
@@ -205,14 +205,14 @@ class UpdatePlannedPaymentFragment : ExtendedFragment(R.layout.data_planned_paym
         } else if (hasChanges(extPlannedPayment.plannedPayment, editData)) {
             model.updatePlannedPayment(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

@@ -17,7 +17,7 @@ interface DaoShoppingList : Base<ShoppingList> {
      *
      * @return The list of shoppingLists in a Flow.
      */
-    @Query("SELECT shopping_list_id, name, items AS items_count FROM shopping_lists ORDER BY name")
+    @Query("SELECT shopping_list_id, shopping_list_name, shopping_list_items FROM shopping_lists ORDER BY shopping_list_name")
     fun getAllShoppingLists() : Flow<List<ShoppingList>>
 
     /**

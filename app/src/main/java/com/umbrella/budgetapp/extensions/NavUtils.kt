@@ -24,6 +24,7 @@ fun <T>ExtendedFragment.getNavigationResult(@IdRes id: Int, key: String, onResul
         }
     }
 
+    // Add new observers
     navBackStackEntry.lifecycle.addObserver(observer)
 
     // As addObserver() does not automatically remove the observer, we call
@@ -33,7 +34,7 @@ fun <T>ExtendedFragment.getNavigationResult(@IdRes id: Int, key: String, onResul
             navBackStackEntry.lifecycle.removeObserver(observer)
         }
     })
-}
+ }
 
 fun <T>DialogFragment.getNavigationResult(@IdRes id: Int, key: String, onResult: (result: T) -> Unit) {
     val navBackStackEntry = findNavController().getBackStackEntry(id)
@@ -48,6 +49,7 @@ fun <T>DialogFragment.getNavigationResult(@IdRes id: Int, key: String, onResult:
         }
     }
 
+    // Add new observers
     navBackStackEntry.lifecycle.addObserver(observer)
 
     // As addObserver() does not automatically remove the observer, we call

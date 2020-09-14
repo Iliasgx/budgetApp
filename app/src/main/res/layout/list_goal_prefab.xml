@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/goal_item1"
         android:contentDescription="@string/data_Goal_Select_Item1"
         android:background="@drawable/round_image"
-        android:backgroundTint="@color/goal_item1"/>
+        android:backgroundTint="@color/BB"/>
 
     <TextView
         android:id="@+id/listGoalPrefab_name"

@@ -12,8 +12,7 @@
         <SwitchPreference
             android:key="@string/preferences_Key_Notifications_Statusbar"
             android:title="@string/preferences_Title_Notify_StatusBar"
-            android:defaultValue="true"
-            app:allowDividerAbove="true"/>
+            android:defaultValue="true"/>
 
         <SwitchPreference
             android:key="@string/preferences_Key_Notifications_Banner"

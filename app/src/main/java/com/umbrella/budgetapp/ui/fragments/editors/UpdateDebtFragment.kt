@@ -47,7 +47,7 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
 
     private lateinit var debtType: DebtType
 
-    private var editData = Debt(id = 0L)
+    private var editData = Debt()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,7 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
         model.getDebtById(args.debtId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extDebt = it
-                editData = extDebt.debt
+                editData = extDebt.debt.copy()
             }
             initData()
         })
@@ -104,7 +104,7 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
             } else {
                 dataCardDebtName.setText(extDebt.debt.name, EDITABLE)
                 dataCardDebtDescription.setText(extDebt.debt.description, EDITABLE)
-                dataCardDebtCategory.text = extDebt.category.name
+                dataCardDebtCategory.text = extDebt.category?.name
                 dataCardDebtAccount.setSelection(extDebt.accountPosition!!)
                 dataCardDebtAmount.currencyText("", extDebt.debt.amount!!)
                 dataCardDebtCurrency.setSelection(extDebt.currencyPosition!!)
@@ -127,7 +127,7 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
             dataCardDebtCategory.setOnClickListener {
                 findNavController().navigate(UpdateDebtFragmentDirections.globalDataListDialog(CATEGORY))
 
-                getNavigationResult<Category>(R.id.updateDebt, "data") { result ->
+                getNavigationResult<Category>(R.id.updateDebt, "category_data") { result ->
                     editData.categoryRef = result.id
                     dataCardDebtCategory.text = result.name
                 }
@@ -182,8 +182,8 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
         //Update EditData with data outside listeners.
         with(binding) {
             editData.apply {
-                accountRef = (dataCardDebtAccount.selectedItem as Account).id
-                currencyRef = (dataCardDebtCurrency.selectedItem as CurrencyAndName).id
+                accountRef = (dataCardDebtAccount.tag as Account).id
+                currencyRef = (dataCardDebtCurrency.tag as CurrencyAndName).id
             }
         }
 
@@ -200,14 +200,14 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
         } else if (hasChanges(extDebt.debt, editData)) {
             model.updateDebt(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

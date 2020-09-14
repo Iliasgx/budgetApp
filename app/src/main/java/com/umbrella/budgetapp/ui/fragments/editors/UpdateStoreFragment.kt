@@ -40,7 +40,7 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
 
     private lateinit var type: Type
 
-    private var editData = Store(id = 0L)
+    private var editData = Store()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +61,7 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
         model.getStoreById(args.storeId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extStore = it
-                editData = extStore.store
+                editData = extStore.store.copy()
             }
             initData()
         })
@@ -82,7 +82,7 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
             if (type == Type.EDIT) {
                 dataCardStoreName.setText(extStore.store.name, EDITABLE)
                 dataCardStoreCurrency.setSelection(extStore.currencyPosition!!)
-                dataCardStoreCategory.text = extStore.category.name
+                dataCardStoreCategory.text = extStore.category?.name
                 dataCardStoreNote.setText(extStore.store.note, EDITABLE)
             }
         }
@@ -102,7 +102,7 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
             dataCardStoreCategory.setOnClickListener {
                 findNavController().navigate(UpdateStoreFragmentDirections.globalDataListDialog(CATEGORY))
 
-                getNavigationResult<Category>(R.id.updateStore, "data") { result ->
+                getNavigationResult<Category>(R.id.updateStore, "category_data") { result ->
                     editData.categoryRef = result.id
                     dataCardStoreCategory.text = result.name
                 }
@@ -129,7 +129,7 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
         if (!onNext) return
 
         //Update EditData with data outside listeners.
-        editData.currencyRef = (binding.dataCardStoreCurrency.selectedItem as CurrencyAndName).id
+        editData.currencyRef = (binding.dataCardStoreCurrency.tag as CurrencyAndName).id
 
         //All requirements are met and all data is loaded. Ready to update data or create new one.
         saveData()
@@ -144,14 +144,14 @@ class UpdateStoreFragment : ExtendedFragment(R.layout.data_store), Edit {
         } else if (hasChanges(extStore.store, editData)) {
             model.updateStore(editData)
         }
+        navigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

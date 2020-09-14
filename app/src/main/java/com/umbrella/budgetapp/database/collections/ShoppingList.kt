@@ -11,20 +11,20 @@ import com.umbrella.budgetapp.database.typeconverters.ShoppingListItemListTypeCo
 data class ShoppingList(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "shopping_list_id")
-        val id: Long?,
+        val id: Long? = null,
 
-        @ColumnInfo(name = "name")
+        @ColumnInfo(name = "shopping_list_name")
         var name: String? = "",
 
-        @ColumnInfo(name = "category_ref")
+        @ColumnInfo(name = "shopping_list_category_ref")
         var categoryRef: Long? = 0,
 
-        @ColumnInfo(name = "store_ref")
+        @ColumnInfo(name = "shopping_list_store_ref")
         var storeRef: Long? = 0,
 
-        @ColumnInfo(name = "reminder")
+        @ColumnInfo(name = "shopping_list_reminder")
         var reminder: Long? = 0,
 
-        @ColumnInfo(name = "items")
+        @ColumnInfo(name = "shopping_list_items")
         var items: MutableList<ShoppingListItem>? = mutableListOf()
 )

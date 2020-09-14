@@ -13,43 +13,43 @@ import java.math.BigDecimal
 @TypeConverters(FrequencyTypeConverter::class, PayTypeTypeConverter::class)
 data class PlannedPayment(
         @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "planned_payments_id")
-        val id: Long?,
+        @ColumnInfo(name = "planned_payment_id")
+        val id: Long? = null,
 
-        @ColumnInfo(name = "name")
+        @ColumnInfo(name = "planned_payment_name")
         var name: String? = "",
 
-        @ColumnInfo(name = "payee")
+        @ColumnInfo(name = "planned_payment_payee")
         var payee: String? = "",
 
-        @ColumnInfo(name = "note")
+        @ColumnInfo(name = "planned_payment_note")
         var note: String? = "",
 
-        @ColumnInfo(name = "account_ref")
+        @ColumnInfo(name = "planned_payment_account_ref")
         var accountRef: Long? = 0,
 
-        @ColumnInfo(name = "category_ref")
+        @ColumnInfo(name = "planned_payment_category_ref")
         var categoryRef: Long? = 0,
 
-        @ColumnInfo(name = "currency_ref")
+        @ColumnInfo(name = "planned_payment_currency_ref")
         var currencyRef: Long? = 0,
 
-        @ColumnInfo(name = "start_date")
+        @ColumnInfo(name = "planned_payment_start_date")
         var startDate: Long? = 0,
 
-        @ColumnInfo(name = "frequency")
+        @ColumnInfo(name = "planned_payment_frequency")
         var frequency: Map<String, String>? = emptyMap(),
 
-        @ColumnInfo(name = "type")
+        @ColumnInfo(name = "planned_payment_type")
         var type: PayType? = PayType.INCOME,
 
-        @ColumnInfo(name = "payment_type")
+        @ColumnInfo(name = "planned_payment_payment_type")
         var paymentType: Int? = 0,
 
-        @ColumnInfo(name = "reminder_options")
+        @ColumnInfo(name = "planned_payment_reminder_options")
         var reminderOptions: Int? = 0,
 
-        @ColumnInfo(name = "amount")
+        @ColumnInfo(name = "planned_payment_amount")
         var amount: BigDecimal? = BigDecimal.ZERO
 ) {
     class FrequencyBuilder {

@@ -34,7 +34,7 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
 
     private lateinit var type : Type
 
-    private var editedUser = User(id = 0L)
+    private var editedUser = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
         model.getUserById(args.userId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 user = it
-                editedUser = user!!
+                editedUser = user!!.copy()
             } else {
                 binding.dataCardUserAction.text = getString(R.string.data_User_CreateAccount)
             }
@@ -111,9 +111,7 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
         }
     }
 
-    /**
-     * Check if all requirements are met before saving the data.
-     */
+    /* Not used */
     override fun checkData() {}
 
     /**
@@ -125,6 +123,7 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
         } else if (hasChanges(user!!, editedUser)) {
             model.updateUser(editedUser)
         }
+        navigateUp()
     }
 
     private fun actionButton() {
@@ -134,16 +133,15 @@ class UpdateUserProfileFragment : ExtendedFragment(R.layout.data_user), Edit {
             (requireActivity() as MainActivity).logUserOut()
             findNavController().navigate(UpdateUserProfileFragmentDirections.globalLogin())
         } else {
-            findNavController().navigateUp()
+            navigateUp()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
-            checkData()
-        } else {
-            findNavController().navigateUp()
+            saveData()
+            return true
         }
-        return true
+        return false
     }
 }

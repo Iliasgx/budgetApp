@@ -53,47 +53,37 @@ class DataListAdapter<T>(val callBack: DataCallBack<T>) : BaseAdapter<T>() {
         onBind(object : Bind<T> {
             override fun onBinding(item: T, itemView: View, adapterPosition: Int) {
                 with(itemView) {
+                    val arr = resources.getIntArray(R.array.colors)
+
                     fun setImage(resId: Int) = list_Basic_Img.setImageResource(resId)
-                    fun setColor(color: Int) = list_Basic_Img.setBackgroundColor(color)
+                    fun setColor(color: Int) = ViewCompat.setBackgroundTintList(list_Basic_Img, ColorStateList.valueOf(arr[color]))
                     fun setName(name: String) { list_Basic_Name.text = name }
 
                     when (item) {
-                        item is Account -> {
-                            val temp = item as Account
-
+                        is Account -> {
                             setImage(R.drawable.account)
-                            setColor(temp.color!!)
-                            setName(temp.name!!)
-
+                            setColor(item.color!!)
+                            setName(item.name!!)
                         }
-                        item is TemplateAndCategory -> {
-                            val temp = item as TemplateAndCategory
-
-                            setImage(temp.category.icon!!)
-                            setColor(temp.category.color!!)
-                            setName(temp.template.name!!)
+                        is TemplateAndCategory -> {
+                            setImage(item.category.icon!!)
+                            setColor(item.category.color!!)
+                            setName(item.template.name!!)
                         }
-                        item is Category -> {
-                            val temp = item as Category
-
-                            setImage(temp.icon!!)
-                            setColor(temp.color!!)
-                            setName(temp.name!!)
+                        is Category -> {
+                            setImage(item.icon!!)
+                            setColor(item.color!!)
+                            setName(item.name!!)
                         }
-                        item is Currency -> {
-                            val temp = item as Currency
-                            val arr = resources.getIntArray(R.array.colors)
-
+                        is Currency -> {
                             setImage(R.drawable.saving_account)
-                            ViewCompat.setBackgroundTintList(list_Basic_Img, ColorStateList.valueOf(arr[Random.nextInt(0, arr.size - 1)]))
-                            setName(DefaultCountries().getCountryById(temp.countryRef).name)
+                            setColor(Random.nextInt(0, arr.size - 1))
+                            setName(DefaultCountries().getCountryById(item.countryRef).name)
                         }
-                        item is ExtendedStore -> {
-                            val temp = item as ExtendedStore
-
-                            setImage(temp.category.icon!!)
-                            setColor(temp.category.color!!)
-                            setName(temp.store.name!!)
+                        is ExtendedStore -> {
+                            setImage(item.category?.icon!!)
+                            setColor(item.category.color!!)
+                            setName(item.store.name!!)
                         }
                         else -> throw RuntimeException("Binding failed. Class not supported for DataListAdapter.")
                     }

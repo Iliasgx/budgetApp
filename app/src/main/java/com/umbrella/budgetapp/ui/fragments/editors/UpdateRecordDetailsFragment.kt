@@ -45,7 +45,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
 
     private lateinit var type: Type
 
-    private var editData = Record(id = 0L)
+    private var editData = Record()
 
     private var bundle : Array<String>? = null
 
@@ -64,7 +64,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
         model.getRecordById(args.recordId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
                 extRecord = it
-                editData = extRecord.record
+                editData = extRecord.record.copy()
 
                 setTitle(R.string.title_addChange_record_value)
             } else {
@@ -149,7 +149,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
             dataCardRecordDetailsCategory.setOnClickListener {
                 findNavController().navigate(UpdateRecordDetailsFragmentDirections.globalDataListDialog(CATEGORY))
 
-                getNavigationResult<Category>(R.id.updateRecordDetails, "data") { result ->
+                getNavigationResult<Category>(R.id.updateRecordDetails, "category_data") { result ->
                     editData.categoryRef = result.id
                     dataCardRecordDetailsCategory.text = result.name
                 }
@@ -158,7 +158,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
             dataCardRecordDetailsStore.setOnClickListener {
                 findNavController().navigate(UpdateRecordDetailsFragmentDirections.globalDataListDialog(STORE))
 
-                getNavigationResult<ExtendedStore>(R.id.updateRecordDetails, "data") { result ->
+                getNavigationResult<ExtendedStore>(R.id.updateRecordDetails, "store_data") { result ->
                     editData.storeRef = result.store.id
                     dataCardRecordDetailsStore.text = result.store.name
                 }
@@ -175,7 +175,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
 
                 dataCardRecordDetailsAmount.text = result
 
-                setTitle(getString(R.string.title_addChange_record_value, "", BigDecimal(result)))
+                setTitle(getString(R.string.title_addChange_record_value, "", BigDecimal(result).toDouble()))
             }
 
             // Open a DateTimePickerDialog with the current date + time.
@@ -220,6 +220,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
         } else if (hasChanges(extRecord.record, editData)) {
             model.updateRecord(editData)
         }
+        navigateUp()
     }
 
     private fun getBasicBundle() : Map<String, String> {
@@ -234,9 +235,8 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menuLayout_SaveOnly) {
             checkData()
-        } else {
-            findNavController().navigateUp()
+            return true
         }
-        return true
+        return false
     }
 }

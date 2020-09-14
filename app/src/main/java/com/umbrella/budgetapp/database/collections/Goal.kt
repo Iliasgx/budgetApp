@@ -3,46 +3,43 @@ package com.umbrella.budgetapp.database.collections
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.umbrella.budgetapp.database.typeconverters.GoalStatusTypeConverter
 import com.umbrella.budgetapp.enums.GoalStatus
 import java.math.BigDecimal
 import java.util.*
 
 @Entity(tableName = "goals")
-@TypeConverters(GoalStatusTypeConverter::class)
 data class Goal(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "goal_id")
-        val id: Long?,
+        val id: Long? = null,
 
-        @ColumnInfo(name = "name")
+        @ColumnInfo(name = "goal_name")
         var name: String? = "",
 
-        @ColumnInfo(name = "note")
+        @ColumnInfo(name = "goal_note")
         var note: String? = "",
 
-        @ColumnInfo(name = "status")
+        @ColumnInfo(name = "goal_status")
         var status: GoalStatus? = GoalStatus.ACTIVE,
 
-        @ColumnInfo(name = "color")
+        @ColumnInfo(name = "goal_color")
         var color: Int? = 0,
 
-        @ColumnInfo(name = "icon")
+        @ColumnInfo(name = "goal_icon")
         var icon: Int? = 0,
 
-        @ColumnInfo(name = "target_amount")
+        @ColumnInfo(name = "goal_target_amount")
         var targetAmount: BigDecimal? = BigDecimal.ZERO,
 
-        @ColumnInfo(name = "saved_amount")
+        @ColumnInfo(name = "goal_saved_amount")
         var savedAmount: BigDecimal? = BigDecimal.ZERO,
 
-        @ColumnInfo(name = "last_amount")
+        @ColumnInfo(name = "goal_last_amount")
         var lastAmount: BigDecimal? = BigDecimal.ZERO,
 
-        @ColumnInfo(name = "desired_date")
+        @ColumnInfo(name = "goal_desired_date")
         var desiredDate: Long? = 0,
 
-        @ColumnInfo(name = "start_date")
+        @ColumnInfo(name = "goal_start_date")
         var startDate: Long? = Calendar.getInstance().timeInMillis
 )

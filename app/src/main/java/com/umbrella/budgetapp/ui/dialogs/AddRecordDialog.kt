@@ -67,7 +67,7 @@ class AddRecordDialog : DialogFragment() {
             findNavController().navigate(AddRecordDialogDirections.globalDialogAmount((it as TextView).text.toString(), MIN_AMOUNT))
         }
 
-        getNavigationResult<Category>(R.id.addRecordDialog, "data") { result ->
+        getNavigationResult<Category>(R.id.addRecordDialog, "category_data") { result ->
             dialog_Record_Category.apply {
                 text = result.name
                 tag = result.id
@@ -90,13 +90,13 @@ class AddRecordDialog : DialogFragment() {
         val model by viewModels<RecordViewModel>()
 
         model.addRecord(Record(
-                0L,
+                null,
                 dialog_Record_Note.text.toString(),
                 "",
                 dialog_Record_Category.tag as Long,
-                (dialog_Record_Account.selectedItem as Account).id,
+                (dialog_Record_Account.tag as Account).id,
                 0L,
-                (dialog_Record_Currency.selectedItem as CurrencyAndName).id,
+                (dialog_Record_Currency.tag as CurrencyAndName).id,
                 if (BigDecimal(dialog_Record_Amount.text.toString()).signum() < 1) 1 else 0,
                 0,
                 BigDecimal(dialog_Record_Amount.text.toString()),

@@ -18,7 +18,7 @@ interface DaoCurrency : Base<Currency> {
      * @return The list of currencies in a Flow.
      */
     @Transaction
-    @Query("SELECT * FROM currencies ORDER BY position ASC")
+    @Query("SELECT * FROM currencies ORDER BY currency_position ASC")
     fun getAllCurrencies() : Flow<List<Currency>>
 
     /**
@@ -46,7 +46,7 @@ interface DaoCurrency : Base<Currency> {
      * @param id: The id corresponding with the Currency.
      * @param position: The position to where it moved.
      */
-    @Query("UPDATE currencies SET position = :position WHERE currency_id = :id")
+    @Query("UPDATE currencies SET currency_position = :position WHERE currency_id = :id")
     fun changePosition(id: Long, position: Int)
 
     /**
@@ -55,7 +55,7 @@ interface DaoCurrency : Base<Currency> {
      *
      * @param ids: An array of ID's of currencies that have to be updated.
      */
-    @Query("UPDATE currencies SET position = position + 1 WHERE currency_id IN (:ids)")
+    @Query("UPDATE currencies SET currency_position = currency_position + 1 WHERE currency_id IN (:ids)")
     suspend fun increasePositionOfIds(vararg ids: Long)
 
     /**
@@ -64,12 +64,12 @@ interface DaoCurrency : Base<Currency> {
      *
      * @param ids: An array of ID's of currencies that have to be updated.
      */
-    @Query("UPDATE currencies SET position = position - 1 WHERE currency_id IN (:ids)")
+    @Query("UPDATE currencies SET currency_position = currency_position - 1 WHERE currency_id IN (:ids)")
     suspend fun decreasePositionOfIds(vararg ids: Long)
 
-    @Query("UPDATE currencies SET position = position + 1 WHERE position > :startPos AND position < :endPos")
+    @Query("UPDATE currencies SET currency_position = currency_position + 1 WHERE currency_position > :startPos AND currency_position < :endPos")
     suspend fun increasePositions(startPos: Int, endPos: Int)
 
-    @Query("UPDATE currencies SET position = position - 1 WHERE position > :startPos AND position < :endPos")
+    @Query("UPDATE currencies SET currency_position = currency_position - 1 WHERE currency_position > :startPos AND currency_position < :endPos")
     suspend fun decreasePositions(startPos: Int, endPos: Int)
 }

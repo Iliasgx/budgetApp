@@ -1,8 +1,13 @@
 package com.umbrella.budgetapp.database.defaults
 
+import android.content.Context
+import android.content.res.TypedArray
+import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.database.collections.Category
+
 /* EXPENSES
  *1 Groceries
- *2 Restaurant, fast-food
+ *2 Restaurant
  *3 Bar, cafe
  *4 Campus card
  *5 Health and beauty
@@ -40,50 +45,25 @@ package com.umbrella.budgetapp.database.defaults
  *31 Taxes
  */
 
-/*
-public class DefaultCategories {
-    private List<Category> category;
+class DefaultCategories(private val context: Context) {
 
-    public List<Category> getDefaultCategories() {
-        if (category == null || category.isEmpty()){
-            setCategory();
+    private var iconsTA: TypedArray = context.resources.obtainTypedArray(R.array.icons)
+
+    fun getCategories() : Array<Category> {
+        val colorIndices = listOf(4,3,5,13,10,8,15,16,1,6,2,3,19,7,12,15,6,14,4,9,14,15,5,1,2,5,16,15,19,3,2)
+        val list = mutableListOf<Category>()
+
+        for (index in colorIndices.indices) {
+            list.add(Category(name = str(index), icon = draw(index), color = colorIndices[index]))
         }
-        return category;
+
+        iconsTA.recycle()
+
+        return list.toTypedArray()
     }
 
-    private void setCategory() {
-        category = new ArrayList<>(Arrays.asList(
-                new Category("Groceries",                0, 4),
-                new Category("Restaurant, fast-food",    1, 3),
-                new Category("Bar, cafe",                2, 5),
-                new Category("Campus card",              3, 13),
-                new Category("Health & beauty",          4, 10),
-                new Category("Health care, doctor",      5, 8),
-                new Category("Mortgage",                 6, 15),
-                new Category("Insurance",                7, 16),
-                new Category("Housing repairs",          8, 1),
-                new Category("Transportation",           9, 6),
-                new Category("Fuel",                     10,2),
-                new Category("Vehicle maintenance",      11,3),
-                new Category("Active sport",             12,19),
-                new Category("Education",                13,7),
-                new Category("Hobbies",                  14,12),
-                new Category("TV, streaming",            15,15),
-                new Category("Culture",                  16,6),
-                new Category("Holiday, trips, hotels",   17,14),
-                new Category("Software, apps, games",    18,4),
-                new Category("Pets, animals",            19,9),
-                new Category("Loan",                     20,14),
-                new Category("Savings",                  21,15),
-                new Category("Pocket money",             22,5),
-                new Category("Interest, dividends",      23,1),
-                new Category("Lending",                  24,2),
-                new Category("Clothes & shoes",          25,5),
-                new Category("Life events",              26,16),
-                new Category("Gifts",                    27,15),
-                new Category("Investments",              28,19),
-                new Category("Lottery, gambling",        29,3),
-                new Category("Taxes",                    30,2)
-        ));
-    }
-}*/
+    private fun str(nameIndex: Int) = context.resources.getStringArray(R.array.default_category_names)[nameIndex]
+
+    private fun draw(drawableIndex: Int) = iconsTA.getResourceId(drawableIndex, 0)
+
+}

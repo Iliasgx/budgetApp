@@ -1,5 +1,6 @@
 package com.umbrella.budgetapp.adapters
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,7 @@ class GoalsAdapter(private val status: GoalStatus, val callBack: CallBack) : Bas
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        Log.d("_Test", "getPosition [$position] with {${goals[position].name}}");
         holder.bind(goals[position])
         holder.itemView.id = goals[position].id!!.toInt()
     }
@@ -38,6 +40,8 @@ class GoalsAdapter(private val status: GoalStatus, val callBack: CallBack) : Bas
 
     override fun setData(list: List<Goal>) {
         goals = list
+
+        Log.d("_Test", "sizing: ${list.size}");
     }
 
     init {
