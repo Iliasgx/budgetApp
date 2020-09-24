@@ -50,11 +50,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/data_Card_Account_CurrValue"
+                android:labelFor="@id/data_Card_Account_initValue"
                 android:text="@string/data_Account_Value" />
 
             <TextView
-                android:id="@+id/data_Card_Account_CurrValue"
+                android:id="@+id/data_Card_Account_initValue"
                 android:layout_width="match_parent"
                 android:text="0"
                 android:paddingStart="10dp"

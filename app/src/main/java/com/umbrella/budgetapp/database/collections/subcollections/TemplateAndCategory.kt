@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @DatabaseView(
         viewName = "template_cross_category",
-        value = "SELECT * FROM templates INNER JOIN categories ON templates.template_category_ref = categories.category_id"
+        value = "SELECT * FROM templates LEFT JOIN categories ON templates.template_category_ref = categories.category_id"
 )
 data class TemplateAndCategory (
         @Embedded

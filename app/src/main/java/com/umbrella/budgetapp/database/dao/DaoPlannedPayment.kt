@@ -19,6 +19,7 @@ interface DaoPlannedPayment : Base<PlannedPayment> {
      *
      * @return The list of plannedPayments in a Flow.
      */
+    @Transaction
     @Query("SELECT * FROM planned_payment_cross_small")
     fun getAllPlannedPayments() : Flow<List<ExtendedPayments>>
 
@@ -29,6 +30,7 @@ interface DaoPlannedPayment : Base<PlannedPayment> {
      * @param limit: Limit the number of items represented.
      * @return The list of plannedPayments in a Flow.
      */
+    @Transaction
     @Query("SELECT * FROM planned_payment_cross_small LIMIT :limit")
     fun getAllPlannedPayments(@IntRange(from = 1) limit: Int) : Flow<List<ExtendedPayments>>
 

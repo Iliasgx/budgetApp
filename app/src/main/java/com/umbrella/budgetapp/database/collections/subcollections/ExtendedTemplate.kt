@@ -13,10 +13,10 @@ import com.umbrella.budgetapp.database.collections.Template
                 stores.store_id AS extended_store_id, stores.store_name AS extended_store_name, 
                 currencies.currency_id AS extended_currency_id, currencies.currency_country_ref AS extended_country_ref, currencies.currency_position AS extended_currency_position
                 FROM templates 
-                INNER JOIN categories ON templates.template_category_ref = categories.category_id 
-                INNER JOIN accounts ON templates.template_account_ref = accounts.account_id 
-                INNER JOIN stores ON templates.template_store_ref = stores.store_id 
-                INNER JOIN currencies ON templates.template_currency_ref = currencies.currency_id"""
+                LEFT JOIN categories ON templates.template_category_ref = categories.category_id 
+                LEFT JOIN accounts ON templates.template_account_ref = accounts.account_id 
+                LEFT JOIN stores ON templates.template_store_ref = stores.store_id 
+                LEFT JOIN currencies ON templates.template_currency_ref = currencies.currency_id"""
 )
 data class ExtendedTemplate (
         @Embedded

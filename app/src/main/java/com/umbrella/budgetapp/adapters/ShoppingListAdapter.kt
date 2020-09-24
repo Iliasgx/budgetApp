@@ -41,7 +41,7 @@ class ShoppingListAdapter(val callback: CallBack) : BaseAdapter<ShoppingList>() 
             override fun onBinding(item: ShoppingList, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_ShoppingList_Name.text = item.name
-                    list_ShoppingList_NbItems.text = context.getString(R.string.shoppingLists_nrOfItems, item.items?.size ?: 0)
+                    list_ShoppingList_NbItems.text = resources.getString(R.string.shoppingLists_nrOfItems, item.items?.size ?: 0)
                     list_ShoppingList_Amount.currencyText(Memory.lastUsedCountry.symbol, sumAmount(item.items))
 
                     list_ShoppingList_Add.setOnClickListener { callback.onAddItemClick(item) }

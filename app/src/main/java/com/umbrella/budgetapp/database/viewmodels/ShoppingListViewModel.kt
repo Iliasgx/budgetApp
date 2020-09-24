@@ -19,6 +19,8 @@ class ShoppingListViewModel(application: Application) : AndroidViewModel(applica
 
     fun getAllShoppingLists() = repos.getAllShoppingLists().asLiveData()
 
+    fun getAllShoppingLists(limit: Int) = repos.getAllShoppingLists(limit).asLiveData()
+
     fun addShoppingList(shoppingList: ShoppingList) = viewModelScope.launch(Dispatchers.IO) { repos.addShoppingList(shoppingList) }
 
     fun updateShoppingList(shoppingList: ShoppingList) = viewModelScope.launch(Dispatchers.IO) { repos.updateShoppingList(shoppingList) }

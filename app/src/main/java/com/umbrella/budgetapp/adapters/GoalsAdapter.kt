@@ -1,6 +1,6 @@
 package com.umbrella.budgetapp.adapters
 
-import android.util.Log
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,13 +8,12 @@ import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Goal
 import com.umbrella.budgetapp.enums.GoalStatus
+import com.umbrella.budgetapp.extensions.DateTimeFormatter
 import com.umbrella.budgetapp.extensions.autoNotify
+import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.extensions.inflate
 import kotlinx.android.synthetic.main.list_goals_active_paused.view.*
 import kotlinx.android.synthetic.main.list_goals_reached.view.*
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.properties.Delegates
 
 class GoalsAdapter(private val status: GoalStatus, val callBack: CallBack) : BaseAdapter<Goal>() {
@@ -31,17 +30,13 @@ class GoalsAdapter(private val status: GoalStatus, val callBack: CallBack) : Bas
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        Log.d("_Test", "getPosition [$position] with {${goals[position].name}}");
         holder.bind(goals[position])
-        holder.itemView.id = goals[position].id!!.toInt()
     }
 
     override fun getItemCount() = goals.size
 
     override fun setData(list: List<Goal>) {
         goals = list
-
-        Log.d("_Test", "sizing: ${list.size}");
     }
 
     init {
@@ -50,22 +45,25 @@ class GoalsAdapter(private val status: GoalStatus, val callBack: CallBack) : Bas
                 with(itemView) {
                     when (status) {
                         GoalStatus.ACTIVE, GoalStatus.PAUSED -> {
-                            list_Goals_ActivePaused_Img.setImageResource(item.icon!!)
-                            list_Goals_ActivePaused_Img.setBackgroundColor(item.color!!)
+                            list_Goals_ActivePaused_Img.apply {
+                                setImageResource(item.icon!!)
+                                backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.color!!])
+                            }
                             list_Goals_ActivePaused_Name.text = item.name!!
-                            list_Goals_ActivePaused_Saved.text = String.format("${Memory.lastUsedCountry.symbol} ${NumberFormat.getCurrencyInstance().format(item.savedAmount)}")
-                            list_Goals_ActivePaused_Goal.text = String.format("${Memory.lastUsedCountry.symbol} ${NumberFormat.getCurrencyInstance().format(item.targetAmount)}")
-                            list_Goals_ActivePaused_Date.text = SimpleDateFormat("DD/MM/YYYY", Locale.getDefault()).format(Date(item.desiredDate!!))
+                            list_Goals_ActivePaused_Saved.currencyText(Memory.lastUsedCountry.symbol, item.savedAmount!!)
+                            list_Goals_ActivePaused_Goal.currencyText(Memory.lastUsedCountry.symbol, item.targetAmount!!)
+                            list_Goals_ActivePaused_Date.text = DateTimeFormatter().dateFormat(item.desiredDate!!, '/')
                             list_Goals_ActivePaused_Progressbar.max = item.targetAmount!!.toInt()
                             list_Goals_ActivePaused_Progressbar.progress = item.savedAmount!!.toInt()
                         }
                         GoalStatus.REACHED -> {
-                            list_Goals_Reached_Img.setImageResource(item.icon!!)
-                            list_Goals_Reached_Img.setBackgroundColor(item.color!!)
+                            list_Goals_Reached_Img.apply {
+                                setImageResource(item.icon!!)
+                                backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.color!!])
+                            }
                             list_Goals_Reached_Name.text = item.name!!
-                            list_Goals_Reached_Saved.text = String.format("${Memory.lastUsedCountry.symbol} ${NumberFormat.getCurrencyInstance().format(item.savedAmount)}")
-                            list_Goals_Reached_Date.text = SimpleDateFormat("DD-MM-YYYY hh:mm", Locale.getDefault()).format(Date(item.desiredDate!!))
-
+                            list_Goals_Reached_Saved.currencyText(Memory.lastUsedCountry.symbol, item.savedAmount!!)
+                            list_Goals_Reached_Date.text = DateTimeFormatter().dateFormat(item.desiredDate!!, '/')
                         }
                     }
                     setOnClickListener {

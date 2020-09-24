@@ -5,7 +5,7 @@
 
     <group  android:id="@+id/menu_basics" android:checkableBehavior="single">
         <item
-            android:id="@+id/homeAccounts"
+            android:id="@+id/home"
             android:icon="@drawable/home"
             android:contentDescription="@string/menu_Home"
             android:title="@string/menu_Home"/>

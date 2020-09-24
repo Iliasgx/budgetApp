@@ -62,6 +62,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/add"
         android:backgroundTint="@color/colorPrimary"
+        app:borderWidth="0dp"
         app:layout_behavior=".ui.customs.ScrollAwareFABBehavior"/>
 
    <!-- <include layout="@layout/custom_slider"

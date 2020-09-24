@@ -1,9 +1,9 @@
 package com.umbrella.budgetapp.adapters
 
+ import android.content.res.ColorStateList
  import android.text.SpannableStringBuilder
  import android.view.View
  import android.view.ViewGroup
- import androidx.core.content.ContextCompat
  import androidx.core.text.italic
  import com.umbrella.budgetapp.R
  import com.umbrella.budgetapp.database.collections.subcollections.ExtendedRecord
@@ -40,8 +40,8 @@ class RecordsAdapter(val callBack: CallBack) : BaseAdapter<ExtendedRecord>() {
             override fun onBinding(item: ExtendedRecord, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_Records_Img.apply {
-                        setBackgroundColor(context.getColor(item.category.color!!))
-                        setImageDrawable(ContextCompat.getDrawable(context, item.category.icon!!))
+                        setImageResource(item.category.icon!!)
+                        backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.category.color!!])
                     }
 
                     list_Records_Category.text = item.category.name
@@ -50,13 +50,7 @@ class RecordsAdapter(val callBack: CallBack) : BaseAdapter<ExtendedRecord>() {
                     list_Records_Amount.apply {
                         currencyText(DefaultCountries().getCountryById(item.countryRef).symbol, item.record.amount!!)
 
-                        if (item.record.type == 1) { // Expense
-                            text = context.getString(R.string.negate, text)
-                            setTextColor(context.getColor(R.color.negativeColor))
-                        } else {
-                            setTextColor(context.getColor(R.color.positiveColor))
-                        }
-
+                        setTextColor(context.getColor(if (item.record.type == 1 /* Expense */) R.color.negativeColor else R.color.positiveColor))
                     }
 
                     list_Records_Date.text = DateTimeFormatter().dateFormat(item.record.timestamp!!)

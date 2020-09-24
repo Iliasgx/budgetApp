@@ -1,5 +1,6 @@
 package com.umbrella.budgetapp.ui.components
 
+import android.util.Log
 import com.umbrella.budgetapp.enums.CalculatorFunction
 import java.math.BigDecimal
 
@@ -44,9 +45,12 @@ class Calculator {
      * @return String - Current ABS value without signum.
      */
     fun getAbsValue() : String {
-        if (currentValue == null) return BigDecimal.ZERO.toEngineeringString()
-
-        return BigDecimal(currentValue).abs().toEngineeringString()
+        if (currentOperator == CalculatorFunction.EQUALS) {
+            return value.abs().toPlainString()
+        } else {
+            if (currentValue == null) return BigDecimal.ZERO.toPlainString()
+            return BigDecimal(currentValue).abs().toPlainString()
+        }
     }
 
     /**
@@ -55,96 +59,114 @@ class Calculator {
      * @return String - Current value with signum.
      */
     fun getValue() : String {
-        if (currentValue == null) return BigDecimal.ZERO.toEngineeringString()
-
-        return BigDecimal(currentValue).toEngineeringString()
+        if (currentOperator == CalculatorFunction.EQUALS) {
+            return value.toPlainString()
+        } else {
+            if (currentValue == null) return BigDecimal.ZERO.toPlainString()
+            return BigDecimal(currentValue).toPlainString()
+        }
     }
 
     //The basic function to make proper changes.
     fun calculate(function: CalculatorFunction) {
-        synchronized(this) {
-            when(function) {
-                CalculatorFunction.DOT -> {
-                    if (currentValue != null) {
-                        if (!currentValue!!.contains('.')) {
-                            if (currentValue!!.isEmpty()) {
-                                currentValue = "0."
-                            } else {
-                                currentValue += "."
-                            }
-                        }
-                    } else {
-                        currentValue = "0."
-                    }
-                    updateListener.onUpdate(currentValue!!)
-                }
-                CalculatorFunction.REMOVE -> {
-                    currentValue?.dropLast(1)
 
-                    if (currentValue!!.isEmpty()) currentValue = "0"
+        val build = StringBuilder(function.name).append(" {").appendln()
+        build
+                .append("Operator: $currentOperator").appendln()
+                .append("Current value: $currentValue").appendln()
+                .append("Total value: $value").appendln()
+                .append(" } -> results: {").appendln()
 
-                    if (currentValue != null) updateListener.onUpdate(currentValue!!)
-                }
-                CalculatorFunction.EQUALS -> {
-                    if (currentValue != null) {
-                        if (currentValue!!.last() == '.') currentValue!!.dropLast(1)
-                        if (currentValue!!.isNotEmpty() || BigDecimal(currentValue!!) != BigDecimal.ZERO) {
-                            if (currentOperator != null) {
-                                val tempValue = BigDecimal(currentValue)
-                                when (currentOperator) {
-                                    CalculatorFunction.DIVIDE -> value.divide(tempValue)
-                                    CalculatorFunction.MULTIPLY -> value.multiply(tempValue)
-                                    CalculatorFunction.SUBTRACT -> value.subtract(tempValue)
-                                    else /*Add*/ -> value.add(tempValue)
-                                }
-                            }
+        when(function) {
+            CalculatorFunction.DOT -> {
+                if (currentValue != null) {
+                    if (!currentValue!!.contains('.')) {
+                        if (currentValue!!.isEmpty()) {
+                            currentValue = "0."
+                        } else {
+                            currentValue += "."
                         }
-                        currentValue = null
-                        currentOperator = null
-                        updateListener.onUpdate(value.toEngineeringString())
                     }
+                } else {
+                    currentValue = "0."
                 }
-                CalculatorFunction.DIVIDE, CalculatorFunction.MULTIPLY, CalculatorFunction.SUBTRACT, CalculatorFunction.ADD -> {
-                    if (currentValue != null) {
+                updateListener.onUpdate(currentValue!!)
+            }
+            CalculatorFunction.REMOVE -> {
+                currentValue?.dropLast(1)
+
+                if (currentValue.isNullOrEmpty()) currentValue = "0"
+
+                if (currentValue != null) updateListener.onUpdate(currentValue!!)
+            }
+            CalculatorFunction.EQUALS -> {
+                if (currentValue != null) {
+                    if (currentValue!!.last() == '.') currentValue!!.dropLast(1)
+                    if (currentValue!!.isNotEmpty() || BigDecimal(currentValue!!) != BigDecimal.ZERO) {
                         if (currentOperator != null) {
                             val tempValue = BigDecimal(currentValue)
                             when (currentOperator) {
-                                CalculatorFunction.DIVIDE -> value.divide(tempValue)
-                                CalculatorFunction.MULTIPLY -> value.multiply(tempValue)
-                                CalculatorFunction.SUBTRACT -> value.subtract(tempValue)
-                                else /*Add*/ -> value.add(tempValue)
+                                CalculatorFunction.DIVIDE -> value = value.divide(tempValue)
+                                CalculatorFunction.MULTIPLY -> value = value.multiply(tempValue)
+                                CalculatorFunction.SUBTRACT -> value = value.subtract(tempValue)
+                                CalculatorFunction.ADD -> value = value.add(tempValue)
+                                else -> Unit
                             }
-                            updateListener.onUpdate(value.toEngineeringString())
-                        } else {
-                            value = BigDecimal(currentValue)
                         }
-                        currentValue = null
-                        currentOperator = function
                     }
+                    currentValue = null
+                    currentOperator = null
+                    updateListener.onUpdate(value.toPlainString())
                 }
-                else -> { // Numbers 0-9
-                    if (currentValue != null) {
-                        if (currentValue!!.isNotEmpty()) {
-                            if (currentValue!! == "0") {
-                                currentValue = function.ordinal.toString()
-                            } else {
-                                if (currentValue!!.contains('.')) {
-                                    if (currentValue!!.substringAfter('.').length != 2) {
-                                        currentValue += function.ordinal.toString()
-                                    }
-                                } else {
+            }
+            CalculatorFunction.DIVIDE, CalculatorFunction.MULTIPLY, CalculatorFunction.SUBTRACT, CalculatorFunction.ADD -> {
+                if (currentValue != null) {
+                    if (currentOperator != null) {
+                        val tempValue = BigDecimal(currentValue)
+                        when (currentOperator) {
+                            CalculatorFunction.DIVIDE -> value = value.divide(tempValue)
+                            CalculatorFunction.MULTIPLY -> value = value.multiply(tempValue)
+                            CalculatorFunction.SUBTRACT -> value = value.subtract(tempValue)
+                            CalculatorFunction.ADD -> value = value.add(tempValue)
+                            else -> Unit
+                        }
+                        updateListener.onUpdate(value.toPlainString())
+                    } else {
+                        value = BigDecimal(currentValue)
+                    }
+                    currentValue = null
+                    currentOperator = function
+                }
+            }
+            else -> { // Numbers 0-9
+                if (currentValue != null) {
+                    if (currentValue!!.isNotEmpty()) {
+                        if (currentValue!! == "0") {
+                            currentValue = function.ordinal.toString()
+                        } else {
+                            if (currentValue!!.contains('.')) {
+                                if (currentValue!!.substringAfter('.').length != 2) {
                                     currentValue += function.ordinal.toString()
                                 }
+                            } else {
+                                currentValue += function.ordinal.toString()
                             }
-                        } else {
-                            currentValue = function.ordinal.toString()
                         }
                     } else {
                         currentValue = function.ordinal.toString()
                     }
-                    updateListener.onUpdate(currentValue!!)
+                } else {
+                    currentValue = function.ordinal.toString()
                 }
+                updateListener.onUpdate(currentValue!!)
             }
         }
+
+        build
+                .append("Operator: $currentOperator").appendln()
+                .append("Current value: $currentValue").appendln()
+                .append("Total value: $value").appendln()
+
+        Log.d("_Test", build.append("}").toString());
     }
 }

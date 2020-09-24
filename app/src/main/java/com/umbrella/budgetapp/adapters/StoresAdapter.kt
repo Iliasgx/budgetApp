@@ -1,8 +1,8 @@
 package com.umbrella.budgetapp.adapters
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedStore
@@ -38,8 +38,8 @@ class StoresAdapter(val callback: CallBack) : BaseAdapter<ExtendedStore>() {
             override fun onBinding(item: ExtendedStore, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_Stores_Img.apply {
-                        this.setBackgroundColor(resources.getIntArray(R.array.colors)[item.category?.color!!])
-                        this.setImageDrawable(ContextCompat.getDrawable(context, item.category.icon!!))
+                        setImageResource(item.category?.icon!!)
+                        backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.category.color!!])
                     }
 
                     list_Stores_Name.text = item.store.name

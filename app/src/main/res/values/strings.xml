@@ -47,8 +47,9 @@
     <string name="title_Templates">Templates</string>
 
     <string name="title_addChange_record">€ 0.00</string>
-    <string name="title_addChange_record_value">%1$s %2$d</string>
+    <string name="title_addChange_record_value">%1$s %2$.2f</string>
 
+    <string name="title_add_recordBasic">Add record</string>
     <string name="title_add_account">New account</string>
     <string name="title_add_category">New category</string>
     <string name="title_add_currency">New currency</string>
@@ -59,7 +60,6 @@
     <string name="title_add_goal_select">Choose goal</string>
     <string name="title_add_goal">New goal</string>
     <string name="title_add_planned_payment">New planned payment</string>
-    <string name="title_add_record_details">Set record details</string>
     <string name="title_add_shopping_list">New shopping list</string>
     <string name="title_add_store">New store</string>
     <string name="title_add_template">New template</string>
@@ -123,7 +123,9 @@
     <string name="home_Information_Header3">Shopping lists</string>
 
     <string name="home_showAllAccounts">All accounts</string>
-    <string name="home_newRecordFAB">New record</string>
+    <string name="home_FAB_newRecord">New record</string>
+    <string name="home_FAB_transfer">Transfer</string>
+    <string name="home_FAB_template">Template: %1$s</string>
 
     <!-- |||||||||||||||| Debts |||||||||||||||| -->
     <string name="debts_Tab1">@string/lent</string>
@@ -154,6 +156,7 @@
     <string name="goals_Details_Estimated">Estimated time to reach goal</string>
     <string name="goals_Details_EstimatedPeriod">%1$d days</string>
     <string name="goals_Details_AddAmount">Add saved amount</string>
+    <string name="goals_Details_AddAmount_error">Cannot add an amount when goal is paused.</string>
     <string name="goals_Details_SetReached">Set goal as reached</string>
 
     <!-- |||||||||||||||| Slider period strings |||||||||||||||| -->
@@ -276,7 +279,7 @@
     <!-- |||||||||||||||| New account |||||||||||||||| -->
     <string name="data_Account_Name" >Account name</string>
     <string name="data_Account_Type" >Type</string>
-    <string name="data_Account_Value" >Current value</string>
+    <string name="data_Account_Value" >Initial value</string>
     <string name="data_Account_Currency" >Currency</string>
     <string name="data_Account_Color" >Select color</string>
     <string name="data_Account_Exclude" >Exclude from stats</string>
@@ -300,7 +303,7 @@
 
     <string name="data_Debt_errorMsg_nameEmpty">Name can\'t be empty.</string>
     <string name="data_Debt_errorMsg_nameTooShort">Name must at least have %1$d characters.</string>
-    <string name="data_Debt_errorMsg_amountError">The amount must have a minimum of %1$d.</string>
+    <string name="data_Debt_errorMsg_amountError">The amount must have a minimum of %1$.2f.</string>
 
     <!-- |||||||||||||||| New planned payment |||||||||||||||| -->
     <string name="data_PlannedPayment_Name" >Name</string>
@@ -336,7 +339,7 @@
     <string name="data_Record_Description" >More details</string>
     <string name="data_Record_Template">Choose a template</string>
 
-    <string name="data_Record_errorMsg_amount">Value must at least be %1$d.</string>
+    <string name="data_Record_errorMsg_amount">Value must at least be %1$.2f.</string>
 
     <string name="data_Record_Details_Description" >Description</string>
     <string name="data_Record_Details_Paytype" >Payment type</string>
@@ -387,7 +390,7 @@
     <string name="dialog_Record_Positive">Create record</string>
     <string name="dialog_Record_Negative">Cancel</string>
 
-    <string name="dialog_Record_error_amount">Value must be bigger than %1$d.</string>
+    <string name="dialog_Record_error_amount">Value must be bigger than %1$.2f.</string>
 
     <!-- |||||||||||||||| Dialog New Item strings |||||||||||||||| -->
     <string name="dialog_NewItem_Name_Hint">Item name</string>
@@ -416,8 +419,8 @@
     <string name="dialog_Amount_Positive">Insert</string>
     <string name="dialog_Amount_Negative">Cancel</string>
 
-    <string name="dialog_Amount_error_min">Value must be bigger than %1$d.</string>
-    <string name="dialog_Amount_error_max">Value must be smaller than %1$d.</string>
+    <string name="dialog_Amount_error_min">Value must be bigger than %1$.2f.</string>
+    <string name="dialog_Amount_error_max">Value must be smaller than %1$.2f.</string>
 
     <string name="dialog_default">Default</string>
     <string name="dialog_rename_title">Rename shopping list</string>

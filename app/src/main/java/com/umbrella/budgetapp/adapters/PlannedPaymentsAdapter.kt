@@ -1,8 +1,8 @@
 package com.umbrella.budgetapp.adapters
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedPayments
@@ -38,20 +38,16 @@ class PlannedPaymentsAdapter(val callBack: CallBack) : BaseAdapter<ExtendedPayme
             override fun onBinding(item: ExtendedPayments, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_PlannedPayments_Img.apply {
-                        setBackgroundColor(context.getColor(item.category.color!!))
-                        setImageDrawable(ContextCompat.getDrawable(context, item.category.icon!!))
+                        setImageResource(item.category.icon!!)
+                        backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.category.color!!])
                     }
 
                     list_PlannedPayments_Title.text = item.plannedPayment.name
                     list_PlannedPayments_Category.text = item.category.name
 
-                    list_PlannedPayments_Information.text.apply {
-                        item.plannedPayment.note
-
-                        if (!item.plannedPayment.payee.isNullOrEmpty()) {
-                            "\n" + item.plannedPayment.payee
-                        }
-                    }
+                    var info = item.plannedPayment.note
+                    if (!item.plannedPayment.payee.isNullOrBlank()) info += "\n${item.plannedPayment.payee}"
+                    list_PlannedPayments_Information.text = info
 
                     list_PlannedPayments_Amount.apply {
                         currencyText(Memory.lastUsedCountry.symbol, item.plannedPayment.amount!!)

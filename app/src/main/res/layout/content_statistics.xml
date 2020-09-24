@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/statistics_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/statistics_appBarLayout"
@@ -19,10 +20,10 @@
             app:tabMode="scrollable"
             app:tabGravity="fill"
             app:tabContentStart="25dp"/>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/statistics_ViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/statistics_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

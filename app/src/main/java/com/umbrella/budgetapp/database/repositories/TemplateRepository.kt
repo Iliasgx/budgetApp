@@ -1,5 +1,6 @@
 package com.umbrella.budgetapp.database.repositories
 
+import androidx.annotation.IntRange
 import com.umbrella.budgetapp.cache.App
 import com.umbrella.budgetapp.database.BudgetDatabase
 import com.umbrella.budgetapp.database.collections.Template
@@ -15,6 +16,8 @@ class TemplateRepository {
     }
 
     fun getAllTemplates() = daoTemplate.getAllTemplates()
+
+    fun getAllTemplates(@IntRange(from = 1) limit: Int) = daoTemplate.getAllTemplates(limit)
 
     fun getTemplateById(id: Long) = daoTemplate.getTemplateById(id)
 

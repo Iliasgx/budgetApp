@@ -12,9 +12,9 @@ import com.umbrella.budgetapp.database.collections.PlannedPayment
                 categories.category_id AS extended_category_id, categories.category_name AS extended_category_name, 
                 currencies.currency_id AS extended_currency_id, currencies.currency_country_ref AS extended_country_ref, currencies.currency_position AS extended_currency_position 
                 FROM planned_payments 
-                INNER JOIN accounts ON planned_payments.planned_payment_account_ref = accounts.account_id 
-                INNER JOIN categories ON planned_payments.planned_payment_category_ref = categories.category_id 
-                INNER JOIN currencies ON planned_payments.planned_payment_currency_ref = currencies.currency_id"""
+                LEFT JOIN accounts ON planned_payments.planned_payment_account_ref = accounts.account_id 
+                LEFT JOIN categories ON planned_payments.planned_payment_category_ref = categories.category_id 
+                LEFT JOIN currencies ON planned_payments.planned_payment_currency_ref = currencies.currency_id"""
 )
 data class ExtendedPlannedPayment (
         @Embedded

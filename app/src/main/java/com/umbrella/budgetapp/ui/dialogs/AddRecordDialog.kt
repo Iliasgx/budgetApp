@@ -9,6 +9,7 @@ import android.widget.TextView.BufferType.EDITABLE
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
@@ -16,6 +17,7 @@ import com.umbrella.budgetapp.database.collections.Account
 import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Record
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
+import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.extensions.currencyText
 import com.umbrella.budgetapp.extensions.getNavigationResult
@@ -102,6 +104,17 @@ class AddRecordDialog : DialogFragment() {
                 BigDecimal(dialog_Record_Amount.text.toString()),
                 Instant.now().toEpochMilli()
         ))
+
+        val accountModel by viewModels<AccountViewModel>()
+        accountModel.getAccountById((dialog_Record_Account.tag as Account).id!!).observe(viewLifecycleOwner, Observer {
+            val tempAccount = it.account
+            val recordValue = BigDecimal(dialog_Record_Amount.text.toString())
+
+            tempAccount.currentValue = tempAccount.currentValue!!.add(recordValue)
+
+            accountModel.getAccountById((dialog_Record_Account.tag as Account).id!!).removeObservers(viewLifecycleOwner)
+            accountModel.updateAccount(tempAccount)
+        })
 
         setNavigationResult("record", true)
 

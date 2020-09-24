@@ -51,4 +51,11 @@ class StatisticsFragment: ExtendedFragment(R.layout.content_statistics) {
 
         override fun getItemCount() = 4
     }
+
+    companion object Tab {
+        const val BALANCE = 0
+        const val CASHFLOW = 1
+        const val SPENDING = 2
+        const val REPORTS = 3
+    }
 }

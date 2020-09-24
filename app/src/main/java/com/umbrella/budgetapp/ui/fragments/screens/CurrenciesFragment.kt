@@ -2,8 +2,10 @@ package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper.DOWN
 import androidx.recyclerview.widget.ItemTouchHelper.UP
 import com.umbrella.budgetapp.R
@@ -31,15 +33,18 @@ class CurrenciesFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
 
         setUpRecyclerView()
 
-        binding.fragmentFloatingActionButton.setOnClickListener {
-            // TODO: 06/09/2020 load Dialog for new currency
+        binding.fragmentFloatingActionButton.apply {
+            isVisible = true
+            setOnClickListener {
+                findNavController().navigate(CurrenciesFragmentDirections.currenciesToUpdateCurrency(nextPosition = adapter.itemCount))
+            }
         }
     }
 
     private fun setUpRecyclerView() {
         adapter = CurrenciesAdapter(object : CallBack {
             override fun onItemClick(itemId: Long) {
-                // TODO: 06/09/2020 Load Dialog to update currency
+                findNavController().navigate(CurrenciesFragmentDirections.currenciesToUpdateCurrency(itemId))
             }
         })
 

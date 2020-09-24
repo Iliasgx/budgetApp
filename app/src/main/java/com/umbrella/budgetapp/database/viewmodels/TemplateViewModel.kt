@@ -1,12 +1,11 @@
 package com.umbrella.budgetapp.database.viewmodels
 
 import android.app.Application
+import androidx.annotation.IntRange
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.umbrella.budgetapp.database.collections.Template
-import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
 import com.umbrella.budgetapp.database.repositories.TemplateRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +16,9 @@ class TemplateViewModel(application: Application) : AndroidViewModel(application
 
     fun getTemplateById(id: Long) = repos.getTemplateById(id).asLiveData()
 
-    fun getAllTemplates() : LiveData<List<TemplateAndCategory>> = repos.getAllTemplates().asLiveData()
+    fun getAllTemplates()  = repos.getAllTemplates().asLiveData()
+
+    fun getAllTemplates(@IntRange(from = 1) limit: Int) = repos.getAllTemplates(limit).asLiveData()
 
     fun changePosition(id: Long, position: Int) = repos.changePosition(id, position)
 

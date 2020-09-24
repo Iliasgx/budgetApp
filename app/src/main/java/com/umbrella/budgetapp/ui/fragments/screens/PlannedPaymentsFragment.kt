@@ -48,7 +48,6 @@ class PlannedPaymentsFragment : ExtendedFragment(R.layout.fragment_planned_payme
             adaptSorting()
         })
 
-
         binding.plannedPaymentsFABIncome.setOnClickListener { findNavController().navigate(PlannedPaymentsFragmentDirections.plannedPaymentsToUpdatePlannedPayments(type = PayType.INCOME)) }
         binding.plannedPaymentsFABExpenses.setOnClickListener { findNavController().navigate(PlannedPaymentsFragmentDirections.plannedPaymentsToUpdatePlannedPayments(type = PayType.EXPENSE)) }
     }
@@ -78,7 +77,6 @@ class PlannedPaymentsFragment : ExtendedFragment(R.layout.fragment_planned_payme
 
         with (tempList) {
             adapter.setData(when (sortType) {
-                SortType.DEFAULT -> tempList
                 SortType.AZ -> {
                     sortByDescending { it.plannedPayment.name }
                     this
@@ -96,6 +94,7 @@ class PlannedPaymentsFragment : ExtendedFragment(R.layout.fragment_planned_payme
                     // TODO: 08/09/2020 Function for getting the furthest payments first
                     this
                 }
+                else -> this
             })
         }
     }

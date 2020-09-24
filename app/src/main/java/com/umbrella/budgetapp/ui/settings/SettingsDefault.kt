@@ -33,6 +33,6 @@ class SettingsDefault : PreferenceFragmentCompat() {
 
     private fun setSwitches() {
         // TODO: 15/09/2020 Add functions for switches
-        onSwitch(R.string.preferences_Key_Language) {}
+        onSwitch(R.string.preferences_Key_Security_Pin) {}
     }
 }

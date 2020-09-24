@@ -1,5 +1,6 @@
 package com.umbrella.budgetapp.database.dao
 
+import androidx.annotation.IntRange
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RoomWarnings
@@ -21,6 +22,9 @@ interface DaoTemplate : Base<Template> {
     @Transaction
     @Query("SELECT * FROM template_cross_category ORDER BY template_position ASC")
     fun getAllTemplates() : Flow<List<TemplateAndCategory>>
+
+    @Query("SELECT template_id, template_name, category_icon FROM template_cross_category ORDER By template_position ASC LIMIT :limit")
+    fun getAllTemplates(@IntRange(from = 1) limit: Int) : Flow<List<TemplateAndCategory>>
 
     /**
      * Find Template by ID. Template with crossReferences.

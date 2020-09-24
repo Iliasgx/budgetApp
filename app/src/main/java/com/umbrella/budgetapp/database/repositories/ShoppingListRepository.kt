@@ -16,6 +16,8 @@ class ShoppingListRepository {
 
     fun getAllShoppingLists() = daoShoppingList.getAllShoppingLists()
 
+    fun getAllShoppingLists(limit: Int) = daoShoppingList.getAllShoppingLists(limit)
+
     fun getShoppingListById(id: Long) = daoShoppingList.getShoppingListById(id)
 
     fun getExtendedShoppingListById(id: Long) = daoShoppingList.getExtendedShoppingListById(id)

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.databinding.ContentGoalsBinding
@@ -26,7 +25,6 @@ class GoalsFragment: ExtendedFragment(R.layout.content_goals) {
     private fun setUpAdapter() {
         val adapter = GoalViewPagerAdapter(this)
         binding.goalsViewPager.adapter = adapter
-        binding.goalsViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         TabLayoutMediator(binding.goalsTabLayout, binding.goalsViewPager) { tab, position ->
             tab.text = when (position) {

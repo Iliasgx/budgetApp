@@ -1,5 +1,6 @@
 package com.umbrella.budgetapp.ui.fragments.editors
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -7,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView.BufferType.EDITABLE
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -80,8 +80,9 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
 
             if (type == Type.EDIT) {
                 dataCardCategoryName.setText(category.name, EDITABLE)
-                dataCardCategoryColor.setSelection(category.color!!)
-                dataCardCategoryIcon.setSelection(category.icon!!)
+                // TODO: 15/09/2020 Find out how to getCurrent, arrays don't work
+                //dataCardCategoryColor.setSelection(category.color!!)
+                //dataCardCategoryIcon.setSelection(category.icon!!)
             }
         }
 
@@ -101,7 +102,7 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    dataCardCategoryImage.setBackgroundColor(ResourcesCompat.getColor(resources, resources.getIntArray(R.array.colors)[position], requireContext().theme))
+                    dataCardCategoryImage.backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[position])
                     editData.color = position
                 }
             }
@@ -110,8 +111,13 @@ class UpdateCategoryFragment: ExtendedFragment(R.layout.data_category), Edit {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    dataCardCategoryImage.setImageResource(resources.getIntArray(R.array.icons)[position])
-                    editData.icon = position
+                    resources.obtainTypedArray(R.array.icons).apply {
+                        val resourceId = getResourceId(position, 0)
+
+                        dataCardCategoryImage.setImageResource(resourceId)
+                        editData.icon = resourceId
+                        recycle()
+                    }
                 }
             }
 

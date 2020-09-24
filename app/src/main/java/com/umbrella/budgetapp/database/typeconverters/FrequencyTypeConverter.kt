@@ -21,7 +21,7 @@ class FrequencyTypeConverter {
 
         subs.forEach { str ->
             val stream = str.split("$")
-            map[stream[0]] = stream[1]
+            if (stream.size > 1) map[stream[0]] = stream[1]
         }
         return map
     }

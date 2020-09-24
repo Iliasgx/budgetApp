@@ -65,13 +65,13 @@ sealed class Spinners {
     /**
      * Class for the icon spinner.
      */
-    class Icons(fragment: Fragment, spinner: Spinner) : Spinners() {
+    class Icons(val fragment: Fragment, val spinner: Spinner) : Spinners() {
 
         init {
             bindSpinner(spinner, IconAdapter(fragment, fragment.resources.obtainTypedArray(R.array.icons), (0..fragment.resources.getIntArray(R.array.icons).count()).toList().dropLast(1)))
         }
 
-        private class IconAdapter(private val fragment: Fragment, private val array: TypedArray, indices: List<Int>) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_icons, 0, indices) {
+        private class IconAdapter(fragment: Fragment, private val array: TypedArray, indices: List<Int>) : ArrayAdapter<Int>(fragment.requireContext(), R.layout.custom_spinner_icons, 0, indices) {
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 return createItemView(position, parent)
@@ -86,8 +86,6 @@ sealed class Spinners {
                 (view.findViewById<View>(R.id.spinner_icon) as ImageView).setImageResource(array.getResourceId(position, 0))
                 return view
             }
-
-
         }
     }
 

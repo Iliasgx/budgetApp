@@ -14,8 +14,8 @@ import kotlinx.android.parcel.Parcelize
         value = """SELECT stores.*, categories.*,
                 currencies.currency_id AS extended_currency_id, currencies.currency_position AS extended_currency_position, currencies.currency_country_ref AS extended_country_ref 
                 FROM stores
-                INNER JOIN currencies ON stores.store_currency_ref = currencies.currency_id 
-                INNER JOIN categories ON stores.store_category_ref = categories.category_id"""
+                LEFT JOIN currencies ON stores.store_currency_ref = currencies.currency_id 
+                LEFT JOIN categories ON stores.store_category_ref = categories.category_id"""
 )
 data class ExtendedStore (
         @Embedded

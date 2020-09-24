@@ -52,6 +52,6 @@ class DebtListFragment(private val type: DebtType)  : ExtendedFragment(R.layout.
                 debt.description.orEmpty()
         ))
 
-        getNavigationResult<Boolean>(R.id.debtListFragment, "record") { findNavController().navigateUp() }
+        getNavigationResult<Boolean>(R.id.debtListFragment, "record") { navigateUp() }
     }
 }

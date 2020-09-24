@@ -13,10 +13,10 @@ import com.umbrella.budgetapp.database.collections.Record
                 stores.store_id AS extended_store_id, stores.store_name AS extended_store_name, 
                 currencies.currency_id AS extended_currency_id, currencies.currency_country_ref AS extended_country_ref, currencies.currency_position AS extended_currency_position 
                 FROM records 
-                INNER JOIN accounts ON records.record_account_ref = accounts.account_id 
-                INNER JOIN categories ON records.record_category_ref = categories.category_id 
-                INNER JOIN stores ON records.record_store_ref = stores.store_id 
-                INNER JOIN currencies ON records.record_currency_ref = currencies.currency_id"""
+                LEFT JOIN accounts ON records.record_account_ref = accounts.account_id 
+                LEFT JOIN categories ON records.record_category_ref = categories.category_id 
+                LEFT JOIN stores ON records.record_store_ref = stores.store_id 
+                LEFT JOIN currencies ON records.record_currency_ref = currencies.currency_id"""
 )
 data class ExtendedRecord (
         @Embedded

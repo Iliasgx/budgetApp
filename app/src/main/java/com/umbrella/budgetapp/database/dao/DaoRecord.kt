@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
 interface DaoRecord : Base<Record> {
-    // TODO: Create RawQuery for altering query at runtime for FILTER options
-
     /**
      * Retrieves all records with crossReferences.
      *
@@ -24,14 +22,26 @@ interface DaoRecord : Base<Record> {
     fun getAllRecords() : Flow<List<ExtendedRecord>>
 
     /**
-     * Retrieves all records with crossReferences.
+     * Retrieves all records.
      *
      * @param accountIds: An array of account ID's to sort with.
      * @return The list of records in a Flow.
      */
+    @Query("SELECT record_amount, record_type, record_timestamp FROM records WHERE record_account_ref IN (:accountIds) ORDER BY record_timestamp DESC")
+    fun getAllRecordsOfAccounts(vararg accountIds: Long) : Flow<List<Record>>
+
+    /**
+     * Retrieves all records with crossReferences.
+     *
+     * @param accountIds: An array of account ID's to sort with.
+     * @param limit: Limit number of records.
+     *
+     * @return The list of records in a Flow.
+     */
     @Transaction
-    @Query("SELECT record_id, category_name, category_icon, category_color, extended_account_name, record_type, record_amount, record_timestamp, record_description, extended_country_ref FROM record_cross WHERE record_account_ref IN (:accountIds) ORDER BY record_timestamp DESC")
-    fun getAllRecordsOfAccounts(vararg accountIds: Long) : Flow<List<ExtendedRecord>>
+    @Query("SELECT record_id, category_name, category_icon, category_color, extended_account_name, record_type, record_amount, record_timestamp, record_description, extended_country_ref FROM record_cross WHERE record_account_ref IN (:accountIds) AND record_timestamp BETWEEN :startDate AND :endDate ORDER BY record_timestamp DESC LIMIT :limit")
+    fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, startDate: Long, endDate: Long) : Flow<List<ExtendedRecord>>
+
 
     /**
      * Retrieves all records with crossReferences.

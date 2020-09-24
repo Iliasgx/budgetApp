@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/black">
 
     <RadioGroup
@@ -13,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
-        android:checkedButton="@id/data_Card_RecordBasic_Title2"
         android:orientation="horizontal">
 
         <RadioButton
@@ -30,7 +30,7 @@
             android:textAllCaps="true"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:tag="0"/>
+            android:tag="0" />
 
         <RadioButton
             android:id="@+id/data_Card_RecordBasic_Title2"
@@ -84,68 +84,68 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="end|center_vertical"
+                android:paddingHorizontal="10dp"
                 android:layout_marginTop="25dp"
                 android:layout_toStartOf="@id/data_Card_RecordBasic_Currency"
                 android:layout_toEndOf="@id/data_Card_RecordBasic_Mark"
                 android:gravity="end|center_vertical"
-                android:paddingHorizontal="10dp"
+                android:lines="1"
+                android:maxLines="1"
                 android:text="@string/data_Record_DefaultAmount"
                 android:textColor="@android:color/white"
                 android:textSize="110sp"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="12sp"
                 android:autoSizeMaxTextSize="110sp"
-                android:autoSizeStepGranularity="2sp"/>
+                android:autoSizeStepGranularity="10sp"/>
 
             <TextView
                 android:id="@+id/data_Card_RecordBasic_Mark"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="57dp"
+                android:layout_alignTop="@id/data_Card_RecordBasic_Amount"
+                android:layout_alignBottom="@id/data_Card_RecordBasic_Amount"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:text="+"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="50sp"
-                tools:ignore="HardcodedText" />
+                tools:text="-"/>
 
             <TextView
                 android:id="@+id/data_Card_RecordBasic_Currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@id/data_Card_RecordBasic_Amount"
+                android:layout_alignBottom="@id/data_Card_RecordBasic_Amount"
                 android:textColor="@android:color/white"
                 android:textSize="40sp"
-                android:text="EUR"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
                 android:paddingEnd="10dp"
                 android:paddingStart="0dp"
-                android:layout_marginTop="20dp"
                 android:layout_toStartOf="@id/data_Card_RecordBasic_Details"
-                android:layout_marginBottom="57dp"
                 android:gravity="center_vertical"
-                tools:ignore="HardCodedText"/>
+                tools:text="EUR"/>
 
-            <GridLayout
-                android:id="@+id/data_Card_RecordBasic_GridLayout2"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/data_Card_RecordBasic_innerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="2"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/data_Card_RecordBasic_Amount"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="15dp">
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="15dp">
 
                 <TextView
                     android:id="@+id/data_Card_RecordBasic_AccountText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/data_Card_RecordBasic_CategoryText"
+                    app:layout_constraintHorizontal_bias="1"
                     android:gravity="center_horizontal"
                     android:text="@string/data_Record_Account"
                     android:textColor="@android:color/darker_gray"
@@ -153,9 +153,12 @@
 
                 <TextView
                     android:id="@+id/data_Card_RecordBasic_CategoryText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/data_Card_RecordBasic_AccountText"
+                    app:layout_constraintHorizontal_bias="1"
                     android:gravity="center_horizontal"
                     android:text="@string/data_Record_Category"
                     android:textColor="@android:color/darker_gray"
@@ -163,26 +166,37 @@
 
                 <TextView
                     android:id="@+id/data_Card_RecordBasic_Account"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/data_Card_RecordBasic_AccountText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/data_Card_RecordBasic_Category"
+                    app:layout_constraintHorizontal_bias="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/defaultText"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="2"
+                    tools:text="@string/defaultText" />
 
                 <TextView
                     android:id="@+id/data_Card_RecordBasic_Category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/data_Card_RecordBasic_CategoryText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/data_Card_RecordBasic_Account"
+                    app:layout_constraintHorizontal_bias="1"
                     android:gravity="center_horizontal"
-                    android:text="@string/defaultText"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
-            </GridLayout>
+                    android:textSize="16sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    tools:text="@string/defaultText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageButton
                 android:id="@+id/data_Card_RecordBasic_Details"

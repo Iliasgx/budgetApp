@@ -2,6 +2,7 @@ package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -27,8 +28,11 @@ class CategoriesFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
 
         setUpRecyclerView()
 
-        binding.fragmentFloatingActionButton.setOnClickListener {
-            findNavController().navigate(CategoriesFragmentDirections.categoriesToUpdateCategory())
+        binding.fragmentFloatingActionButton.apply {
+            isVisible = true
+            setOnClickListener {
+                findNavController().navigate(CategoriesFragmentDirections.categoriesToUpdateCategory())
+            }
         }
     }
 

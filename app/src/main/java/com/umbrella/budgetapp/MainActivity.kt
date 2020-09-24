@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(R.layout._activity) {
         setUpDrawerMenu()
 
         // Checks first item (Home)
-        nav_view.setCheckedItem(R.id.globalHome)
+        nav_view.setCheckedItem(R.id.home)
     }
 
     private fun setUpDrawerMenu() {

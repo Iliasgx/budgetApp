@@ -76,43 +76,22 @@
         android:textSize="45sp" />
 
     <TextView
-        android:id="@+id/goal_Details_SavedAmount"
-        android:layout_width="wrap_content"
+        android:id="@+id/goal_Details_amount"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/goal_Details_Saved"
-        android:layout_alignEnd="@+id/divider_center"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="end"
+        android:gravity="center"
         android:text="@string/defaultNumber"
-        android:textSize="15sp" />
-
-    <View
-        android:id="@+id/divider_center"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="202dp" />
-
-    <TextView
-        android:id="@+id/goal_Details_Savable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/goal_Details_Saved"
-        android:layout_alignStart="@+id/divider_center"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="25dp"
-        android:gravity="start"
-        tools:text="/ 16"
         android:textSize="15sp" />
 
     <TextView
         android:id="@+id/goal_Details_Currency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/goal_Details_Savable"
+        android:layout_below="@id/goal_Details_amount"
         android:gravity="center"
         android:text="EUR"
         android:textSize="15sp"

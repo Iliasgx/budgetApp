@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
-import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Account
 import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Currency
@@ -20,6 +19,7 @@ import com.umbrella.budgetapp.database.collections.Record
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedTemplate
 import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
 import com.umbrella.budgetapp.database.defaults.DefaultCountries
+import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.TemplateViewModel
 import com.umbrella.budgetapp.databinding.DataRecordBasicBinding
@@ -30,6 +30,7 @@ import com.umbrella.budgetapp.ui.components.Calculator
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.dialogs.DataListDialog.DataLocationType
 import com.umbrella.budgetapp.ui.interfaces.Edit
+import java.math.BigDecimal
 import java.util.*
 
 // Screen can only be used to add a new Record, not to edit it. For editing, the Detail Screen is used.
@@ -37,14 +38,14 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
     private val binding by viewBinding(DataRecordBasicBinding::bind)
 
     private companion object {
-        const val MIN_AMOUNT = 0.01f
+        const val MIN_AMOUNT = 0.01
     }
 
     val args : UpdateRecordBasicFragmentArgs by navArgs()
 
     private val model by viewModels<RecordViewModel>()
 
-    private var editData = Record()
+    private var editData = Record(amount = BigDecimal.ZERO)
 
     // Used when user navigated to creating a record from a template. Not used for the Template Dialog in this screen.
     private var receivedTemplate : ExtendedTemplate? = null
@@ -61,7 +62,6 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
         super.onViewCreated(view, savedInstanceState)
 
         setToolbar(ToolBarNavIcon.CANCEL)
-        setTitle(R.string.title_Records)
 
         if (args.templateId != 0L) {
             val tempModel by viewModels<TemplateViewModel>()
@@ -87,17 +87,12 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      */
     override fun initData() {
         with(binding) {
-            dataCardRecordBasicCurrency.apply {
-                text = Memory.lastUsedCountry.name
-                tag = 0L
-            }
-
             // Add details of template when a record is created from a template.
             if (receivedTemplate != null) {
-                dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>(receivedTemplate!!.template.type ?: 0).id)
+                dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>(receivedTemplate!!.template.type!!.toString()).id)
                 dataCardRecordBasicAmount.currencyText("", receivedTemplate!!.template.amount!!)
                 dataCardRecordBasicCurrency.text = DefaultCountries().getCountryById(receivedTemplate!!.countryRef).name
-                dataCardRecordBasicCurrency.tag = receivedTemplate!!.currencyPosition ?: 0L
+                dataCardRecordBasicCurrency.tag = receivedTemplate!!.currencyPosition
                 dataCardRecordBasicAccount.text = receivedTemplate!!.accountName
                 dataCardRecordBasicCategory.text = receivedTemplate!!.category.name
 
@@ -126,7 +121,6 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      * Function called after initData to make sure that listeners are not called when initializing data in the views.
      */
     override fun setListeners() {
-
         with(binding) {
             // Update mark when type is changed.
             dataCardRecordBasicTitleGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -134,15 +128,14 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
 
                 dataCardRecordBasicMark.text = when(value) {
                     0 -> "+"
-                    1 -> "-"
-                    else -> "@"
+                    else -> "-"
                 }
 
                 editData.type = value
             }
-
+            
             //Automatically check the item to call the listeners. This will update the mark directly.
-            dataCardRecordBasicTitleGroup.check(dataCardRecordBasicTitleGroup.checkedRadioButtonId)
+            dataCardRecordBasicTitleGroup.check(R.id.data_Card_RecordBasic_Title2)
 
             dataCardRecordBasicCurrency.setOnClickListener {
                 navToDialog(DataLocationType.CURRENCY)
@@ -182,9 +175,10 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
             dataCardRecordBasicTemplate.setOnClickListener {
                 navToDialog(DataLocationType.TEMPLATE)
 
-                getNavigationResult<TemplateAndCategory>(R.id.updateRecordBasic, "data") { result ->
+                getNavigationResult<TemplateAndCategory>(R.id.updateRecordBasic, "template_data") { result ->
                     dataCardRecordBasicTemplate.text = result.template.name
 
+                    // Need to get the full template because @result has not all fields needed. (Fields were limited in dialog)
                     val tempMod by viewModels<TemplateViewModel>()
                     val singleDao = tempMod.getTemplateById(result.template.id!!)
 
@@ -212,7 +206,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      * Check if all requirements are met before saving the data.
      */
     override fun checkData() {
-        if (editData.amount!!.toFloat() < MIN_AMOUNT) {
+        if (editData.amount!!.toDouble() < MIN_AMOUNT.toDouble()) {
             Toast.makeText(requireContext(), getString(R.string.data_Record_errorMsg_amount, MIN_AMOUNT.toDouble()), Toast.LENGTH_SHORT).show()
             return
         }
@@ -227,6 +221,16 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
      */
     override fun saveData() {
         model.addRecord(editData)
+
+        val accountModel by viewModels<AccountViewModel>()
+        accountModel.getAccountById(editData.accountRef!!).observe(viewLifecycleOwner, Observer {
+            val tempAccount = it.account
+            tempAccount.currentValue = tempAccount.currentValue!!.add(editData.amount)
+
+            accountModel.getAccountById(editData.accountRef!!).removeObservers(viewLifecycleOwner)
+            accountModel.updateAccount(tempAccount)
+        })
+
         navigateUp()
     }
 
@@ -241,7 +245,7 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
                         Pair("account_position", binding.dataCardRecordBasicAccount.tag.toString()),
                         Pair("category", editData.categoryRef.toString()),
                         Pair("category_name", binding.dataCardRecordBasicCategory.text.toString()),
-                        Pair("type", editData.paymentType.toString())
+                        Pair("type", editData.type.toString())
                 ) + if (receivedTemplate != null) {
                     addBundle(
                             Pair("description", receivedTemplate!!.template.note.toString()),
@@ -273,9 +277,10 @@ class UpdateRecordBasicFragment : ExtendedFragment(R.layout.data_record_basic), 
         with(binding) {
             cal.updateListener = object : Calculator.OnUpdateListener {
                 override fun onUpdate(value: String) {
-                    if (cal.isNegative()) dataCardRecordBasicTitleGroup.check(0)
+                    if (cal.isNegative()) dataCardRecordBasicTitleGroup.check(requireView().findViewWithTag<RadioButton>("1").id)
 
                     dataCardRecordBasicAmount.text = cal.getAbsValue()
+                    editData.amount = BigDecimal(cal.getAbsValue())
                 }
             }
 

@@ -59,9 +59,9 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
 
         type = checkType(args.debtId)
 
-        debtType = when(type) {
-            Type.NEW -> DebtType.values()[args.debtType]
-            Type.EDIT -> extDebt.debt.debtType!!
+        if (type == Type.NEW) {
+            debtType = DebtType.values()[args.debtType]
+            editData.debtType = debtType
         }
 
         setToolbar(ToolBarNavIcon.CANCEL)
@@ -79,6 +79,8 @@ class UpdateDebtFragment : ExtendedFragment(R.layout.data_debt), Edit {
             if (type == Type.EDIT) {
                 extDebt = it
                 editData = extDebt.debt.copy()
+
+                debtType = it.debt.debtType!!
             }
             initData()
         })

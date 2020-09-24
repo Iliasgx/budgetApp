@@ -10,7 +10,7 @@ import com.umbrella.budgetapp.database.collections.Account
         value = """SELECT accounts.*, 
                 currencies.currency_id AS extended_currency_id, currencies.currency_country_ref AS extended_country_ref, currencies.currency_position AS extended_currency_position
                 FROM accounts 
-                INNER JOIN currencies ON accounts.account_currency_ref = currencies.currency_id"""
+                LEFT JOIN currencies ON accounts.account_currency_ref = currencies.currency_id"""
 )
 data class ExtendedAccount (
         @Embedded

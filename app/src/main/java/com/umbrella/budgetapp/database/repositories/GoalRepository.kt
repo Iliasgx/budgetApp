@@ -15,9 +15,7 @@ class GoalRepository {
         daoGoal = db.daoGoal()
     }
 
-    fun getAllGoalsUnreached(status: GoalStatus) = daoGoal.getAllGoalsUnreached(status)
-
-    fun getAllGoalsReached() = daoGoal.getAllGoalsReached()
+    fun getAllGoals(status: GoalStatus) = daoGoal.getAllGoals(status)
 
     fun getGoalById(id: Long) = daoGoal.getGoalById(id)
 

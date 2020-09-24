@@ -11,12 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.cache.Memory
 import com.umbrella.budgetapp.database.collections.Account
 import com.umbrella.budgetapp.database.collections.Category
 import com.umbrella.budgetapp.database.collections.Record
 import com.umbrella.budgetapp.database.collections.subcollections.CurrencyAndName
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedRecord
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedStore
+import com.umbrella.budgetapp.database.defaults.DefaultCountries
+import com.umbrella.budgetapp.database.viewmodels.AccountViewModel
 import com.umbrella.budgetapp.database.viewmodels.RecordViewModel
 import com.umbrella.budgetapp.database.viewmodels.StoreViewModel
 import com.umbrella.budgetapp.databinding.DataRecordDetailsBinding
@@ -66,7 +69,7 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
                 extRecord = it
                 editData = extRecord.record.copy()
 
-                setTitle(R.string.title_addChange_record_value)
+                setTitle(getString(R.string.title_addChange_record_value, DefaultCountries().getCountryById(it.countryRef).symbol, it.record.amount!!.toDouble()))
             } else {
                 bundle = args.basicArguments
             }
@@ -175,7 +178,8 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
 
                 dataCardRecordDetailsAmount.text = result
 
-                setTitle(getString(R.string.title_addChange_record_value, "", BigDecimal(result).toDouble()))
+                val symbol = if (type == Type.NEW) Memory.lastUsedCountry.symbol else DefaultCountries().getCountryById(extRecord.countryRef).symbol
+                setTitle(getString(R.string.title_addChange_record_value, symbol, BigDecimal(result).toDouble()))
             }
 
             // Open a DateTimePickerDialog with the current date + time.
@@ -201,8 +205,8 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
         // No special requirements. Update EditData with data outside listeners.
         with(binding) {
             editData.apply {
-                accountRef = (dataCardRecordDetailsAccount.selectedItem as Account).id
-                currencyRef = (dataCardRecordDetailsCurrency.selectedItem as CurrencyAndName).id
+                accountRef = (dataCardRecordDetailsAccount.tag as Account).id
+                currencyRef = (dataCardRecordDetailsCurrency.tag as CurrencyAndName).id
                 type = dataCardRecordDetailsType.selectedItemPosition
                 paymentType = dataCardRecordDetailsPayType.selectedItemPosition
             }
@@ -215,11 +219,27 @@ class UpdateRecordDetailsFragment : ExtendedFragment(R.layout.data_record_detail
      * Save all data after the requirements are checked.
      */
     override fun saveData() {
+        var oldVal = BigDecimal.ZERO
+
         if (type == Type.NEW) {
             model.addRecord(editData)
+            oldVal = BigDecimal.ZERO
         } else if (hasChanges(extRecord.record, editData)) {
             model.updateRecord(editData)
+            oldVal = extRecord.record.amount!!
         }
+
+        val accountModel by viewModels<AccountViewModel>()
+        accountModel.getAccountById(editData.accountRef!!).observe(viewLifecycleOwner, Observer {
+            val tempAccount = it.account
+
+            val diff = editData.amount!!.min(oldVal)
+            tempAccount.currentValue = tempAccount.currentValue!!.add(diff)
+
+            accountModel.getAccountById(editData.accountRef!!).removeObservers(viewLifecycleOwner)
+            accountModel.updateAccount(tempAccount)
+        })
+
         navigateUp()
     }
 

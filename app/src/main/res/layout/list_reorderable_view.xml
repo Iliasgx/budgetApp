@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="2.5dp">
 
     <ImageView
         android:id="@+id/list_ReorderableView_Img"
@@ -22,6 +23,7 @@
         tools:backgroundTint="@android:color/holo_red_dark" />
 
     <LinearLayout
+        android:id="@+id/list_ReorderableView_infoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -60,4 +62,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_margin="15dp"/>
+
+    <include layout="@layout/custom_divider"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/list_ReorderableView_infoLayout"
+        android:layout_marginTop="10dp"/>
 </RelativeLayout>

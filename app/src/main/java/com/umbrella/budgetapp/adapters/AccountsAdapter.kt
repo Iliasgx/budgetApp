@@ -1,5 +1,6 @@
 package com.umbrella.budgetapp.adapters
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,6 @@ class AccountsAdapter(val callback: CallBack) : BaseAdapter<Account>() {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(accounts[position])
-        holder.itemView.id = accounts[position].id!!.toInt()
     }
 
     override fun getItemCount() = accounts.size
@@ -35,8 +35,13 @@ class AccountsAdapter(val callback: CallBack) : BaseAdapter<Account>() {
         onBind(object : Bind<Account> {
             override fun onBinding(item: Account, itemView: View, adapterPosition: Int) {
                 with(itemView) {
-                    list_ReorderableView_Img.setBackgroundColor(item.color!!)
+                    list_ReorderableView_Img.apply {
+                        setImageResource(R.drawable.account)
+                        backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.color!!])
+                    }
+
                     list_ReorderableView_Name.text = item.name
+
                     list_ReorderableView_Info.text = if (item.excludeStats!!) {
                         context.getString(R.string.account_excluded)
                     } else {

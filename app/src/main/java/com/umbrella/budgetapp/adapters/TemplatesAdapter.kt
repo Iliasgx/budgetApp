@@ -1,8 +1,8 @@
 package com.umbrella.budgetapp.adapters
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.subcollections.TemplateAndCategory
@@ -37,8 +37,8 @@ class TemplatesAdapter(val callback: CallBack) : BaseAdapter<TemplateAndCategory
             override fun onBinding(item: TemplateAndCategory, itemView: View, adapterPosition: Int) {
                 with (itemView) {
                     list_ReorderableView_Img.apply {
-                        setBackgroundColor(context.getColor(item.category.color!!))
-                        setImageDrawable(ContextCompat.getDrawable(context, item.category.icon!!))
+                        setImageResource(item.category.icon!!)
+                        backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.category.color!!])
                     }
 
                     list_ReorderableView_Name.text = item.template.name

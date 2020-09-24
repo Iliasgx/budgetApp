@@ -168,8 +168,8 @@ class UpdateTemplateFragment : ExtendedFragment(R.layout.data_template), Edit {
         //Update EditData with data outside listeners.
         with(binding) {
             editData.apply {
-                currencyRef = (dataCardTemplateCurrency.selectedItem as CurrencyAndName).id
-                accountRef = (dataCardTemplateAccount.selectedItem as Account).id
+                currencyRef = (dataCardTemplateCurrency.tag as CurrencyAndName).id
+                accountRef = (dataCardTemplateAccount.tag as Account).id
                 type = dataCardTemplateType.selectedItemPosition
                 paymentType = dataCardTemplatePayType.selectedItemPosition
             }

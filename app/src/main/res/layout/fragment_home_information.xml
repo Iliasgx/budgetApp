@@ -41,6 +41,11 @@
                 android:drawableStart="@drawable/debt"
                 android:text="@string/menu_Debts"
                 style="@style/Button_Menu"/>
+
+            <Button android:id="@+id/home_MenuScroll_Item5"
+                android:drawableStart="@drawable/goal"
+                android:text="@string/menu_Goals"
+                style="@style/Button_Menu"/>
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -63,28 +68,50 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/home_Card_PlannedPayments"
-        style="@style/CardView_Default">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/cardBackgroundColor"
+        app:cardCornerRadius="6dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_Card_PlannedPayments_upcoming"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
                 android:scrollbars="none"
                 tools:listitem="@layout/list_planned_payments"
                 tools:itemCount="1"/>
 
-            <include layout="@layout/custom_divider"/>
+            <include
+                android:id="@+id/home_Card_PlannedPayments_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="5dp"
+                layout="@layout/custom_divider"
+                android:layout_below="@id/home_Card_PlannedPayments_upcoming"/>
 
             <TextView
                 android:id="@+id/home_Card_PlannedPayments_More"
                 android:text="@string/cardviewButtonText_showMore"
+                android:layout_below="@id/home_Card_PlannedPayments_line"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="10dp"
                 style="@style/Text_Button_More"/>
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <View

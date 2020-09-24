@@ -48,87 +48,17 @@
                             android:layout_marginEnd="15dp"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        style="?android:attr/buttonBarStyle"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_Card_Accounts_accounts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/home_account1"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="2.5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/_round_button"
-                            android:gravity="start|center_vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="0dp"
-                            android:text="@string/defaultText"
-                            android:textColor="@android:color/white" />
-
-                        <Button
-                            android:id="@+id/home_account2"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="end"
-                            android:layout_marginStart="2.5dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/_round_button"
-                            android:gravity="start|center_vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="0dp"
-                            android:text="@string/defaultText"
-                            android:textColor="@android:color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        style="?android:attr/buttonBarStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/home_account3"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="2.5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/_round_button"
-                            android:gravity="start|center_vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="0dp"
-                            android:text="@string/defaultText"
-                            android:textColor="@android:color/white" />
-
-                        <Button
-                            android:id="@+id/home_account4"
-                            style="?android:attr/buttonBarButtonStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="end"
-                            android:layout_marginStart="2.5dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/_round_button"
-                            android:gravity="start|center_vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="0dp"
-                            android:text="@string/defaultText"
-                            android:textColor="@android:color/white" />
-                    </LinearLayout>
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
+                        app:spanCount="2"
+                        tools:listitem="@layout/list_home_account"
+                        tools:itemCount="4"/>
 
                     <TextView
                         android:id="@+id/home_Card_Accounts_All"
@@ -270,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="start"
-                            android:text="@string/defaultNumber"
+                            tools:text="@string/defaultNumber"
                             style="@style/Text_Amount" />
 
                         <TextView
@@ -279,7 +209,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="@string/defaultNumber"
+                            tools:text="@string/defaultNumber"
                             style="@style/Text_Amount"/>
                     </LinearLayout>
 
@@ -289,7 +219,7 @@
                         android:layout_height="wrap_content"
                         app:title="@string/income"
                         tools:value="@string/defaultNumber"
-                        tools:progress_value="20"
+                        tools:progress_value="40"
                         app:progress_color="@color/positiveColor"
                         android:layout_marginTop="10dp"/>
 

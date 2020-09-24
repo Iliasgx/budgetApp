@@ -2,6 +2,7 @@ package com.umbrella.budgetapp.ui.fragments.screens
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -25,12 +26,13 @@ class AccountsFragment : ExtendedFragment(R.layout.fragment_recycler_view) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        model.getAllAccounts().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-
         setUpRecyclerView()
 
-        binding.fragmentFloatingActionButton.setOnClickListener {
-            findNavController().navigate(AccountsFragmentDirections.accountsToUpdateAccount())
+        model.getAllAccounts().observe(viewLifecycleOwner, Observer { adapter.setData(it) })
+
+        binding.fragmentFloatingActionButton.apply {
+            isVisible = true
+            setOnClickListener { findNavController().navigate(AccountsFragmentDirections.accountsToUpdateAccount()) }
         }
     }
 

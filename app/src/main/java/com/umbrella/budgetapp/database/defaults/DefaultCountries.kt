@@ -42,6 +42,18 @@ class DefaultCountries {
     )
 
     fun getCountryById(id: Long?) : Country = countries.find { country -> country.id == id }.orElse(countries[0])
+
+    fun getCountryByPosition(position: Int) = countries[position]
+
+    fun getIndexOf(id: Long) = countries.indexOf(countries.find { country -> country.id == id} )
+
+    fun getNamesOfCountries() : List<String> {
+        val list = mutableListOf<String>()
+
+        countries.forEach { country -> list.add(country.name) }
+
+        return list
+    }
 }
 
 

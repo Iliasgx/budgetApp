@@ -37,9 +37,10 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="10dp"
-            android:max="100"
             android:maxHeight="10dip"
             android:minHeight="10dip"
-            android:progressDrawable="@drawable/_progressbar"/>
+            android:progressDrawable="@drawable/_progressbar"
+            tools:progressTint="@color/positiveColor"
+            tools:progress="77"/>
     </RelativeLayout>
 </merge>

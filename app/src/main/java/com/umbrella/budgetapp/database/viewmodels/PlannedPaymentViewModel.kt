@@ -19,7 +19,7 @@ class PlannedPaymentViewModel(application: Application) : AndroidViewModel(appli
 
     fun getPlannedPaymentById(id: Long) : LiveData<ExtendedPlannedPayment> =  repos.getPlannedPaymentById(id).asLiveData()
 
-    fun getAllPlannedPayments() : LiveData<List<ExtendedPayments>> = repos.getAllPlannedPayments().asLiveData()
+    fun getAllPlannedPayments() = repos.getAllPlannedPayments().asLiveData()
 
     fun getAllPlannedPayments(@IntRange(from = 1) limit: Int) : LiveData<List<ExtendedPayments>> = repos.getAllPlannedPayments(limit).asLiveData()
 

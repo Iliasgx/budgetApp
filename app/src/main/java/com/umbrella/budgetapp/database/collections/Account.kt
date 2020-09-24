@@ -26,6 +26,9 @@ data class Account(
         @ColumnInfo(name = "account_current_value")
         var currentValue: BigDecimal? = BigDecimal.ZERO,
 
+        @ColumnInfo(name = "account_initial_value")
+        var initialValue: BigDecimal? = BigDecimal.ZERO,
+
         @ColumnInfo(name = "account_position")
         var position: Int? = 0,
 

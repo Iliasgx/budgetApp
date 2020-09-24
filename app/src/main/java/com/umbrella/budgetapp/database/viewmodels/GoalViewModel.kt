@@ -2,7 +2,6 @@ package com.umbrella.budgetapp.database.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.umbrella.budgetapp.database.collections.Goal
@@ -17,9 +16,7 @@ class GoalViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getGoalById(id: Long) = repos.getGoalById(id).asLiveData()
 
-    fun getAllGoalsUnreached(status: GoalStatus) = repos.getAllGoalsUnreached(status).asLiveData()
-
-    fun getAllGoalsReached() : LiveData<List<Goal>> = repos.getAllGoalsReached().asLiveData()
+    fun getAllGoals(status: GoalStatus) = repos.getAllGoals(status).asLiveData()
 
     fun addGoal(goal: Goal) = viewModelScope.launch(Dispatchers.IO) { repos.addGoal(goal) }
 

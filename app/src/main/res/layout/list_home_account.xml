@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listHomeAccounts_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/_round_button"
+    android:backgroundTint="@color/positiveColor"
+    android:padding="10dp"
+    android:layout_margin="3dp">
+
+    <TextView
+        android:id="@+id/listHomeAccounts_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/white"
+        tools:text="ING"/>
+
+    <TextView
+        android:id="@+id/listHomeAccounts_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/listHomeAccounts_name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/white"
+        tools:text="€ 300.20"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

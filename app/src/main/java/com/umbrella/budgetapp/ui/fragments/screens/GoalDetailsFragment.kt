@@ -1,10 +1,13 @@
 package com.umbrella.budgetapp.ui.fragments.screens
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,6 +25,7 @@ import com.umbrella.budgetapp.extensions.getNavigationResult
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import kotlinx.android.synthetic.main._activity.*
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -50,8 +54,17 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
         })
 
         binding.apply {
-            goalDetailsAddAmount.setOnClickListener { addSavedAmount() }
-            goalDetailsSetReached.setOnClickListener { model.updateGoal(goal) }
+            goalDetailsAddAmount.setOnClickListener {
+                if (goal.status == GoalStatus.PAUSED) {
+                    Toast.makeText(context, getString(R.string.goals_Details_AddAmount_error), Toast.LENGTH_SHORT).show()
+                } else {
+                    addSavedAmount()
+                }
+            }
+            goalDetailsSetReached.setOnClickListener {
+                goal.status = GoalStatus.REACHED
+                model.updateGoal(goal)
+            }
         }
     }
 
@@ -65,17 +78,17 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
     private fun setUpData() {
         with(binding) {
             goalDetailsImg.apply {
-                setImageResource(resources.getIntArray(R.array.icons)[goal.icon ?: 0])
-                setBackgroundColor(resources.getIntArray(R.array.colors)[goal.color ?: 0])
+                setImageResource(goal.icon!!)
+                backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[goal.color!!])
             }
 
             goalDetailsName.text = goal.name
             goalDetailsTargetDate.text = DateTimeFormatter().dateFormat(goal.desiredDate!!)
 
-            goalDetailsSavedAmount.text = goal.savedAmount.toString()
-            goalDetailsSavable.text = goal.targetAmount.toString()
+            @SuppressLint("SetTextI18n")
+            goalDetailsAmount.text = "${String.format("%.2f", goal.savedAmount)} / ${String.format("%.2f", goal.targetAmount)}"
             goalDetailsCurrency.text = Memory.lastUsedCountry.name
-            goalDetailsLastAddedAmount.currencyText(Memory.lastUsedCountry.symbol.toString(), goal.lastAmount ?: BigDecimal.ZERO)
+            goalDetailsLastAddedAmount.currencyText(Memory.lastUsedCountry.symbol, goal.lastAmount ?: BigDecimal.ZERO)
 
             calculateProgress().let {
                 goalDetailsSaved.text = getString(R.string.percentage, it.toString())
@@ -89,7 +102,7 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
     /**
      * Calculates the progress between the saved amount and the target goal.
      */
-    private fun calculateProgress() : Int = goal.savedAmount!!.divide(goal.targetAmount!!).toInt()
+    private fun calculateProgress() = goal.savedAmount!!.divide(goal.targetAmount!!, 4, RoundingMode.HALF_UP).multiply(BigDecimal(100)).toInt()
 
     /**
      * Calculates an estimation of how long it will take to reach the goal.
@@ -100,21 +113,23 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
         val untilNow = TimeUnit.MILLISECONDS.toDays(Calendar.getInstance().timeInMillis - goal.startDate!!)
 
         // How many cycles we need from the current saved amount till the target amount.
-        val cycles = goal.targetAmount!!.divide(goal.savedAmount!!).toInt()
+        val cycles = goal.targetAmount!!.divide(goal.savedAmount!!, 2, RoundingMode.HALF_UP).toInt()
 
         // Return a multiplication of the number of cycles needed by the time that has passed since the start.
         return untilNow.times(cycles).toInt()
     }
 
     /**
-     * Add a new amount. One step closer to the goal.
+     * Add a new amount to the goal.
      */
     private fun addSavedAmount() {
         findNavController().navigate(GoalDetailsFragmentDirections.globalDialogAmount())
 
         getNavigationResult<String>(R.id.goalDetails, "amount") { result ->
-            goal.savedAmount?.add(BigDecimal(result))
+            // !! Shortening this is not working. Keep it
+            goal.savedAmount = goal.savedAmount?.add(BigDecimal(result))
             goal.lastAmount = BigDecimal(result)
+
             model.updateGoal(goal)
         }
     }
@@ -122,20 +137,23 @@ class GoalDetailsFragment : ExtendedFragment(R.layout.fragment_goal_details) {
     private fun updateFields() {
         val isReached = (goal.status == GoalStatus.REACHED)
 
-        binding.goalDetailsOptionsMenu.isVisible = isReached
-        requireActivity().toolbar?.menu?.findItem(R.id.menuLayout_GoalMoreOptions_Delete)?.isVisible = isReached
+        binding.goalDetailsOptionsMenu.isVisible = !isReached
+        binding.goalDetailsAddAmount.alpha = if (goal.status == GoalStatus.PAUSED) 0.6f else 1f
+        requireActivity().toolbar?.menu?.findItem(R.id.menuLayout_GoalMoreOptions_Delete)?.isVisible = !isReached
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menuLayout_GoalMoreOptions_Delete -> {
                 model.removeGoal(goal)
+                navigateUp()
+                return true
             }
             R.id.menuLayout_GoalMoreOptions_Edit -> {
                 findNavController().navigate(GoalDetailsFragmentDirections.goalDetailsToUpdateGoalDetails(goal.id!!))
+                return true
             }
         }
-        findNavController().navigateUp()
-        return true
+        return false
     }
 }

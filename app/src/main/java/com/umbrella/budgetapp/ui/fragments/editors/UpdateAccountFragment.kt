@@ -88,15 +88,15 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
             Spinners.Colors(this@UpdateAccountFragment, dataCardAccountColor, Spinners.Colors.Size.LARGE)
 
             if (type == Type.NEW) {
-                dataCardAccountCurrValue.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
+                dataCardAccountInitValue.currencyText(Memory.lastUsedCountry.symbol, BigDecimal.ZERO)
                 dataCardAccountExcludeStats.isChecked = false
             } else {
                 dataCardAccountName.setText(extAccount.account.name, EDITABLE)
                 dataCardAccountType.setSelection(extAccount.account.type!!)
-                dataCardAccountCurrValue.currencyText(DefaultCountries().getCountryById(extAccount.countryRef).symbol, extAccount.account.currentValue!!)
+                dataCardAccountInitValue.currencyText(DefaultCountries().getCountryById(extAccount.countryRef).symbol, extAccount.account.initialValue!!)
                 dataCardAccountCurrency.setSelection(extAccount.currencyPosition!!)
                 dataCardAccountColor.setSelection(extAccount.account.color!!)
-                dataCardAccountExcludeStats.isEnabled = extAccount.account.excludeStats!!
+                dataCardAccountExcludeStats.isChecked = extAccount.account.excludeStats!!
             }
         }
         //Set listeners after initializing the data so not listeners would be called already.
@@ -111,13 +111,16 @@ class UpdateAccountFragment: ExtendedFragment(R.layout.data_account), Edit {
         with(binding) {
             dataCardAccountName.afterTextChangedDelayed { editData.name = it }
 
-            dataCardAccountCurrValue.setOnClickListener {
-                findNavController().navigate(UpdateAccountFragmentDirections.globalDialogAmount(editData.currentValue?.toEngineeringString()))
+            dataCardAccountInitValue.setOnClickListener {
+                findNavController().navigate(UpdateAccountFragmentDirections.globalDialogAmount(editData.initialValue?.toEngineeringString()))
             }
 
             getNavigationResult<String>(R.id.updateAccount, "amount") { result ->
-                editData.currentValue = BigDecimal(result)
-                dataCardAccountCurrValue.text = result
+                //Update currentValue with the difference between the Result and the original init value
+                editData.currentValue!!.add(BigDecimal(result).min(editData.initialValue))
+
+                editData.initialValue = BigDecimal(result)
+                dataCardAccountInitValue.text = result
             }
         }
     }

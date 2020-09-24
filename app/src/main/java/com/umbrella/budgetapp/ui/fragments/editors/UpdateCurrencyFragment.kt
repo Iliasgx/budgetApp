@@ -6,6 +6,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView.BufferType.EDITABLE
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -16,30 +20,25 @@ import com.umbrella.budgetapp.database.viewmodels.CurrencyViewModel
 import com.umbrella.budgetapp.databinding.DataCurrencyBinding
 import com.umbrella.budgetapp.extensions.afterTextChangedDelayed
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
-import com.umbrella.budgetapp.ui.customs.Spinners
 import com.umbrella.budgetapp.ui.interfaces.Edit
 import com.umbrella.budgetapp.ui.interfaces.Edit.Type
 import java.math.BigDecimal
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.util.*
+import java.math.RoundingMode
 
 class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
     private val binding by viewBinding(DataCurrencyBinding::bind)
-
-    private companion object {
-        val decimalFormat = DecimalFormat("#.###0", DecimalFormatSymbols(Locale.GERMAN))
-    }
 
     val args : UpdateCurrencyFragmentArgs by navArgs()
 
     private val model by viewModels<CurrencyViewModel>()
 
-    private lateinit var extCurrency: Currency
+    private lateinit var currency: Currency
 
     private lateinit var type: Type
 
     private var editData = Currency()
+
+    private val def = DefaultCountries()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +58,8 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
 
         model.getCurrencyById(args.currencyId).observe(viewLifecycleOwner, Observer {
             if (type == Type.EDIT) {
-                extCurrency = it
-                editData = extCurrency.copy()
+                currency = it
+                editData = currency.copy()
             }
             initData()
         })
@@ -76,10 +75,10 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
      */
     override fun initData() {
         with(binding) {
-            Spinners.Currencies(this@UpdateCurrencyFragment, dataCardCurrencyName)
+            setUpSpinner()
 
             if (type == Type.EDIT) {
-                dataCardCurrencyName.setSelection(extCurrency.position!!)
+                dataCardCurrencyName.setSelectionById(currency.countryRef!!)
 
                 //Only the 'Rate' field can be modified on edit.
                 dataCardCurrencyName.isClickable = false
@@ -91,6 +90,16 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
         setListeners()
     }
 
+    private fun setUpSpinner() {
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, DefaultCountries().getNamesOfCountries())
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.dataCardCurrencyName.adapter = adapter
+    }
+
+    private fun Spinner.setSelectionById(id: Long) = setSelection(def.getIndexOf(id))
+
+    private fun EditText.decimalText(bg: BigDecimal) { setText(String.format("%.4f", bg), EDITABLE) }
+
     /**
      * Set all necessary listeners for the edit screen.
      * Function called after initData to make sure that listeners are not called when initializing data in the views.
@@ -98,7 +107,7 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
     override fun setListeners() {
         with(binding) {
             dataCardCurrencyRate.afterTextChangedDelayed {
-                dataCardCurrencyInverseRate.setText(decimalFormat.format(1.div(BigDecimal(it).toDouble())))
+                dataCardCurrencyInverseRate.decimalText(BigDecimal.ONE.divide(it.toBigDecimal(), 4, RoundingMode.HALF_UP))
                 editData.usedRate = BigDecimal(it)
             }
 
@@ -108,20 +117,23 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
                     val country = when (type) {
-                        Type.NEW -> {
-                            DefaultCountries().getCountryById(dataCardCurrencyName.selectedItemId)
-                        }
-                        Type.EDIT -> DefaultCountries().getCountryById(extCurrency.countryRef)
+                        Type.NEW -> def.getCountryByPosition(position)
+                        Type.EDIT -> def.getCountryById(currency.countryRef)
                     }
 
                     if (type == Type.NEW) {
-                        dataCardCurrencyRate.setText(decimalFormat.format(country.defaultRate))
+                        dataCardCurrencyRate.decimalText(country.defaultRate)
+                        editData.usedRate = country.defaultRate
                     } else {
-                        dataCardCurrencyRate.setText(decimalFormat.format(extCurrency.usedRate))
+                        val usableRate = currency.usedRate ?: country.defaultRate
+                        dataCardCurrencyRate.decimalText(usableRate)
+                        editData.usedRate = usableRate
                     }
 
                     dataCardCurrencyCode.setText(country.name)
                     dataCardCurrencySymbol.setText(country.symbol)
+
+                    editData.countryRef = def.getCountryByPosition(position).id
                 }
             }
 
@@ -141,8 +153,10 @@ class UpdateCurrencyFragment : ExtendedFragment(R.layout.data_currency), Edit {
      */
     override fun saveData() {
         if (type == Type.NEW) {
+            // Used the count to identify the position of the next item.
+            editData.position = args.nextPosition
             model.addCurrency(editData)
-        } else if (hasChanges(extCurrency, editData)) {
+        } else if (hasChanges(currency, editData)) {
             model.updateCurrency(editData)
         }
         navigateUp()

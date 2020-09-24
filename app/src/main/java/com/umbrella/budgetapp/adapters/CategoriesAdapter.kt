@@ -1,8 +1,8 @@
 package com.umbrella.budgetapp.adapters
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.umbrella.budgetapp.R
 import com.umbrella.budgetapp.database.collections.Category
@@ -37,8 +37,8 @@ class CategoriesAdapter(val callback: CallBack) : BaseAdapter<Category>() {
             override fun onBinding(item: Category, itemView: View, adapterPosition: Int) {
                 with(itemView) {
                     list_ReorderableView_Img.apply {
-                        setBackgroundColor(context.getColor(item.color!!))
-                        setImageDrawable(ContextCompat.getDrawable(context, item.icon!!))
+                        setImageResource(item.icon!!)
+                        backgroundTintList = ColorStateList.valueOf(resources.getIntArray(R.array.colors)[item.color!!])
                     }
 
                     list_ReorderableView_Name.text = item.name

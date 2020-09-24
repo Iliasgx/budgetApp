@@ -15,7 +15,7 @@ data class Currency(
         val id: Long? = null,
 
         @ColumnInfo(name = "currency_country_ref")
-        val countryRef: Long? = 0,
+        var countryRef: Long? = 0,
 
         @ColumnInfo(name = "currency_used_rate")
         var usedRate: BigDecimal? = BigDecimal.ONE,

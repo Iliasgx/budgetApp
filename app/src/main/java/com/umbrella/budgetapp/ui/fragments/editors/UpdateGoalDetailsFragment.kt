@@ -93,6 +93,8 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.goal_more_options, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.menuLayout_GoalMoreOptions_Save).isVisible = true
+        menu.findItem(R.id.menuLayout_GoalMoreOptions_Delete).isVisible = true
         this.menu = menu
     }
 
@@ -116,8 +118,9 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
                     dataCardGoalDetailsName.setText(name, EDITABLE)
                 } else {
                     dataCardGoalDetailsName.setText(name ?: resources.getStringArray(R.array.goalPrefab_names)[goalPrefab.ordinal])
-                    dataCardGoalDetailsIcon.setSelection(goalPrefab.iconIndex)
-                    dataCardGoalDetailsColor.setSelection(goalPrefab.colorIndex)
+                    // TODO: 16/09/2020 Find out how to select right one
+                   /* dataCardGoalDetailsIcon.setSelection(goalPrefab.iconIndex)
+                    dataCardGoalDetailsColor.setSelection(goalPrefab.colorIndex)*/
                 }
             } else {
                 //Load all the data from the database. Defaults are in place in case the field was empty.
@@ -126,8 +129,9 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
                 dataCardGoalDetailsSaved.currencyText(Memory.lastUsedCountry.symbol, goal.savedAmount ?: BigDecimal.ZERO)
                 dataCardGoalDetailsDate.text = DateTimeFormatter().dateFormat(goal.desiredDate ?: Calendar.getInstance().timeInMillis)
                 dataCardGoalDetailsNote.setText(goal.note, EDITABLE)
-                dataCardGoalDetailsIcon.setSelection(goal.icon ?: 0)
-                dataCardGoalDetailsColor.setSelection(goal.color ?: 0)
+                // TODO: 16/09/2020 Find out how to select right one
+                /*dataCardGoalDetailsIcon.setSelection(goal.icon ?: 0)
+                dataCardGoalDetailsColor.setSelection(goal.color ?: 0)*/
 
             }
         }
@@ -246,7 +250,8 @@ class UpdateGoalDetailsFragment : ExtendedFragment(R.layout.data_goal_details), 
             }
             R.id.menuLayout_GoalMoreOptions_Delete -> {
                 model.removeGoal(goal)
-                navigateUp()
+                //Cannot return to details screen because the details of a deleted goal is not available.
+                findNavController().navigate(UpdateGoalDetailsFragmentDirections.updateGoalDetailsToGoals())
                 return true
             }
             R.id.menuLayout_GoalMoreOptions_start -> {

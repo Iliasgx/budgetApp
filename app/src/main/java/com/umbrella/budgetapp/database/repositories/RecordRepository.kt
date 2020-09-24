@@ -19,6 +19,8 @@ class RecordRepository {
 
     fun getAllRecordsOfAccounts(vararg accountIds: Long) = daoRecord.getAllRecordsOfAccounts(*accountIds)
 
+    fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, startDate: Long, endDate: Long) = daoRecord.getAllRecordsOfAccounts(accountIds = *accountIds, limit = limit, startDate = startDate, endDate = endDate)
+
     fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, offset: Int) = daoRecord.getAllRecordsOfAccounts(accountIds = *accountIds, limit = limit, offset = offset)
 
     fun getRecordById(id: Long) = daoRecord.getRecordById(id)
