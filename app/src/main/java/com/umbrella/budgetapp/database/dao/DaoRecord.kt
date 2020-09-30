@@ -57,6 +57,18 @@ interface DaoRecord : Base<Record> {
     fun getAllRecordsOfAccounts(vararg accountIds: Long, @IntRange(from = 1) limit: Int, offset: Int = 0) : Flow<List<ExtendedRecord>>
 
     /**
+     * Retrieves all relevant information of records (with corssReferences) for the Statistics.
+     *
+     * @param startDate start timestamp of data needed.
+     * @param endDate end timestamp of data needed.
+     *
+     * @return The list of records between the two timestamps.
+     */
+    @Transaction
+    @Query("SELECT record_type, category_name, category_color, category_icon, extended_country_ref, record_timestamp, record_amount FROM record_cross WHERE record_timestamp BETWEEN :startDate AND :endDate")
+    fun getStatisticalRecords(startDate: Long, endDate: Long) : Flow<List<ExtendedRecord>>
+
+    /**
      * Find Record by ID with crossReferences.
      *
      * @param id: The ID corresponding with the Record.

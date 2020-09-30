@@ -40,6 +40,14 @@ interface DaoAccount : Base<Account> {
     fun getAllAccounts() : Flow<List<Account>>
 
     /**
+     * Retrieves all information needed for the Statistics.
+     *
+     * @return The list of accounts.
+     */
+    @Query("SELECT account_name, account_current_value FROM accounts")
+    fun getStatisticalAccounts() : Flow<List<Account>>
+
+    /**
      * Find Account by ID. Account with crossReferences.
      *
      * @param id: The id corresponding with the Account.

@@ -23,26 +23,5 @@ data class User(
         var birthday: Long = 0,
 
         @ColumnInfo(name = "user_gender")
-        var gender: Int = 0,
-
-        @ColumnInfo(name = "user_last_used_category_ref")
-        var lastUsedCategoryRef: Long? = 0,
-
-        @ColumnInfo(name = "user_last_used_store_ref")
-        var lastUsedStoreRef: Long? = 0,
-
-        @ColumnInfo(name = "user_pref_home_cashflow_filter")
-        var prefHomeCashFlowFilter: Int? = null,
-
-        @ColumnInfo(name = "user_pref_home_records_filter")
-        var prefHomeRecordsFilter: Int? = null,
-
-        @ColumnInfo(name = "user_pref_records_filter")
-        var prefRecordsFilter: Int? = null,
-
-        @ColumnInfo(name = "user_pref_planned_payments_sorting")
-        var prefPlannedPaymentsSorting: Int? = null,
-
-        @ColumnInfo(name = "user_pref_statistics_filter")
-        var prefStatisticsFilter: Int? = null
+        var gender: Int = 0
 )

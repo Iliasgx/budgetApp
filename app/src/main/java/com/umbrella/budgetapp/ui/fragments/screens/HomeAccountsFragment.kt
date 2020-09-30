@@ -16,16 +16,14 @@ import com.umbrella.budgetapp.database.collections.subcollections.ExtendedAccoun
 import com.umbrella.budgetapp.database.defaults.DefaultCountries
 import com.umbrella.budgetapp.database.viewmodels.submodels.HomeViewModel
 import com.umbrella.budgetapp.databinding.FragmentHomeAccountsBinding
-import com.umbrella.budgetapp.extensions.autoNotify
-import com.umbrella.budgetapp.extensions.currencyText
-import com.umbrella.budgetapp.extensions.fix
-import com.umbrella.budgetapp.extensions.inflate
+import com.umbrella.budgetapp.extensions.*
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
+import com.umbrella.budgetapp.ui.dialogs.FilterDialog.Filter
+import com.umbrella.budgetapp.ui.dialogs.FilterDialog.Filter.FilterOption
 import com.umbrella.budgetapp.ui.fragments.contentholders.HomeFragmentDirections
 import com.umbrella.budgetapp.ui.fragments.contentholders.StatisticsFragment
 import kotlinx.android.synthetic.main.list_home_account.view.*
 import java.math.BigDecimal
-import java.math.RoundingMode
 import kotlin.properties.Delegates
 
 class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
@@ -41,8 +39,26 @@ class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activateCashFlowFilter()
+        activateRecordsFilter()
+
+        binding.homeCardCashflowPeriod.text = resources.getStringArray(R.array.filterPeriods)[Memory.homeCashFlowFilter]
+        binding.homeCardRecordsPeriod.text = resources.getStringArray(R.array.filterPeriods)[Memory.homeRecordsFilter]
+
         setListeners()
         setAdapters()
+    }
+
+    private fun activateCashFlowFilter() {
+        val filterCashflow = Filter(FilterOption.getFilter(Memory.homeCashFlowFilter))
+
+        model.cashflowFilterPeriod.postValue(filterCashflow.current().toResultPair())
+        model.cashflowPreviousFilterPeriod.postValue(filterCashflow.previous().toResultPair())
+    }
+
+    private fun activateRecordsFilter() {
+        val filterRecords = Filter(FilterOption.getFilter(Memory.homeRecordsFilter))
+        model.recordsFilterPeriod.postValue(filterRecords.current().toResultPair())
     }
 
     private fun setListeners() {
@@ -53,6 +69,25 @@ class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
             homeCardBalanceMore.setOnClickListener { navigate(me.homeAccountsToStatistics(tab = StatisticsFragment.BALANCE)) }
             homeCardCashflowMore.setOnClickListener { navigate(me.homeAccountsToStatistics(tab = StatisticsFragment.CASHFLOW)) }
             homeCardRecordsMore.setOnClickListener { navigate(me.homeAccountsToRecords()) }
+
+            homeCardCashflowFilter.setOnClickListener {
+                navigate(me.homeToFilterDialog(0))
+
+                getNavigationResult<FilterOption>(R.id.home, "filter@0") { result ->
+                    Memory.homeCashFlowFilter = result.ordinal
+                    binding.homeCardCashflowPeriod.text = resources.getStringArray(R.array.filterPeriods)[result.ordinal]
+                    activateCashFlowFilter()
+                }
+            }
+            homeCardRecordsFilter.setOnClickListener {
+                navigate(me.homeToFilterDialog(1))
+
+                getNavigationResult<FilterOption>(R.id.home, "filter@1") { result ->
+                    Memory.homeRecordsFilter = result.ordinal
+                    binding.homeCardRecordsPeriod.text = resources.getStringArray(R.array.filterPeriods)[result.ordinal]
+                    activateRecordsFilter()
+                }
+            }
         }
     }
 
@@ -91,14 +126,9 @@ class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
 
         model.balancePrevious.observe(viewLifecycleOwner, Observer {
             val percentage = calculateBgDiff(balanceValueToday, it)
-            val represent : String = if (percentage.signum() == 1) {
-                "+ $percentage"
-            } else {
-                "- $percentage"
-            }
 
             binding.homeCardBalancePrevAmount.apply {
-                text = getString(R.string.percentage, represent)
+                text = getString(R.string.percentage, percentage.toEngineeringString())
                 setTextColor(resources.getColor(
                         if (percentage.signum() != -1) { R.color.positiveColor } else { R.color.negativeColor },
                         context?.theme))
@@ -113,13 +143,13 @@ class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
             binding.homeCardCashflowProgressbarIncome.apply {
                 max = total.toInt()
                 progress = it.first.toInt()
-                value = "${Memory.lastUsedCountry.symbol} ${String.format("%.2f", it.first)}"
+                value = it.first
             }
 
             binding.homeCardCashflowProgressbarExpenses.apply {
                 max = total.toInt()
                 progress = it.second.toInt()
-                value = "${Memory.lastUsedCountry.symbol} ${String.format("%.2f", it.second)}"
+                value = it.second
             }
 
             binding.homeCardCashflowAmount.currencyText(Memory.lastUsedCountry.symbol, total)
@@ -127,14 +157,9 @@ class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
 
         model.cashflowPrevious.observe(viewLifecycleOwner, Observer {
             val percentage = calculateBgDiff(cashflowCurrent, it)
-            val represent : String = if (percentage.signum() == 1) {
-                "+ $percentage"
-            } else {
-                "- $percentage"
-            }
 
             binding.homeCardCashflowPrevAmount.apply {
-                text = getString(R.string.percentage, represent)
+                text = getString(R.string.percentage, percentage.toEngineeringString())
                 setTextColor(resources.getColor(
                         if (percentage.signum() != -1) { R.color.positiveColor } else { R.color.negativeColor },
                         context?.theme))
@@ -151,10 +176,6 @@ class HomeAccountsFragment : ExtendedFragment(R.layout.fragment_home_accounts) {
         binding.homeCardRecordsList.setHasFixedSize(false)
 
         model.topRecords.observe(viewLifecycleOwner, Observer { adapter.setData(it) })
-    }
-
-    private fun calculateBgDiff(currentValue: BigDecimal, lastValue: BigDecimal) : BigDecimal {
-        return currentValue.min(lastValue).divide(lastValue, 2, RoundingMode.HALF_UP).multiply(BigDecimal(100))
     }
 
     private fun navigate(direction: NavDirections) = findNavController().navigate(direction)

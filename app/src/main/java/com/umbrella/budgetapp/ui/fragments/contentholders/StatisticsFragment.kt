@@ -2,10 +2,11 @@ package com.umbrella.budgetapp.ui.fragments.contentholders
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umbrella.budgetapp.R
+import com.umbrella.budgetapp.database.viewmodels.submodels.StatisticsViewModel
 import com.umbrella.budgetapp.databinding.ContentStatisticsBinding
 import com.umbrella.budgetapp.ui.customs.ExtendedFragment
 import com.umbrella.budgetapp.ui.fragments.screens.StatisticsBalanceFragment
@@ -16,6 +17,8 @@ import com.umbrella.budgetapp.ui.fragments.screens.StatisticsSpendingFragment
 class StatisticsFragment: ExtendedFragment(R.layout.content_statistics) {
     private val binding by viewBinding(ContentStatisticsBinding::bind)
 
+    private val model by viewModels<StatisticsViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -23,10 +26,7 @@ class StatisticsFragment: ExtendedFragment(R.layout.content_statistics) {
     }
 
     private fun setUpAdapter() {
-        with(binding.statisticsViewPager) {
-            adapter = StatisticsStateAdapter(this@StatisticsFragment)
-            orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        }
+        binding.statisticsViewPager.adapter = StatisticsStateAdapter(this)
 
         TabLayoutMediator(binding.statisticsTabLayout, binding.statisticsViewPager) { tab, position ->
             tab.text = when (position) {

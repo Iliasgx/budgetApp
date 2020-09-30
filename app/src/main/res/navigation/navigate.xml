@@ -53,6 +53,9 @@
         <action
             android:id="@+id/homeInformationToShoppingListItems"
             app:destination="@id/shoppingListItems" />
+        <action
+            android:id="@+id/homeToFilterDialog"
+            app:destination="@id/filterDialog" />
     </fragment>
     <fragment
         android:id="@+id/homeAccounts"
@@ -504,6 +507,15 @@
         <argument
             android:name="type"
             app:argType="com.umbrella.budgetapp.ui.dialogs.DataListDialog$DataLocationType" />
+    </dialog>
+    <dialog
+        android:id="@+id/filterDialog"
+        android:name="com.umbrella.budgetapp.ui.dialogs.FilterDialog"
+        tools:layout="@layout/dialog_filter" >
+        <argument
+            android:name="currentFilter"
+            app:argType="integer"
+            android:defaultValue="0" />
     </dialog>
     <action android:id="@+id/globalLogin" app:destination="@id/login" />
     <action android:id="@+id/globalAbout" app:destination="@id/about" />

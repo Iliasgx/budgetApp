@@ -17,7 +17,7 @@
         android:background="@android:color/holo_orange_dark" />
 
     <TextView
-        android:id="@+id/list_BalanceCurrencies_Currency"
+        android:id="@+id/list_BalanceCurrencies_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

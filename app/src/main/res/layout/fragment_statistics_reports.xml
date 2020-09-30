@@ -174,7 +174,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/statistics_Card_Saldi_ListView_Expenses"
+                    android:id="@+id/statistics_Card_Saldi_RecyclerView_Expenses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"

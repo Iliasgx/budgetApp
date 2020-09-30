@@ -23,6 +23,8 @@ class AccountRepository {
 
     fun getAllAccounts() : Flow<List<Account>> = daoAccount.getAllAccounts()
 
+    fun getStatisticalAccounts() = daoAccount.getStatisticalAccounts()
+
     fun getAccountById(id: Long) = daoAccount.getAccountById(id)
     
     fun changePosition(id: Long, position: Int) = daoAccount.changePosition(id, position)

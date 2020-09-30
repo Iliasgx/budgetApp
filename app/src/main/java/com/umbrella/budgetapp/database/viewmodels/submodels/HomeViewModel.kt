@@ -6,6 +6,8 @@ import com.umbrella.budgetapp.database.collections.Record
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedAccount
 import com.umbrella.budgetapp.database.collections.subcollections.ExtendedRecord
 import com.umbrella.budgetapp.database.repositories.*
+import com.umbrella.budgetapp.extensions.DoubleTrigger
+import com.umbrella.budgetapp.extensions.sumByBigDecimal
 import java.math.BigDecimal
 import java.util.*
 
@@ -93,20 +95,5 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val lastMonth : Long = Calendar.getInstance().apply {
             set(Calendar.MONTH, get(Calendar.MONTH) - 1)
         }.timeInMillis
-    }
-
-    private inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {
-        var sum = BigDecimal.ZERO
-        for (element in this) {
-            sum = sum.add(selector(element))
-        }
-        return sum
-    }
-
-    private class DoubleTrigger<A, B>(a: LiveData<A>, b: LiveData<B>) : MediatorLiveData<Pair<A?, B?>>() {
-        init {
-            addSource(a) { value = it to b.value }
-            addSource(b) { value = a.value to it}
-        }
     }
 }

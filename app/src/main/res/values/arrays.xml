@@ -20,10 +20,10 @@
 
     <!-- |||||||||||||||| Filter periods |||||||||||||||| -->
     <string-array name="filterPeriods">
+        <item>This year</item> <!--Default-->
         <item>Today</item>
         <item>This week</item>
         <item>This month</item>
-        <item>This year</item>
         <item>7 days</item>
         <item>30 days</item>
         <item>6 months</item>

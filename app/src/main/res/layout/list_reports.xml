@@ -43,7 +43,7 @@
         android:text="@string/defaultNumber" />
 
     <TextView
-        android:id="@+id/reports_previous_period"
+        android:id="@+id/list_Reports_Amount_PreviousPeriod"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight=".8"

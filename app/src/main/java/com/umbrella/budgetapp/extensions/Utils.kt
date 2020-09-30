@@ -10,9 +10,12 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false) : View { return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot) }
 
@@ -59,4 +62,30 @@ fun <T> RecyclerView.Adapter<*>.autoNotify(oldList: List<T>, newList: List<T>, c
     })
 
     diff.dispatchUpdatesTo(this)
+}
+
+fun calculateBgDiff(currentValue: BigDecimal, lastValue: BigDecimal) : BigDecimal {
+    return currentValue
+            .min(lastValue)
+            .divide(if (lastValue == BigDecimal.ZERO) BigDecimal.ONE else lastValue, 2, RoundingMode.HALF_UP)
+            .multiply(BigDecimal(100))
+}
+
+fun <A,B,C> Triple<A,B,C>.toResultPair() : Pair<B,C> {
+    return Pair(second, third)
+}
+
+inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {
+    var sum = BigDecimal.ZERO
+    for (element in this) {
+        sum = sum.add(selector(element))
+    }
+    return sum
+}
+
+class DoubleTrigger<A, B>(a: LiveData<A>, b: LiveData<B>) : MediatorLiveData<Pair<A?, B?>>() {
+    init {
+        addSource(a) { value = it to b.value }
+        addSource(b) { value = a.value to it}
+    }
 }
